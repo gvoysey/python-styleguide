@@ -13,7 +13,7 @@
 #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
 * Table of Contents :TOC_2:
-- [[#introductio][Introductio]]
+- [[#introduction][Introduction]]
   - [[#goals][Goals]]
 - [[#general][General]]
   - [[#python-versions][Python version(s)]]
@@ -52,7 +52,7 @@
 - [[#errata][Errata]]
   - [[#motivational-design-references][Motivational Design References]]
 
-* Introductio
+* Introduction
 This is a python style guide based on 5 years experience of heavy python use for
 scientific research and AI/ML.  It's intended for use by research and engineering
 teams for maintaining scientific stack python code in a way that is easy to reason
@@ -131,7 +131,7 @@ Rule 4. Fancy algorithms are buggier than simple ones, and they're much harder t
 Rule 5. Data dominates. If you've chosen the right data structures and organized
     things well, the algorithms will almost always be self-evident. Data structures,
     not algorithms, are central to programming.
-#+end_src
+#+end_quote
 
 * General
 ** Python version(s)
