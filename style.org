@@ -1,0 +1,925 @@
+#+OPTIONS: ^:nil toc:nil
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+#+LATEX_HEADER_EXTRA: \usepackage{parskip}
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX_HEADER_EXTRA: \setmonofont{Menlo}
+#+LATEX_HEADER_EXTRA: \usemintedstyle{friendly}
+#+TITLE: Python Style Guide
+# ReadTheDocs styling for export
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+* Table of Contents :TOC_2:
+- [[#introductio][Introductio]]
+  - [[#goals][Goals]]
+- [[#general][General]]
+  - [[#python-versions][Python version(s)]]
+  - [[#style][Style]]
+- [[#language-style][Language Style]]
+  - [[#modules][Modules]]
+  - [[#classes][Classes]]
+  - [[#functions][Functions]]
+  - [[#variables][Variables]]
+  - [[#docstrings-comments][Docstrings, Comments]]
+  - [[#serialization][Serialization]]
+  - [[#preferred-apis][Preferred APIs]]
+- [[#autoformatting-tools-and-linters][Autoformatting tools and linters]]
+  - [[#black][Black]]
+  - [[#pydocstyle][pydocstyle]]
+  - [[#pycodestyle][pycodestyle]]
+  - [[#mypy][mypy]]
+  - [[#pre-commit][pre-commit]]
+- [[#packaging-and-file-structure][Packaging and File Structure]]
+  - [[#single-file-scripts][Single-file scripts]]
+  - [[#package-layout][Package layout]]
+  - [[#jupyter-notebooks][Jupyter notebooks]]
+  - [[#environment-management-tools][Environment management tools]]
+- [[#testing][Testing]]
+  - [[#pytest][Py.test]]
+  - [[#coverage][Coverage]]
+  - [[#hypothesis][Hypothesis]]
+- [[#the-naughty-list][The Naughty List]]
+  - [[#named-lambdas][Named lambdas]]
+  - [[#star-imports][Star Imports]]
+  - [[#user-created-namedtuples][User-created namedtuples]]
+  - [[#manipulation-of-syspath][Manipulation of =sys.path=]]
+  - [[#use-of-ossystem][Use of =os.system()=]]
+  - [[#use-of-exec][Use of =exec()=]]
+  - [[#mutable-defaults-in-function-signatures][Mutable defaults in function signatures]]
+- [[#errata][Errata]]
+  - [[#motivational-design-references][Motivational Design References]]
+
+* Introductio
+This is a python style guide based on 5 years experience of heavy python use for
+scientific research and AI/ML.  It's intended for use by research and engineering
+teams for maintaining scientific stack python code in a way that is easy to reason
+about, maintain, and collaborate on. 
+
+Use of CAPITALIZED TERMS follows [[https://www.ietf.org/rfc/rfc2119.txt][RFC 2119]]:
+
+#+begin_quote
+1. MUST   This word, or the terms "REQUIRED" or "SHALL", mean that the
+   definition is an absolute requirement of the specification.
+
+2. MUST NOT   This phrase, or the phrase "SHALL NOT", mean that the
+   definition is an absolute prohibition of the specification.
+
+3. SHOULD   This word, or the adjective "RECOMMENDED", mean that there
+   may exist valid reasons in particular circumstances to ignore a
+   particular item, but the full implications must be understood and
+   carefully weighed before choosing a different course.
+
+4. SHOULD NOT   This phrase, or the phrase "NOT RECOMMENDED" mean that
+   there may exist valid reasons in particular circumstances when the
+   particular behavior is acceptable or even useful, but the full
+   implications should be understood and the case carefully weighed
+   before implementing any behavior described with this label.
+
+5. MAY   This word, or the adjective "OPTIONAL", mean that an item is
+   truly optional.  One vendor may choose to include the item because a
+   particular marketplace requires it or because the vendor feels that
+   it enhances the product while another vendor may omit the same item.
+   An implementation which does not include a particular option MUST be
+   prepared to interoperate with another implementation which does
+   include the option, though perhaps with reduced functionality. In the
+   same vein an implementation which does include a particular option
+   MUST be prepared to interoperate with another implementation which
+   does not include the option (except, of course, for the feature the
+   option provides.)
+#+end_quote
+
+** Goals
+Our code ought to be:
+*** Consistent
+The code style should be the same across all our codebases.  This improves
+readability and makes reading code a predictable activity.
+*** Readable
+The code should be well documented and easily understood by future maintainers, not
+just the author.  Prefer simple, elegant, and idiomatic solutions over "clever" code
+that is difficult to read and maintain.
+
+*** Testable
+The code should be written in a style that allows easy unit and functional testing,
+Tests should be kept up to date and maintained throughout a project's history.
+
+*** Motivational quotes
+#+begin_quote
+“Always code as if the guy who ends up maintaining your code will be a violent
+psychopath who knows where you live”  -- John Woods
+#+end_quote
+
+#+begin_quote
+Rob Pike's 5 Rules of Programming
+
+Rule 1. You can't tell where a program is going to spend its time. Bottlenecks occur
+    in surprising places, so don't try to second guess and put in a speed hack until
+    you've proven that's where the bottleneck is.
+
+Rule 2. Measure. Don't tune for speed until you've measured, and even then don't
+    unless one part of the code overwhelms the rest.
+
+Rule 3. Fancy algorithms are slow when n is small, and n is usually small. Fancy
+    algorithms have big constants. Until you know that n is frequently going to be
+    big, don't get fancy. (Even if n does get big, use Rule 2 first.)
+
+Rule 4. Fancy algorithms are buggier than simple ones, and they're much harder to
+    implement. Use simple algorithms as well as simple data structures.
+
+Rule 5. Data dominates. If you've chosen the right data structures and organized
+    things well, the algorithms will almost always be self-evident. Data structures,
+    not algorithms, are central to programming.
+#+end_src
+
+* General
+** Python version(s)
+Python 3.6 or higher SHALL BE used for new projects.  CPython or PyPy are both
+appropriate for use.
+
+Adopting or adapting old projects which are written in python 2.x may be necessary,
+but SHOULD BE avoided when possible.
+
+** Style
+Overall style SHALL follow [[https://www.python.org/dev/peps/pep-0008/][PEP-8]] with some modifications.  PEP-8 is worth reading in
+full, but 95% of PEP-8 is handled by use of =black=, =pycodestyle= and =pydocstyle=,
+discussed below.
+
+While PEP-8 prefers lines to end at 79 characters, we allow line lengths of 100
+characters.
+
+Basic style issues SHALL BE automated with the use of the =black= autoformatter.
+* Language Style
+** Modules
+Modules are most commonly stored as single source code files on disk.  They are the
+fundamental namespace of Python.  A file such as =foo.py= is a module.
+*** Naming
+#+begin_quote
+Modules should have short, all-lowercase names. Underscores can be used in the module
+name if it improves readability. Python packages should also have short,
+all-lowercase names, although the use of underscores is discouraged.
+
+When an extension module written in C or C++ has an accompanying Python module that
+provides a higher level (e.g. more object oriented) interface, the C/C++ module has a
+leading underscore (e.g. _socket).
+#+end_quote
+
+*** Imports
+Absolute imports SHALL BE used over relative imports.  This removes all ambiguities
+about module location.
+
+#+begin_src python
+#  Yes.
+from my_package.my_subpackage import foo
+#  No.
+from ../my_subpackage import foo
+#+end_src
+
+** Classes
+Classes should be created when a discrete collection of data needs to be stored as a
+unit and individual data items need to be semantically addressable.  E.g., "A data
+point has an x-coordinate and a y-coordinate" suggests that a =Point= class should be
+created.
+
+Optionally, classes can contain extra methods which operate on that classes data: "A
+Point can compute its Euclidean Distance to the origin."
+
+*** Creation
+The =attrs= library (https://attrs.org) SHOULD BE used for creation of normal
+classes. The reduction in boilerplate is significant enough to justify its inclusion
+in all new projects, as this example demonstrates.
+
+Here, both =Point= and =ILikeTypingPoint= implement the same functionality, which
+includes a readable =repr= and comparability between instances:
+#+begin_src python
+  # good
+  import attr
+
+  @attr.s
+  class Point:
+      x = attr.ib()
+      y = attr.ib()
+
+  # bad
+  import functools
+  # total_ordering generates __gt__, __ne__, etc...
+  # given at least two rich comparison operators.
+  @functools.total_ordering
+  class ILikeTypingPoint:
+      def __init__(self,x,y):
+          self.x = x
+          self.y = y
+
+      def __eq__(self, other):
+          return (self.x, self.y) == (other.x, other.y)
+
+      def __lt__(self,other):
+          return (self.x, self.y) < (other.x, other.y)
+
+      def __repr__(self):
+          return "Point(x={}, y={})".format(self.x, self.y)
+#+end_src
+
+*** Naming
+Class names SHALL be =BumpyCase=.
+#+begin_src python
+import attr
+
+@attr.s
+class MyClass:
+    """Example class with one attribute."""
+    x = attr.ib()
+#+end_src
+
+*** Keyword attributes
+If a class needs many attributes for initialization, keyword-only attributes SHOULD
+BE used to maintain explicit initialization and clarity:
+#+begin_src python
+  import attr
+
+  @attr.s
+  class MyBusyClass:
+      """Example class that has a lot of parameters"""
+      x = attr.ib(kw_only=True)
+      y = attr.ib(kw_only=True)
+      z = attr.ib(kw_only=True)
+      foo = attr.ib(kw_only=True)
+      bar = attr.ib(kw_only=True)
+
+  # this will raise TypeError
+  my_foo = MyBusyClass(1,
+                       2,
+                       3,
+                       'a',
+                       'b')
+
+  # this is valid
+  my_foo = MyBusyClass(x=1,
+                       y=2,
+                       z=3,
+                       foo="a",
+                       bar="b")
+#+end_src
+
+*** Type Hinting
+Class attributes MAY BE type hinted if it improves clarity:
+#+begin_src python
+import attr
+
+@attr.s
+class Point:
+    x:int = attr.ib()
+
+# or even more tersely:
+
+@attr.dataclass
+class Point:
+    x:int
+#+end_src
+
+** Functions
+*** Naming
+Function names SHALL BE snake_case.
+#+begin_src python
+def my_function(max_value):
+   """Do something with `max_value`."""
+   pass
+#+end_src
+
+Mutating functions SHOULD BE named in the present tense, and non-mutating functions
+SHOULD BE named in the past tense.  For example, =list.sort()= mutates and sorts a list
+instance in place, and =sorted(mylist)= returns a new sorted list and leaves
+=mylist= unsorted.
+*** Length
+Very long functions impair readability, make testing difficult, and are a clear sign
+that too much work is being done in one place.
+
+Another clear sign of too much work is indentation levels for control flow (=if elif
+else=, =for=, =while=, =with=, =try except=, etc.) more than about 3 levels deep.
+
+A final sign of too much work is use of the word "and" in the function docstring.
+Ideally, the majority of functions should do exactly one thing.
+
+When too much work is being done in a function, the solution is to make new shorter
+functions that perform separable work and call them in the parent function.
+
+Functions SHOULD BE less than approximately 50 lines of code, discounting the
+docstring and multiline collections.
+
+This is a flexible limit, but the old heuristic that everything should fit on the
+screen at once is still a good one.
+*** Keyword Arguments
+Functions SHOULD NOT have an unwieldy number of arguments in their signature if it can
+be avoided.
+
+If it's necessary to create a function with more than 2-3 parameters, keyword-only
+arguments SHOULD BE used. The following signature compels callers to pass arguments
+by keyword only:
+
+#+begin_src python
+  def foo(*, param1, param2, param3):
+      pass
+
+  # This is a syntax error.
+  foo(1,2,3)
+
+  # This is the correct call.
+  foo(param1=1,
+      param2=2,
+      param3=3)
+#+end_src
+
+*** Type Hinting
+Function signatures SHOULD BE type hinted if it improves clarity.
+#+begin_src python
+def process_element(element:MyClassInstance, query:str, num:int) -> bool:
+    """Determine if `num` instances of `query` are present in `element`."""
+#+end_src
+
+*** Return values
+Functions SHALL either:
+ - mutate their arguments and return =None=
+OR
+- not mutate their arguments and return a value.
+
+Functions SHALL NOT both mutate arguments AND return a value that is not =None=. This practice
+is fraught with subtle bugs.
+
+Following "The Clean Architecture", a strong preference SHOULD BE given to pure
+functions which do not mutate state outside of themselves.
+#+begin_src python
+  import typing as t
+
+
+  def bad(x:t.List) -> None:
+      x.append(5)
+      return x
+
+  def better(x:t.List) -> None:
+      x.append(5)
+
+  def best(x:t.List) -> list:
+      return [*x, 5]
+
+#+end_src
+
+** Variables
+*** Naming
+Variable names SHALL BE =snake_case=.  Module-level constants SHALL BE =SHOUTY_CASE=.
+
+Non-ASCII names, while permitted by the language, SHOULD NOT BE used.  The exception
+to this rule is when a function exactly recapitulates a forumula from a paper and the
+code should maintain parity with the text to be maximally clear.  In that case, the
+function docstring SHALL contain a full citation to the paper and equation in
+question.
+
+Variables should be named to describe what they represent, not what type they
+have.  Prefer variable names whose pluralization matches their values: =bounding_boxes=
+SHOULD BE a list, =bounding_box= should not.
+
+Except in limited circumstances, descriptive names longer than one character SHOULD
+BE used.  Some exceptions include:
+#+begin_src python
+# some normal notation for loop variables
+i,j,k
+# cartesian coordinate variables
+x,y,z
+# conventional notation for "this variable doesn't matter but has to exist"
+_
+# throwaway names for elements of a sequence inside comprehensions
+[ e for e in my_list]
+#+end_src
+
+*** Type hinting
+Variables MAY BE type-hinted if it improves clarity:
+#+begin_src python
+# allows static analysis tools to provide better help if needed.
+x:dict = {'foo':5}
+#+end_src
+
+*** Globals
+The =nonlocal= and =global= keywords SHOULD NOT BE used.  Needing or wanting to use them
+is almost always a sign that there's a better way, and minimizing global state leads
+to code that's easy to read, reason about, and test.
+** Docstrings, Comments
+*** Docstrings
+Docstring conventions are laid out in [[https://www.python.org/dev/peps/pep-0257][PEP 257]].
+
+=numpydoc= style docstrings SHOULD BE used.  Full documentation on numpydoc style is
+here: https://numpydoc.readthedocs.io/en/latest/format.html =numpydoc= follows =sphinx= /
+resturctured text docstrings with some modifications for numerical code.  An example
+function docstring is shown:
+
+#+begin_src python
+  def class_id(self, class_name: str) -> int:
+      """Get the class ID for this class name.
+
+      Parameters
+      ----------
+      class_name : str
+          The class name of a given class.
+
+      Returns
+      -------
+      int
+          The class ID for the given class_name.
+
+      """
+      return self.class_names[class_name]
+#+end_src
+
+IDEs can usually be configured to automatically insert stubs that follow this style.
+
+=numpydoc= is sometimes inappropriate for docstrings for user-facing CLI entry points;
+not all argument parsers can generate nicely formatted output from it.
+
+*** Comments
+Block comments SHOULD BE preferred over inline comments.  They are easier to read and
+keep line length from becoming excessive.
+
+Block comments:
+#+begin_src python
+# Get bounding boxes.
+# Filter the large boxes.
+all_boxes = (x.bounding_box for x in my_list_of_data)
+good_boxes = [x for x in all_boxes if x.area>400]
+#+end_src
+
+Inline comments:
+#+begin_src python
+all_boxes = (x.bounding_box for x in my_list_of_data)  # get bounding boxes.
+good_boxes = [x for x in all_boxes if x.area>400]  # filter.
+#+end_src
+
+Unassigned string literals are not comments, and SHOULD NOT BE used as such. They
+SHOULD BE used when they become =__doc__= attributes of modules, classes, and functions:
+#+begin_src python
+"""This is not a comment, this is a string with no name!"""
+x = 5
+
+def foo():
+    """I am a docstring, and I'm OK"""
+#+end_src
+
+** Serialization
+Serialization is the process of "saving state" of in-memory objects to disk so that
+they may be recreated and reused later.  There are many serialization formats in
+common use.
+
+*** JSON
+[[http://json.org/][JSON]] SHOULD BE used for situations where a program will write the file and a program
+will read the file.
+*** TOML
+[[https://github.com/toml-lang/toml][TOML]] SHOULD BE used for situations where a human will write the file and a program
+will read the file.
+*** YAML
+[[https://yaml.org/][YAML]] MAY BE used instead of TOML.
+
+If YAML is used, then the =yaml.safe_load= function SHALL be used and =yaml.load= SHALL
+NOT be used, it's a security concern.
+*** Pickle
+[[https://docs.python.org/3/library/pickle.html][Pickle]] SHALL NOT BE used for serialization that persists longer than a single run of
+the program, and SHOULD NOT BE used at all if it can be avoided.
+
+From Python docs:
+#+begin_quote
+Warning
+
+The pickle module is not secure against erroneous or maliciously constructed
+data. Never unpickle data received from an untrusted or unauthenticated source.
+#+end_quote
+
+*** HDF5
+[[https://www.h5py.org/][HDF5]] SHOULD BE used when fast random single-threaded access to potentially very large
+data structures containing numerical data (e.g., numpy arrays) and metadata (strings,
+lists, etc.) is needed.
+*** NPY/NPZ
+[[https://docs.scipy.org/doc/numpy/reference/generated/numpy.lib.format.html][NPY/NPZ]] SHOULD BE used for serialization of small amounts of raw numpy arrays is needed.
+
+** Preferred APIs
+*** pathlib
+The =pathlib= standard library package SHOULD BE preferred over =os.path= for path
+manipulation.  It's more useful, less verbose, and overall much more versatile.
+#+begin_src python
+from pathlib import Path
+
+cwd = Path.cwd().resolve().expanduser()
+for item in cwd.rglob("*.txt"):
+    print(f'Found a text file whose name is {item.stem}'
+          f'with parent directory {item.parent}')
+#+end_src
+
+*** String formatting
+f-string formatting syntax SHOULD BE used.  =str.format()= MAY be used.  The =%= operator
+SHALL NOT be used:
+
+#+begin_src python
+x = 5
+y = "hello"
+z = ["foo", "bar"]
+
+# best
+print(
+    f"The value of x is {x}, the value of y is {y}, the value of z is {z}"
+)
+
+# good
+print(
+    "The value of x is {}, the value of y is {}, the value of z is {}".format(
+        x, y, z
+    )
+)
+
+# bad
+print(
+    "the value of x is %s, the value of y is %s, the value of z is %s"
+    % (x, y, z)
+)
+#+end_src
+
+* Autoformatting tools and linters
+The following code inspection tools have all proven to be very useful for maintaining
+large python projects.
+** Black
+Code SHALL BE formatted with the [[https://black.readthedocs.io/en/stable/][black]] python autoformatter with a line-length
+option of 100.
+
+#+begin_quote
+By using Black, you agree to cede control over minutiae of hand-formatting. In
+return, Black gives you speed, determinism, and freedom from pycodestyle nagging
+about formatting. You will save time and mental energy for more important matters.
+
+Black makes code review faster by producing the smallest diffs possible. Blackened
+code looks the same regardless of the project you’re reading. Formatting becomes
+transparent after a while and you can focus on the content instead.
+#+end_quote
+
+*** Configuration file
+A sample =pyproject.toml= section for black is:
+#+begin_src toml
+[tool.black]
+line-length = 100
+target-version = ['py36','py37']
+exclude = "(versioneer|_version).py"
+
+#+end_src
+
+** COMMENT isort
+Python imports SHALL BE sorted with the [[https://isort.readthedocs.io/en/latest/][isort]] import formatter.
+
+#+begin_quote
+isort is a Python utility / library to sort imports alphabetically, and automatically
+separated into sections. It provides a command line utility, Python library and
+plugins for various editors to quickly sort all your imports.
+#+end_quote
+
+** pydocstyle
+=pydocstyle= is a static analysis tool for checking compliance with python docstring
+conventions a la PEP 257.
+
+It SHOULD BE used as a style linter before commiting.
+
+http://www.pydocstyle.org/en/4.0.0/
+
+** pycodestyle
+=pycodestyle= is a tool to check your code against conventions in PEP8.
+https://pycodestyle.readthedocs.io/en/latest/
+
+It SHOULD BE used as a style linter before commiting.
+** mypy
+=mypy= is a static type checker for python.
+
+https://mypy.readthedocs.io/en/latest/
+
+=mypy= SHOULD BE used, especially where it improves clarity.  Type hints can often be
+interpreted by IDEs to provide assistance, so this is often convenient.
+
+** pre-commit
+=pre-commit= is a framework for managing pre-commit hooks.
+https://pre-commit.com/
+
+It SHOULD BE used to automate linting and autoformatting.
+** COMMENT Configuration files (e.g., =pyproject.toml)=
+
+Projects SHOULD contain a =pyproject.toml= file that provides configuration values for
+relevant formatters.  An example configuration:
+
+#+begin_src toml
+[tool.isort]
+multi_line_output=3
+include_trailing_comma=1
+force_grid_wrap=0
+use_parentheses=1
+line_length=100
+
+[tool.black]
+line-length = 100
+target-version = ['py36','py37']
+#+end_src
+
+Autogenerated files shall be excluded from reformatting.
+* Packaging and File Structure
+** Single-file scripts
+Very rarely, it is useful to write a single-file python script which looks like
+this:
+#+begin_src python
+  #!/usr/bin/env python3
+
+  def main():
+      print('hello, world!')
+
+  if __name__ == "__main__":
+      main()
+#+end_src
+
+Any Python code more complicated than this SHALL BE packaged in a file structure that permits it to be
+installed with =pip=, the python packaging tool.  Including a third-party library
+(=attrs=, =numpy=, =opencv=,...) SHALL BE considered complicated enough to write a real package.
+
+** Package layout
+A RECOMMENDED directory structure for packages is shown below.  There are alternative
+forms (e.g., use of =src/PACKAGE_NAME=, inclusion of =tests= inside of
+=PACKAGE_NAME/PACKAGE_NAME=, etc. ) which MAY be used according to preference.  A
+=Makefile= is NOT required.  Alternatives to =Pipfile= are discussed below.
+
+#+begin_src text
+  PACKAGE_NAME
+  ├── PACKAGE_NAME
+  │   ├── __init__.py
+  │   ├── __main__.py
+  │   └── _version.py
+  ├── Makefile
+  ├── MANIFEST.in
+  ├── notebooks
+  │   └── notebook.ipynb
+  ├── Pipfile
+  ├── Pipfile.lock
+  ├── pyproject.toml
+  ├── Readme.org
+  ├── setup.cfg
+  ├── setup.py
+  ├── tests
+  │   ├── __init__.py
+  │   └── test_PACKAGE_NAME.py
+  └── versioneer.py
+#+end_src
+
+** Jupyter notebooks
+Jupyter notebooks are often an extremely convenient way of prototyping, plotting,
+visualizing, and experimenting.
+
+They are also inappropriate for use for developing packages or sharable code meant to
+be used by others.
+
+Using notebooks alongside your packages SHALL be done in this way:
+1. Write a normal package (as above)
+2. Install it with =pip install -e= in the same environment where =jupyter= is
+   installed.
+3. =import= your package in a notebook cell and call its functions and methods as
+   normal.
+4. Generate output, visualizations, etc. as needed.
+5. When changes have to happen to your package, make them in your package and then
+   restart the notebook kernel and re-import the package.
+
+While notebooks do not expose unit testing functionality, a notebook SHALL execute
+cleanly if the kernel is restarted and each cell is executed sequentially on a clean
+machine.
+** Environment management tools
+Packages SHALL BE written such that =pip install my_package= succeeds, installs all
+required dependencies, and compiles any necessary =Cython= modules, by whichever means
+necessary.
+
+Virtual environment directories SHALL NOT BE committed to source control.
+
+There are several ways to manage local environments for python development. As of
+this writing, none of them are clearly better or worse than others.
+
+Some common environment management tools include pipenv, poetry, and manual virtual
+environment management.
+
+* Testing
+** Py.test
+Unit and functional tests SHALL BE written with =pytest=:
+https://docs.pytest.org/en/latest/
+
+This offers a great deal more functionality over =UnitTest= and all other third-party
+testing frameworks (e.g., =nose=) are deprecated now anyway.
+** Coverage
+Code coverage metrics SHOULD BE obtained using =coverage.py= using the =pytest-cov=
+plugin framework: https://pytest-cov.readthedocs.io/en/latest/
+** Hypothesis
+Quickcheck-like unit tests SHOULD BE written using =hypothesis=
+https://hypothesis.readthedocs.io/en/latest/
+
+* The Naughty List
+The following practices SHALL NOT BE used if you want your PRs to get accepted.
+** Named lambdas
+Assigning a =lambda= to a name SHALL NOT BE used:
+#+begin_src python
+# this is bad
+my_function = lambda x: x+5
+#+end_src
+This has no performance benefit over a normal function.  Named lambdas decrease
+readability in most cases, are impossible to unit test, and have a confusing =repr()=
+for debugging.
+
+Instead, define a regular function:
+#+begin_src python
+def my_function(x):
+    """Increment `x` by 5."""
+    return x+5
+#+end_src
+
+Use of lambdas SHOULD BE used for creation of anonymous functions; e.g., when using
+=sorted=:
+#+begin_src python
+  # Example: sort a list of Point classes by their y-value.
+  # this is an appropriate use of lambdas.
+  @attr.s
+  class Point:
+      x = attr.ib()
+      y = attr.ib()
+
+  my_points = [Point(1,2),Point(2,3)]
+
+  points_sorted_by_y = sorted(my_points, key=lambda point: point.y)
+#+end_src
+
+** Star Imports
+The "star import" SHALL NOT BE used.
+#+begin_src python
+from my_package import *
+#+end_src
+
+This decreases readability and introduces namespace pollution issues which can cause
+subtle bugs.
+
+Instead, import what you need by name.
+
+Generally, this is RECOMMENDED:
+#+begin_src python
+import my_package
+#+end_src
+
+Some libraries have abbreviation aliases that are so common that they're universally
+understood and SHOULD BE used.  A not-exhaustive list of such packages includes:
+#+begin_src python
+import numpy as np
+import pandas as pd
+import typing as t
+import tensorflow as tf
+import matplotlib.pyplot as plt
+#+end_src
+
+Finally, this MAY BE used where terseness is appreciated for readability and
+function names are not easily confused:
+#+begin_src python
+from mypackage import (foo,
+                       bar,
+                       baz,
+                       quux)
+#+end_src
+
+** User-created namedtuples
+To make instances of lightweight data containers, you SHOULD use =attrs=.   =namedtuple=
+SHALL NOT BE used.
+
+#+begin_src python
+# this is bad
+from collections import namedtuple
+Point = namedtuple('Point',['x','y'])
+my_point = Point(1,2)
+
+# this is good
+import attr
+
+@attr.s
+class Point:
+    x = attr.ib()
+    y = attr.ib()
+
+# this is fine for programmatic creation of classes, not normal classes
+Point = attr.make_class('Point',['x','y'])
+
+# this is fine if you like typing
+class Point:
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+#+end_src
+
+** Manipulation of =sys.path=
+Adding modules to the namespace SHALL NOT BE accomplished in this way:
+#+begin_src python
+import sys
+sys.path.append('..')
+#+end_src
+
+Instead, install the package that provides those modules into your environment with
+=pip= and then import them normally.
+** Use of =os.system()=
+=os.system= SHALL NOT BE used to invoke external commands.
+
+[[https://docs.python.org/3.6/library/os.html#os.system][The python docs for this function]] say:
+#+begin_quote
+The subprocess module provides more powerful facilities for spawning new processes
+and retrieving their results; using that module is preferable to using this
+function. See the Replacing Older Functions with the subprocess Module section in the
+subprocess documentation for some helpful recipes.
+#+end_quote
+
+** Use of =exec()=
+=exec()= SHALL NOT BE used.
+
+Use of =exec()= vastly decreases readability, [[https://nedbatchelder.com/blog/201206/eval_really_is_dangerous.html][increases attack surface of the API]], and
+makes testing and debugging much more difficult.
+
+If something like =exec()= seems actually required, sparing use of =ast.literal_eval()=
+MAY be used.  This closes the security hole(s), but you should still be concerned
+about readability and debugging.
+
+** Mutable defaults in function signatures
+Function signatures SHALL NOT have defaults which have mutable types. Defaults SHOULD
+BE specified, when appropriate, for immutable types (=str=, =int=, =float=...)
+#+begin_src python
+  def bad(x=[], y=5)
+      x.append(y)
+      return x
+
+  def good(x=None, y=5)
+      if x is None:
+          x = []
+      x.append(y)
+      return x
+#+end_src
+
+See [[https://docs.python-guide.org/writing/gotchas/#mutable-default-arguments][this gotcha explainer]] for why this is a pattern that causes unexpected side effects.
+* Errata
+** Motivational Design References
+This style guide was strongly influenced by the following sources:
+*** "Beyond PEP-8: Best Practices for Beautiful, Intelligible Code"
+Youtube Link: https://www.youtube.com/watch?v=wf-BqAjZb8M
+
+This talk is by Raymond Hettinger:
+#+begin_quote
+Distillation of knowledge gained from a decade of Python consulting, Python training,
+code reviews, and serving as a core developer. Learn to avoid some of the hazards of
+the PEP 8 style guide and learn what really matters for creating beautiful
+intelligible code.
+#+end_quote
+
+*** "The Clean Architecture in Python"
+Youtube Link: https://www.youtube.com/watch?v=DJtef410XaM
+
+This talk is by Brandon Rhoades:
+#+begin_quote
+Python programmers already use many design patterns in their work. Each pattern
+distills the wisdom the community has learned over the years, often at great expense,
+and makes it available to younger programmers. But even design-conscious programmers
+often find their applications growing more difficult to test and expand. In this
+talk, we will learn about how the recently propounded “Clean Architecture” applies to
+Python applications, and how this high-level design pattern fits particularly well
+with the features of the Python language.
+#+end_quote
+
+*** "How Python Linters Will Save Your Large Python Project"
+Jeff Knupp has a blog post on linters:
+https://jeffknupp.com/blog/2016/12/09/how-python-linters-will-save-your-large-python-project/
+
+#+begin_quote
+As Python projects grow, maintenance becomes a nightmare (I'm more referring to
+enterprise-sized projects rather than "large" personal projects, but the same idea
+holds). Code becomes disorganized, messy, reflects the style of the author (even for
+teams doing a decent job enforcing PEP-8 and PEP-257, and docstrings fall by the
+wayside. It takes new developers longer and longer to ramp up on the project. Simple
+fixes and feature changes become not so simple when it comes time to actually make
+them. All of these are due to the necessary increase in complexity as a project
+grows. So how to we reduce that complexity as much as possible?
+#+end_quote
+
+*** "The Many Layers of Packaging"
+Mahmoud Hashemi has a long post on the many forms of python packaging there are, and
+where each are useful:
+https://sedimental.org/the_packaging_gradient.html
+
+#+begin_quote
+Everyone's first exposure to Python deployment was something so innocuous you
+probably wouldn't remember. You copied a script from point A to point B. Chances are,
+whether A and B were separate directories or computers, your days of "just use cp"
+didn't last long.
+
+Because while a single file is the ideal format for copying, it doesn't work when
+that file has unmet dependencies at the destination.
+
+Even simple scripts end up depending on:
+
+    Python libraries - boltons, requests, NumPy
+    Python, the runtime - CPython, PyPy
+    System libraries - glibc, zlib, libxml2
+    Operating system - Ubuntu, FreeBSD, Windows
+
+So every good packaging adventure always starts with the question:
+
+    Where is your code going, and what can we depend on being there?
+#+end_quote
