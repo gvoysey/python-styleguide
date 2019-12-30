@@ -1,0 +1,1834 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-12-30 Mon 16:42 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Python Style Guide</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="gvoysey" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Python Style Guide</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgba1f97b">1. Introduction</a>
+<ul>
+<li><a href="#org76d0f47">1.1. Goals</a>
+<ul>
+<li><a href="#orgf2c6418">1.1.1. Consistent</a></li>
+<li><a href="#org89fb3b8">1.1.2. Readable</a></li>
+<li><a href="#orgd32523c">1.1.3. Testable</a></li>
+<li><a href="#orgc5b6441">1.1.4. Motivational quotes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org6f3cd3d">2. General</a>
+<ul>
+<li><a href="#orgff8e4b5">2.1. Python version(s)</a></li>
+<li><a href="#org85967b6">2.2. Style</a></li>
+</ul>
+</li>
+<li><a href="#org492cb29">3. Language Style</a>
+<ul>
+<li><a href="#orgba4ae6c">3.1. Modules</a>
+<ul>
+<li><a href="#org0808283">3.1.1. Naming</a></li>
+<li><a href="#org99aa324">3.1.2. Imports</a></li>
+</ul>
+</li>
+<li><a href="#org33db7d3">3.2. Classes</a>
+<ul>
+<li><a href="#org4a906cd">3.2.1. Creation</a></li>
+<li><a href="#org4b1756e">3.2.2. Naming</a></li>
+<li><a href="#org958459e">3.2.3. Keyword attributes</a></li>
+<li><a href="#orgdc94fd7">3.2.4. Type Hinting</a></li>
+</ul>
+</li>
+<li><a href="#orge5368c9">3.3. Functions</a>
+<ul>
+<li><a href="#org387c447">3.3.1. Naming</a></li>
+<li><a href="#org187345d">3.3.2. Length</a></li>
+<li><a href="#orgac5bf20">3.3.3. Keyword Arguments</a></li>
+<li><a href="#org67bdf48">3.3.4. Type Hinting</a></li>
+<li><a href="#orgaed5600">3.3.5. Return values</a></li>
+</ul>
+</li>
+<li><a href="#org70def48">3.4. Variables</a>
+<ul>
+<li><a href="#org6bb47d3">3.4.1. Naming</a></li>
+<li><a href="#org7753f2f">3.4.2. Type hinting</a></li>
+<li><a href="#org491e422">3.4.3. Globals</a></li>
+</ul>
+</li>
+<li><a href="#org7727f33">3.5. Docstrings, Comments</a>
+<ul>
+<li><a href="#org8a62d95">3.5.1. Docstrings</a></li>
+<li><a href="#orgf90e8d3">3.5.2. Comments</a></li>
+</ul>
+</li>
+<li><a href="#orgca5a5b5">3.6. Serialization</a>
+<ul>
+<li><a href="#org23330e2">3.6.1. JSON</a></li>
+<li><a href="#orgfc8868e">3.6.2. TOML</a></li>
+<li><a href="#orgd6b563b">3.6.3. YAML</a></li>
+<li><a href="#org094056f">3.6.4. Pickle</a></li>
+<li><a href="#org3c18ad9">3.6.5. HDF5</a></li>
+<li><a href="#org7a7623e">3.6.6. NPY/NPZ</a></li>
+</ul>
+</li>
+<li><a href="#org3bb6e72">3.7. Preferred APIs</a>
+<ul>
+<li><a href="#org8f2e82c">3.7.1. pathlib</a></li>
+<li><a href="#org97a50f7">3.7.2. String formatting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orge2841d6">4. Autoformatting tools and linters</a>
+<ul>
+<li><a href="#org4ff4179">4.1. Black</a>
+<ul>
+<li><a href="#org3edd7f2">4.1.1. Configuration file</a></li>
+</ul>
+</li>
+<li><a href="#orgda69ba2">4.2. pydocstyle</a></li>
+<li><a href="#org63d7e75">4.3. pycodestyle</a></li>
+<li><a href="#orge3d0e13">4.4. mypy</a></li>
+<li><a href="#org5026ad2">4.5. pre-commit</a></li>
+</ul>
+</li>
+<li><a href="#org0d0aecc">5. Packaging and File Structure</a>
+<ul>
+<li><a href="#org99abfc0">5.1. Single-file scripts</a></li>
+<li><a href="#org87a38b0">5.2. Package layout</a></li>
+<li><a href="#org0e2802a">5.3. Jupyter notebooks</a></li>
+<li><a href="#orgd8274eb">5.4. Environment management tools</a></li>
+</ul>
+</li>
+<li><a href="#org1a4696d">6. Testing</a>
+<ul>
+<li><a href="#org311160b">6.1. Py.test</a></li>
+<li><a href="#orgd884dc1">6.2. Coverage</a></li>
+<li><a href="#orga07a6f9">6.3. Hypothesis</a></li>
+</ul>
+</li>
+<li><a href="#org06da70b">7. The Naughty List</a>
+<ul>
+<li><a href="#orgfd3b50f">7.1. Named lambdas</a></li>
+<li><a href="#org6f5b445">7.2. Star Imports</a></li>
+<li><a href="#org62a9da9">7.3. User-created namedtuples</a></li>
+<li><a href="#orgfefa58a">7.4. Manipulation of <code>sys.path</code></a></li>
+<li><a href="#org79ec665">7.5. Use of <code>os.system()</code></a></li>
+<li><a href="#orgc4b130d">7.6. Use of <code>exec()</code></a></li>
+<li><a href="#org1f3800a">7.7. Mutable defaults in function signatures</a></li>
+</ul>
+</li>
+<li><a href="#orgd3f636a">8. Errata</a>
+<ul>
+<li><a href="#org9954de9">8.1. Motivational Design References</a>
+<ul>
+<li><a href="#org72ea720">8.1.1. &ldquo;Beyond PEP-8: Best Practices for Beautiful, Intelligible Code&rdquo;</a></li>
+<li><a href="#orgf9ebb95">8.1.2. &ldquo;The Clean Architecture in Python&rdquo;</a></li>
+<li><a href="#org36257bc">8.1.3. &ldquo;How Python Linters Will Save Your Large Python Project&rdquo;</a></li>
+<li><a href="#orgd045ba0">8.1.4. &ldquo;The Many Layers of Packaging&rdquo;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgba1f97b" class="outline-2">
+<h2 id="orgba1f97b"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is a python style guide based on 5 years experience of heavy python use for
+scientific research and AI/ML.  It&rsquo;s intended for use by research and engineering
+teams for maintaining scientific stack python code in a way that is easy to reason
+about, maintain, and collaborate on. 
+</p>
+
+<p>
+Use of CAPITALIZED TERMS follows <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>:
+</p>
+
+<blockquote>
+<ol class="org-ol">
+<li>MUST   This word, or the terms &ldquo;REQUIRED&rdquo; or &ldquo;SHALL&rdquo;, mean that the
+definition is an absolute requirement of the specification.</li>
+
+<li>MUST NOT   This phrase, or the phrase &ldquo;SHALL NOT&rdquo;, mean that the
+definition is an absolute prohibition of the specification.</li>
+
+<li>SHOULD   This word, or the adjective &ldquo;RECOMMENDED&rdquo;, mean that there
+may exist valid reasons in particular circumstances to ignore a
+particular item, but the full implications must be understood and
+carefully weighed before choosing a different course.</li>
+
+<li>SHOULD NOT   This phrase, or the phrase &ldquo;NOT RECOMMENDED&rdquo; mean that
+there may exist valid reasons in particular circumstances when the
+particular behavior is acceptable or even useful, but the full
+implications should be understood and the case carefully weighed
+before implementing any behavior described with this label.</li>
+
+<li>MAY   This word, or the adjective &ldquo;OPTIONAL&rdquo;, mean that an item is
+truly optional.  One vendor may choose to include the item because a
+particular marketplace requires it or because the vendor feels that
+it enhances the product while another vendor may omit the same item.
+An implementation which does not include a particular option MUST be
+prepared to interoperate with another implementation which does
+include the option, though perhaps with reduced functionality. In the
+same vein an implementation which does include a particular option
+MUST be prepared to interoperate with another implementation which
+does not include the option (except, of course, for the feature the
+option provides.)</li>
+</ol>
+</blockquote>
+</div>
+
+<div id="outline-container-org76d0f47" class="outline-3">
+<h3 id="org76d0f47"><span class="section-number-3">1.1</span> Goals</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Our code ought to be:
+</p>
+</div>
+<div id="outline-container-orgf2c6418" class="outline-4">
+<h4 id="orgf2c6418"><span class="section-number-4">1.1.1</span> Consistent</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+The code style should be the same across all our codebases.  This improves
+readability and makes reading code a predictable activity.
+</p>
+</div>
+</div>
+<div id="outline-container-org89fb3b8" class="outline-4">
+<h4 id="org89fb3b8"><span class="section-number-4">1.1.2</span> Readable</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+The code should be well documented and easily understood by future maintainers, not
+just the author.  Prefer simple, elegant, and idiomatic solutions over &ldquo;clever&rdquo; code
+that is difficult to read and maintain.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd32523c" class="outline-4">
+<h4 id="orgd32523c"><span class="section-number-4">1.1.3</span> Testable</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+The code should be written in a style that allows easy unit and functional testing,
+Tests should be kept up to date and maintained throughout a project&rsquo;s history.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc5b6441" class="outline-4">
+<h4 id="orgc5b6441"><span class="section-number-4">1.1.4</span> Motivational quotes</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<blockquote>
+<p>
+“Always code as if the guy who ends up maintaining your code will be a violent
+psychopath who knows where you live”  &#x2013; John Woods
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+Rob Pike&rsquo;s 5 Rules of Programming
+</p>
+
+<p>
+Rule 1. You can&rsquo;t tell where a program is going to spend its time. Bottlenecks occur
+    in surprising places, so don&rsquo;t try to second guess and put in a speed hack until
+    you&rsquo;ve proven that&rsquo;s where the bottleneck is.
+</p>
+
+<p>
+Rule 2. Measure. Don&rsquo;t tune for speed until you&rsquo;ve measured, and even then don&rsquo;t
+    unless one part of the code overwhelms the rest.
+</p>
+
+<p>
+Rule 3. Fancy algorithms are slow when n is small, and n is usually small. Fancy
+    algorithms have big constants. Until you know that n is frequently going to be
+    big, don&rsquo;t get fancy. (Even if n does get big, use Rule 2 first.)
+</p>
+
+<p>
+Rule 4. Fancy algorithms are buggier than simple ones, and they&rsquo;re much harder to
+    implement. Use simple algorithms as well as simple data structures.
+</p>
+
+<p>
+Rule 5. Data dominates. If you&rsquo;ve chosen the right data structures and organized
+    things well, the algorithms will almost always be self-evident. Data structures,
+    not algorithms, are central to programming.
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6f3cd3d" class="outline-2">
+<h2 id="org6f3cd3d"><span class="section-number-2">2</span> General</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgff8e4b5" class="outline-3">
+<h3 id="orgff8e4b5"><span class="section-number-3">2.1</span> Python version(s)</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Python 3.6 or higher SHALL BE used for new projects.  CPython or PyPy are both
+appropriate for use.
+</p>
+
+<p>
+Adopting or adapting old projects which are written in python 2.x may be necessary,
+but SHOULD BE avoided when possible.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org85967b6" class="outline-3">
+<h3 id="org85967b6"><span class="section-number-3">2.2</span> Style</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Overall style SHALL follow <a href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a> with some modifications.  PEP-8 is worth reading in
+full, but 95% of PEP-8 is handled by use of <code>black</code>, <code>pycodestyle</code> and <code>pydocstyle</code>,
+discussed below.
+</p>
+
+<p>
+While PEP-8 prefers lines to end at 79 characters, we allow line lengths of 100
+characters.
+</p>
+
+<p>
+Basic style issues SHALL BE automated with the use of the <code>black</code> autoformatter.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org492cb29" class="outline-2">
+<h2 id="org492cb29"><span class="section-number-2">3</span> Language Style</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgba4ae6c" class="outline-3">
+<h3 id="orgba4ae6c"><span class="section-number-3">3.1</span> Modules</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Modules are most commonly stored as single source code files on disk.  They are the
+fundamental namespace of Python.  A file such as <code>foo.py</code> is a module.
+</p>
+</div>
+<div id="outline-container-org0808283" class="outline-4">
+<h4 id="org0808283"><span class="section-number-4">3.1.1</span> Naming</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<blockquote>
+<p>
+Modules should have short, all-lowercase names. Underscores can be used in the module
+name if it improves readability. Python packages should also have short,
+all-lowercase names, although the use of underscores is discouraged.
+</p>
+
+<p>
+When an extension module written in C or C++ has an accompanying Python module that
+provides a higher level (e.g. more object oriented) interface, the C/C++ module has a
+leading underscore (e.g. _socket).
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org99aa324" class="outline-4">
+<h4 id="org99aa324"><span class="section-number-4">3.1.2</span> Imports</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<p>
+Absolute imports SHALL BE used over relative imports.  This removes all ambiguities
+about module location.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #586e75;">#  </span><span style="color: #586e75;">Yes.</span>
+<span style="color: #859900; font-weight: bold;">from</span> my_package.my_subpackage <span style="color: #859900; font-weight: bold;">import</span> foo
+<span style="color: #586e75;">#  </span><span style="color: #586e75;">No.</span>
+<span style="color: #859900; font-weight: bold;">from</span> ../my_subpackage <span style="color: #859900; font-weight: bold;">import</span> foo
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org33db7d3" class="outline-3">
+<h3 id="org33db7d3"><span class="section-number-3">3.2</span> Classes</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Classes should be created when a discrete collection of data needs to be stored as a
+unit and individual data items need to be semantically addressable.  E.g., &ldquo;A data
+point has an x-coordinate and a y-coordinate&rdquo; suggests that a <code>Point</code> class should be
+created.
+</p>
+
+<p>
+Optionally, classes can contain extra methods which operate on that classes data: &ldquo;A
+Point can compute its Euclidean Distance to the origin.&rdquo;
+</p>
+</div>
+
+<div id="outline-container-org4a906cd" class="outline-4">
+<h4 id="org4a906cd"><span class="section-number-4">3.2.1</span> Creation</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+The <code>attrs</code> library (<a href="https://attrs.org">https://attrs.org</a>) SHOULD BE used for creation of normal
+classes. The reduction in boilerplate is significant enough to justify its inclusion
+in all new projects, as this example demonstrates.
+</p>
+
+<p>
+Here, both <code>Point</code> and <code>ILikeTypingPoint</code> implement the same functionality, which
+includes a readable <code>repr</code> and comparability between instances:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">good</span>
+<span style="color: #859900; font-weight: bold;">import</span> attr
+
+<span style="color: #b58900;">@attr.s</span>
+<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
+    <span style="color: #268bd2;">x</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+    <span style="color: #268bd2;">y</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">bad</span>
+<span style="color: #859900; font-weight: bold;">import</span> functools
+<span style="color: #586e75;"># </span><span style="color: #586e75;">total_ordering generates __gt__, __ne__, etc...</span>
+<span style="color: #586e75;"># </span><span style="color: #586e75;">given at least two rich comparison operators.</span>
+<span style="color: #b58900;">@functools.total_ordering</span>
+<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">ILikeTypingPoint</span>:
+    <span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">__init__</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>,x,y<span style="color: #e146c662851e;">)</span>:
+        <span style="color: #859900; font-weight: bold;">self</span>.x = x
+        <span style="color: #859900; font-weight: bold;">self</span>.y = y
+
+    <span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">__eq__</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>, other<span style="color: #e146c662851e;">)</span>:
+        <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>.x, <span style="color: #859900; font-weight: bold;">self</span>.y<span style="color: #e146c662851e;">)</span> == <span style="color: #e146c662851e;">(</span>other.x, other.y<span style="color: #e146c662851e;">)</span>
+
+    <span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">__lt__</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>,other<span style="color: #e146c662851e;">)</span>:
+        <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>.x, <span style="color: #859900; font-weight: bold;">self</span>.y<span style="color: #e146c662851e;">)</span> &lt; <span style="color: #e146c662851e;">(</span>other.x, other.y<span style="color: #e146c662851e;">)</span>
+
+    <span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">__repr__</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span><span style="color: #e146c662851e;">)</span>:
+        <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #2aa198;">"Point(x={}, y={})"</span>.<span style="color: #839496; font-weight: bold;">format</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>.x, <span style="color: #859900; font-weight: bold;">self</span>.y<span style="color: #e146c662851e;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4b1756e" class="outline-4">
+<h4 id="org4b1756e"><span class="section-number-4">3.2.2</span> Naming</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<p>
+Class names SHALL be <code>BumpyCase</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> attr
+
+<span style="color: #b58900;">@attr.s</span>
+<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">MyClass</span>:
+    <span style="color: #2aa198;">"""Example class with one attribute."""</span>
+    <span style="color: #268bd2;">x</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org958459e" class="outline-4">
+<h4 id="org958459e"><span class="section-number-4">3.2.3</span> Keyword attributes</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<p>
+If a class needs many attributes for initialization, keyword-only attributes SHOULD
+BE used to maintain explicit initialization and clarity:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> attr
+
+<span style="color: #b58900;">@attr.s</span>
+<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">MyBusyClass</span>:
+    <span style="color: #2aa198;">"""Example class that has a lot of parameters"""</span>
+    <span style="color: #268bd2;">x</span> = attr.ib<span style="color: #e146c662851e;">(</span>kw_only=<span style="color: #268bd2; font-weight: bold;">True</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #268bd2;">y</span> = attr.ib<span style="color: #e146c662851e;">(</span>kw_only=<span style="color: #268bd2; font-weight: bold;">True</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #268bd2;">z</span> = attr.ib<span style="color: #e146c662851e;">(</span>kw_only=<span style="color: #268bd2; font-weight: bold;">True</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #268bd2;">foo</span> = attr.ib<span style="color: #e146c662851e;">(</span>kw_only=<span style="color: #268bd2; font-weight: bold;">True</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #268bd2;">bar</span> = attr.ib<span style="color: #e146c662851e;">(</span>kw_only=<span style="color: #268bd2; font-weight: bold;">True</span><span style="color: #e146c662851e;">)</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">this will raise TypeError</span>
+<span style="color: #268bd2;">my_foo</span> = MyBusyClass<span style="color: #e146c662851e;">(</span>1,
+                     2,
+                     3,
+                     <span style="color: #2aa198;">'a'</span>,
+                     <span style="color: #2aa198;">'b'</span><span style="color: #e146c662851e;">)</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">this is valid</span>
+<span style="color: #268bd2;">my_foo</span> = MyBusyClass<span style="color: #e146c662851e;">(</span>x=1,
+                     y=2,
+                     z=3,
+                     foo=<span style="color: #2aa198;">"a"</span>,
+                     bar=<span style="color: #2aa198;">"b"</span><span style="color: #e146c662851e;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdc94fd7" class="outline-4">
+<h4 id="orgdc94fd7"><span class="section-number-4">3.2.4</span> Type Hinting</h4>
+<div class="outline-text-4" id="text-3-2-4">
+<p>
+Class attributes MAY BE type hinted if it improves clarity:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> attr
+
+<span style="color: #b58900;">@attr.s</span>
+<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
+    x:<span style="color: #839496; font-weight: bold;">int</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">or even more tersely:</span>
+
+<span style="color: #b58900;">@attr.dataclass</span>
+<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
+    x:<span style="color: #839496; font-weight: bold;">int</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge5368c9" class="outline-3">
+<h3 id="orge5368c9"><span class="section-number-3">3.3</span> Functions</h3>
+<div class="outline-text-3" id="text-3-3">
+</div>
+<div id="outline-container-org387c447" class="outline-4">
+<h4 id="org387c447"><span class="section-number-4">3.3.1</span> Naming</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<p>
+Function names SHALL BE snake<sub>case</sub>.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">my_function</span><span style="color: #e146c662851e;">(</span>max_value<span style="color: #e146c662851e;">)</span>:
+   <span style="color: #2aa198;">"""Do something with `max_value`."""</span>
+   <span style="color: #859900; font-weight: bold;">pass</span>
+</pre>
+</div>
+
+<p>
+Mutating functions SHOULD BE named in the present tense, and non-mutating functions
+SHOULD BE named in the past tense.  For example, <code>list.sort()</code> mutates and sorts a list
+instance in place, and <code>sorted(mylist)</code> returns a new sorted list and leaves
+<code>mylist</code> unsorted.
+</p>
+</div>
+</div>
+<div id="outline-container-org187345d" class="outline-4">
+<h4 id="org187345d"><span class="section-number-4">3.3.2</span> Length</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<p>
+Very long functions impair readability, make testing difficult, and are a clear sign
+that too much work is being done in one place.
+</p>
+
+<p>
+Another clear sign of too much work is indentation levels for control flow (<code>if elif
+else</code>, <code>for</code>, <code>while</code>, <code>with</code>, <code>try except</code>, etc.) more than about 3 levels deep.
+</p>
+
+<p>
+A final sign of too much work is use of the word &ldquo;and&rdquo; in the function docstring.
+Ideally, the majority of functions should do exactly one thing.
+</p>
+
+<p>
+When too much work is being done in a function, the solution is to make new shorter
+functions that perform separable work and call them in the parent function.
+</p>
+
+<p>
+Functions SHOULD BE less than approximately 50 lines of code, discounting the
+docstring and multiline collections.
+</p>
+
+<p>
+This is a flexible limit, but the old heuristic that everything should fit on the
+screen at once is still a good one.
+</p>
+</div>
+</div>
+<div id="outline-container-orgac5bf20" class="outline-4">
+<h4 id="orgac5bf20"><span class="section-number-4">3.3.3</span> Keyword Arguments</h4>
+<div class="outline-text-4" id="text-3-3-3">
+<p>
+Functions SHOULD NOT have an unwieldy number of arguments in their signature if it can
+be avoided.
+</p>
+
+<p>
+If it&rsquo;s necessary to create a function with more than 2-3 parameters, keyword-only
+arguments SHOULD BE used. The following signature compels callers to pass arguments
+by keyword only:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">foo</span><span style="color: #e146c662851e;">(</span>*, param1, param2, param3<span style="color: #e146c662851e;">)</span>:
+    <span style="color: #859900; font-weight: bold;">pass</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">This is a syntax error.</span>
+foo<span style="color: #e146c662851e;">(</span>1,2,3<span style="color: #e146c662851e;">)</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">This is the correct call.</span>
+foo<span style="color: #e146c662851e;">(</span>param1=1,
+    param2=2,
+    param3=3<span style="color: #e146c662851e;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org67bdf48" class="outline-4">
+<h4 id="org67bdf48"><span class="section-number-4">3.3.4</span> Type Hinting</h4>
+<div class="outline-text-4" id="text-3-3-4">
+<p>
+Function signatures SHOULD BE type hinted if it improves clarity.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">process_element</span><span style="color: #e146c662851e;">(</span>element:MyClassInstance, query:<span style="color: #839496; font-weight: bold;">str</span>, num:<span style="color: #839496; font-weight: bold;">int</span><span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #839496; font-weight: bold;">bool</span>:
+    <span style="color: #2aa198;">"""Determine if `num` instances of `query` are present in `element`."""</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgaed5600" class="outline-4">
+<h4 id="orgaed5600"><span class="section-number-4">3.3.5</span> Return values</h4>
+<div class="outline-text-4" id="text-3-3-5">
+<p>
+Functions SHALL either:
+</p>
+<ul class="org-ul">
+<li>mutate their arguments and return <code>None</code></li>
+</ul>
+<p>
+OR
+</p>
+<ul class="org-ul">
+<li>not mutate their arguments and return a value.</li>
+</ul>
+
+<p>
+Functions SHALL NOT both mutate arguments AND return a value that is not <code>None</code>. This practice
+is fraught with subtle bugs.
+</p>
+
+<p>
+Following &ldquo;The Clean Architecture&rdquo;, a strong preference SHOULD BE given to pure
+functions which do not mutate state outside of themselves.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> typing <span style="color: #859900; font-weight: bold;">as</span> t
+
+
+<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">bad</span><span style="color: #e146c662851e;">(</span>x:t.List<span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #268bd2; font-weight: bold;">None</span>:
+    x.append<span style="color: #e146c662851e;">(</span>5<span style="color: #e146c662851e;">)</span>
+    <span style="color: #859900; font-weight: bold;">return</span> x
+
+<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">better</span><span style="color: #e146c662851e;">(</span>x:t.List<span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #268bd2; font-weight: bold;">None</span>:
+    x.append<span style="color: #e146c662851e;">(</span>5<span style="color: #e146c662851e;">)</span>
+
+<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">best</span><span style="color: #e146c662851e;">(</span>x:t.List<span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #839496; font-weight: bold;">list</span>:
+    <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #e146c662851e;">[</span>*x, 5<span style="color: #e146c662851e;">]</span>
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org70def48" class="outline-3">
+<h3 id="org70def48"><span class="section-number-3">3.4</span> Variables</h3>
+<div class="outline-text-3" id="text-3-4">
+</div>
+<div id="outline-container-org6bb47d3" class="outline-4">
+<h4 id="org6bb47d3"><span class="section-number-4">3.4.1</span> Naming</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<p>
+Variable names SHALL BE <code>snake_case</code>.  Module-level constants SHALL BE <code>SHOUTY_CASE</code>.
+</p>
+
+<p>
+Non-ASCII names, while permitted by the language, SHOULD NOT BE used.  The exception
+to this rule is when a function exactly recapitulates a forumula from a paper and the
+code should maintain parity with the text to be maximally clear.  In that case, the
+function docstring SHALL contain a full citation to the paper and equation in
+question.
+</p>
+
+<p>
+Variables should be named to describe what they represent, not what type they
+have.  Prefer variable names whose pluralization matches their values: <code>bounding_boxes</code>
+SHOULD BE a list, <code>bounding_box</code> should not.
+</p>
+
+<p>
+Except in limited circumstances, descriptive names longer than one character SHOULD
+BE used.  Some exceptions include:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">some normal notation for loop variables</span>
+i,j,k
+<span style="color: #586e75;"># </span><span style="color: #586e75;">cartesian coordinate variables</span>
+x,y,z
+<span style="color: #586e75;"># </span><span style="color: #586e75;">conventional notation for "this variable doesn't matter but has to exist"</span>
+_
+<span style="color: #586e75;"># </span><span style="color: #586e75;">throwaway names for elements of a sequence inside comprehensions</span>
+<span style="color: #e146c662851e;">[</span> e <span style="color: #859900; font-weight: bold;">for</span> e <span style="color: #859900; font-weight: bold;">in</span> my_list<span style="color: #e146c662851e;">]</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7753f2f" class="outline-4">
+<h4 id="org7753f2f"><span class="section-number-4">3.4.2</span> Type hinting</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<p>
+Variables MAY BE type-hinted if it improves clarity:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">allows static analysis tools to provide better help if needed.</span>
+x:<span style="color: #839496; font-weight: bold;">dict</span> = <span style="color: #e146c662851e;">{</span><span style="color: #2aa198;">'foo'</span>:5<span style="color: #e146c662851e;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org491e422" class="outline-4">
+<h4 id="org491e422"><span class="section-number-4">3.4.3</span> Globals</h4>
+<div class="outline-text-4" id="text-3-4-3">
+<p>
+The <code>nonlocal</code> and <code>global</code> keywords SHOULD NOT BE used.  Needing or wanting to use them
+is almost always a sign that there&rsquo;s a better way, and minimizing global state leads
+to code that&rsquo;s easy to read, reason about, and test.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org7727f33" class="outline-3">
+<h3 id="org7727f33"><span class="section-number-3">3.5</span> Docstrings, Comments</h3>
+<div class="outline-text-3" id="text-3-5">
+</div>
+<div id="outline-container-org8a62d95" class="outline-4">
+<h4 id="org8a62d95"><span class="section-number-4">3.5.1</span> Docstrings</h4>
+<div class="outline-text-4" id="text-3-5-1">
+<p>
+Docstring conventions are laid out in <a href="https://www.python.org/dev/peps/pep-0257">PEP 257</a>.
+</p>
+
+<p>
+<code>numpydoc</code> style docstrings SHOULD BE used.  Full documentation on numpydoc style is
+here: <a href="https://numpydoc.readthedocs.io/en/latest/format.html">https://numpydoc.readthedocs.io/en/latest/format.html</a> <code>numpydoc</code> follows <code>sphinx</code> /
+resturctured text docstrings with some modifications for numerical code.  An example
+function docstring is shown:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">class_id</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>, class_name: <span style="color: #839496; font-weight: bold;">str</span><span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #839496; font-weight: bold;">int</span>:
+    <span style="color: #2aa198;">"""Get the class ID for this class name.</span>
+
+<span style="color: #2aa198;">    Parameters</span>
+<span style="color: #2aa198;">    ----------</span>
+<span style="color: #2aa198;">    class_name : str</span>
+<span style="color: #2aa198;">        The class name of a given class.</span>
+
+<span style="color: #2aa198;">    Returns</span>
+<span style="color: #2aa198;">    -------</span>
+<span style="color: #2aa198;">    int</span>
+<span style="color: #2aa198;">        The class ID for the given class_name.</span>
+
+<span style="color: #2aa198;">    """</span>
+    <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #859900; font-weight: bold;">self</span>.class_names<span style="color: #e146c662851e;">[</span>class_name<span style="color: #e146c662851e;">]</span>
+</pre>
+</div>
+
+<p>
+IDEs can usually be configured to automatically insert stubs that follow this style.
+</p>
+
+<p>
+<code>numpydoc</code> is sometimes inappropriate for docstrings for user-facing CLI entry points;
+not all argument parsers can generate nicely formatted output from it.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf90e8d3" class="outline-4">
+<h4 id="orgf90e8d3"><span class="section-number-4">3.5.2</span> Comments</h4>
+<div class="outline-text-4" id="text-3-5-2">
+<p>
+Block comments SHOULD BE preferred over inline comments.  They are easier to read and
+keep line length from becoming excessive.
+</p>
+
+<p>
+Block comments:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">Get bounding boxes.</span>
+<span style="color: #586e75;"># </span><span style="color: #586e75;">Filter the large boxes.</span>
+<span style="color: #268bd2;">all_boxes</span> = <span style="color: #e146c662851e;">(</span>x.bounding_box <span style="color: #859900; font-weight: bold;">for</span> x <span style="color: #859900; font-weight: bold;">in</span> my_list_of_data<span style="color: #e146c662851e;">)</span>
+<span style="color: #268bd2;">good_boxes</span> = <span style="color: #e146c662851e;">[</span>x <span style="color: #859900; font-weight: bold;">for</span> x <span style="color: #859900; font-weight: bold;">in</span> all_boxes <span style="color: #859900; font-weight: bold;">if</span> x.area&gt;400<span style="color: #e146c662851e;">]</span>
+</pre>
+</div>
+
+<p>
+Inline comments:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #268bd2;">all_boxes</span> = <span style="color: #e146c662851e;">(</span>x.bounding_box <span style="color: #859900; font-weight: bold;">for</span> x <span style="color: #859900; font-weight: bold;">in</span> my_list_of_data<span style="color: #e146c662851e;">)</span>  <span style="color: #586e75;"># </span><span style="color: #586e75;">get bounding boxes.</span>
+<span style="color: #268bd2;">good_boxes</span> = <span style="color: #e146c662851e;">[</span>x <span style="color: #859900; font-weight: bold;">for</span> x <span style="color: #859900; font-weight: bold;">in</span> all_boxes <span style="color: #859900; font-weight: bold;">if</span> x.area&gt;400<span style="color: #e146c662851e;">]</span>  <span style="color: #586e75;"># </span><span style="color: #586e75;">filter.</span>
+</pre>
+</div>
+
+<p>
+Unassigned string literals are not comments, and SHOULD NOT BE used as such. They
+SHOULD BE used when they become <code>__doc__</code> attributes of modules, classes, and functions:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #2aa198;">"""This is not a comment, this is a string with no name!"""</span>
+<span style="color: #268bd2;">x</span> = 5
+
+<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">foo</span><span style="color: #e146c662851e;">()</span>:
+    <span style="color: #2aa198;">"""I am a docstring, and I'm OK"""</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgca5a5b5" class="outline-3">
+<h3 id="orgca5a5b5"><span class="section-number-3">3.6</span> Serialization</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+Serialization is the process of &ldquo;saving state&rdquo; of in-memory objects to disk so that
+they may be recreated and reused later.  There are many serialization formats in
+common use.
+</p>
+</div>
+
+<div id="outline-container-org23330e2" class="outline-4">
+<h4 id="org23330e2"><span class="section-number-4">3.6.1</span> JSON</h4>
+<div class="outline-text-4" id="text-3-6-1">
+<p>
+<a href="http://json.org/">JSON</a> SHOULD BE used for situations where a program will write the file and a program
+will read the file.
+</p>
+</div>
+</div>
+<div id="outline-container-orgfc8868e" class="outline-4">
+<h4 id="orgfc8868e"><span class="section-number-4">3.6.2</span> TOML</h4>
+<div class="outline-text-4" id="text-3-6-2">
+<p>
+<a href="https://github.com/toml-lang/toml">TOML</a> SHOULD BE used for situations where a human will write the file and a program
+will read the file.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd6b563b" class="outline-4">
+<h4 id="orgd6b563b"><span class="section-number-4">3.6.3</span> YAML</h4>
+<div class="outline-text-4" id="text-3-6-3">
+<p>
+<a href="https://yaml.org/">YAML</a> MAY BE used instead of TOML.
+</p>
+
+<p>
+If YAML is used, then the <code>yaml.safe_load</code> function SHALL be used and <code>yaml.load</code> SHALL
+NOT be used, it&rsquo;s a security concern.
+</p>
+</div>
+</div>
+<div id="outline-container-org094056f" class="outline-4">
+<h4 id="org094056f"><span class="section-number-4">3.6.4</span> Pickle</h4>
+<div class="outline-text-4" id="text-3-6-4">
+<p>
+<a href="https://docs.python.org/3/library/pickle.html">Pickle</a> SHALL NOT BE used for serialization that persists longer than a single run of
+the program, and SHOULD NOT BE used at all if it can be avoided.
+</p>
+
+<p>
+From Python docs:
+</p>
+<blockquote>
+<p>
+Warning
+</p>
+
+<p>
+The pickle module is not secure against erroneous or maliciously constructed
+data. Never unpickle data received from an untrusted or unauthenticated source.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org3c18ad9" class="outline-4">
+<h4 id="org3c18ad9"><span class="section-number-4">3.6.5</span> HDF5</h4>
+<div class="outline-text-4" id="text-3-6-5">
+<p>
+<a href="https://www.h5py.org/">HDF5</a> SHOULD BE used when fast random single-threaded access to potentially very large
+data structures containing numerical data (e.g., numpy arrays) and metadata (strings,
+lists, etc.) is needed.
+</p>
+</div>
+</div>
+<div id="outline-container-org7a7623e" class="outline-4">
+<h4 id="org7a7623e"><span class="section-number-4">3.6.6</span> NPY/NPZ</h4>
+<div class="outline-text-4" id="text-3-6-6">
+<p>
+<a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.lib.format.html">NPY/NPZ</a> SHOULD BE used for serialization of small amounts of raw numpy arrays is needed.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3bb6e72" class="outline-3">
+<h3 id="org3bb6e72"><span class="section-number-3">3.7</span> Preferred APIs</h3>
+<div class="outline-text-3" id="text-3-7">
+</div>
+<div id="outline-container-org8f2e82c" class="outline-4">
+<h4 id="org8f2e82c"><span class="section-number-4">3.7.1</span> pathlib</h4>
+<div class="outline-text-4" id="text-3-7-1">
+<p>
+The <code>pathlib</code> standard library package SHOULD BE preferred over <code>os.path</code> for path
+manipulation.  It&rsquo;s more useful, less verbose, and overall much more versatile.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">from</span> pathlib <span style="color: #859900; font-weight: bold;">import</span> Path
+
+<span style="color: #268bd2;">cwd</span> = Path.cwd<span style="color: #e146c662851e;">()</span>.resolve<span style="color: #e146c662851e;">()</span>.expanduser<span style="color: #e146c662851e;">()</span>
+<span style="color: #859900; font-weight: bold;">for</span> item <span style="color: #859900; font-weight: bold;">in</span> cwd.rglob<span style="color: #e146c662851e;">(</span><span style="color: #2aa198;">"*.txt"</span><span style="color: #e146c662851e;">)</span>:
+    <span style="color: #859900; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>f<span style="color: #2aa198;">'Found a text file whose name is {item.stem}'</span>
+          f<span style="color: #2aa198;">'with parent directory {item.parent}'</span><span style="color: #e146c662851e;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org97a50f7" class="outline-4">
+<h4 id="org97a50f7"><span class="section-number-4">3.7.2</span> String formatting</h4>
+<div class="outline-text-4" id="text-3-7-2">
+<p>
+f-string formatting syntax SHOULD BE used.  <code>str.format()</code> MAY be used.  The <code>%</code> operator
+SHALL NOT be used:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #268bd2;">x</span> = 5
+<span style="color: #268bd2;">y</span> = <span style="color: #2aa198;">"hello"</span>
+<span style="color: #268bd2;">z</span> = <span style="color: #e146c662851e;">[</span><span style="color: #2aa198;">"foo"</span>, <span style="color: #2aa198;">"bar"</span><span style="color: #e146c662851e;">]</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">best</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>
+    f<span style="color: #2aa198;">"The value of x is {x}, the value of y is {y}, the value of z is {z}"</span>
+<span style="color: #e146c662851e;">)</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">good</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>
+    <span style="color: #2aa198;">"The value of x is {}, the value of y is {}, the value of z is {}"</span>.<span style="color: #839496; font-weight: bold;">format</span><span style="color: #ab7e851ee146;">(</span>
+        x, y, z
+    <span style="color: #ab7e851ee146;">)</span>
+<span style="color: #e146c662851e;">)</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">bad</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>
+    <span style="color: #2aa198;">"the value of x is %s, the value of y is %s, the value of z is %s"</span>
+    % <span style="color: #ab7e851ee146;">(</span>x, y, z<span style="color: #ab7e851ee146;">)</span>
+<span style="color: #e146c662851e;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge2841d6" class="outline-2">
+<h2 id="orge2841d6"><span class="section-number-2">4</span> Autoformatting tools and linters</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The following code inspection tools have all proven to be very useful for maintaining
+large python projects.
+</p>
+</div>
+<div id="outline-container-org4ff4179" class="outline-3">
+<h3 id="org4ff4179"><span class="section-number-3">4.1</span> Black</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Code SHALL BE formatted with the <a href="https://black.readthedocs.io/en/stable/">black</a> python autoformatter with a line-length
+option of 100.
+</p>
+
+<blockquote>
+<p>
+By using Black, you agree to cede control over minutiae of hand-formatting. In
+return, Black gives you speed, determinism, and freedom from pycodestyle nagging
+about formatting. You will save time and mental energy for more important matters.
+</p>
+
+<p>
+Black makes code review faster by producing the smallest diffs possible. Blackened
+code looks the same regardless of the project you’re reading. Formatting becomes
+transparent after a while and you can focus on the content instead.
+</p>
+</blockquote>
+</div>
+
+<div id="outline-container-org3edd7f2" class="outline-4">
+<h4 id="org3edd7f2"><span class="section-number-4">4.1.1</span> Configuration file</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<p>
+A sample <code>pyproject.toml</code> section for black is:
+</p>
+<div class="org-src-container">
+<pre class="src src-toml">[tool.black]
+line-length = 100
+target-version = ['py36','py37']
+exclude = "(versioneer|_version).py"
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgda69ba2" class="outline-3">
+<h3 id="orgda69ba2"><span class="section-number-3">4.2</span> pydocstyle</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+<code>pydocstyle</code> is a static analysis tool for checking compliance with python docstring
+conventions a la PEP 257.
+</p>
+
+<p>
+It SHOULD BE used as a style linter before commiting.
+</p>
+
+<p>
+<a href="http://www.pydocstyle.org/en/4.0.0/">http://www.pydocstyle.org/en/4.0.0/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org63d7e75" class="outline-3">
+<h3 id="org63d7e75"><span class="section-number-3">4.3</span> pycodestyle</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+<code>pycodestyle</code> is a tool to check your code against conventions in PEP8.
+<a href="https://pycodestyle.readthedocs.io/en/latest/">https://pycodestyle.readthedocs.io/en/latest/</a>
+</p>
+
+<p>
+It SHOULD BE used as a style linter before commiting.
+</p>
+</div>
+</div>
+<div id="outline-container-orge3d0e13" class="outline-3">
+<h3 id="orge3d0e13"><span class="section-number-3">4.4</span> mypy</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+<code>mypy</code> is a static type checker for python.
+</p>
+
+<p>
+<a href="https://mypy.readthedocs.io/en/latest/">https://mypy.readthedocs.io/en/latest/</a>
+</p>
+
+<p>
+<code>mypy</code> SHOULD BE used, especially where it improves clarity.  Type hints can often be
+interpreted by IDEs to provide assistance, so this is often convenient.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5026ad2" class="outline-3">
+<h3 id="org5026ad2"><span class="section-number-3">4.5</span> pre-commit</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+<code>pre-commit</code> is a framework for managing pre-commit hooks.
+<a href="https://pre-commit.com/">https://pre-commit.com/</a>
+</p>
+
+<p>
+It SHOULD BE used to automate linting and autoformatting.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org0d0aecc" class="outline-2">
+<h2 id="org0d0aecc"><span class="section-number-2">5</span> Packaging and File Structure</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org99abfc0" class="outline-3">
+<h3 id="org99abfc0"><span class="section-number-3">5.1</span> Single-file scripts</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Very rarely, it is useful to write a single-file python script which looks like
+this:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #586e75;">#</span><span style="color: #586e75;">!/usr/bin/env python3</span>
+
+<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">main</span><span style="color: #e146c662851e;">()</span>:
+    <span style="color: #859900; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span><span style="color: #2aa198;">'hello, world!'</span><span style="color: #e146c662851e;">)</span>
+
+<span style="color: #859900; font-weight: bold;">if</span> <span style="color: #839496; font-weight: bold;">__name__</span> == <span style="color: #2aa198;">"__main__"</span>:
+    main<span style="color: #e146c662851e;">()</span>
+</pre>
+</div>
+
+<p>
+Any Python code more complicated than this SHALL BE packaged in a file structure that permits it to be
+installed with <code>pip</code>, the python packaging tool.  Including a third-party library
+(<code>attrs</code>, <code>numpy</code>, <code>opencv</code>,&#x2026;) SHALL BE considered complicated enough to write a real package.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org87a38b0" class="outline-3">
+<h3 id="org87a38b0"><span class="section-number-3">5.2</span> Package layout</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+A RECOMMENDED directory structure for packages is shown below.  There are alternative
+forms (e.g., use of <code>src/PACKAGE_NAME</code>, inclusion of <code>tests</code> inside of
+<code>PACKAGE_NAME/PACKAGE_NAME</code>, etc. ) which MAY be used according to preference.  A
+<code>Makefile</code> is NOT required.  Alternatives to <code>Pipfile</code> are discussed below.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">PACKAGE_NAME
+&#9500;&#9472;&#9472; PACKAGE_NAME
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; __init__.py
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; __main__.py
+&#9474;&#160;&#160; &#9492;&#9472;&#9472; _version.py
+&#9500;&#9472;&#9472; Makefile
+&#9500;&#9472;&#9472; MANIFEST.in
+&#9500;&#9472;&#9472; notebooks
+&#9474;&#160;&#160; &#9492;&#9472;&#9472; notebook.ipynb
+&#9500;&#9472;&#9472; Pipfile
+&#9500;&#9472;&#9472; Pipfile.lock
+&#9500;&#9472;&#9472; pyproject.toml
+&#9500;&#9472;&#9472; Readme.org
+&#9500;&#9472;&#9472; setup.cfg
+&#9500;&#9472;&#9472; setup.py
+&#9500;&#9472;&#9472; tests
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; __init__.py
+&#9474;&#160;&#160; &#9492;&#9472;&#9472; test_PACKAGE_NAME.py
+&#9492;&#9472;&#9472; versioneer.py
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0e2802a" class="outline-3">
+<h3 id="org0e2802a"><span class="section-number-3">5.3</span> Jupyter notebooks</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Jupyter notebooks are often an extremely convenient way of prototyping, plotting,
+visualizing, and experimenting.
+</p>
+
+<p>
+They are also inappropriate for use for developing packages or sharable code meant to
+be used by others.
+</p>
+
+<p>
+Using notebooks alongside your packages SHALL be done in this way:
+</p>
+<ol class="org-ol">
+<li>Write a normal package (as above)</li>
+<li>Install it with <code>pip install -e</code> in the same environment where <code>jupyter</code> is
+installed.</li>
+<li><code>import</code> your package in a notebook cell and call its functions and methods as
+normal.</li>
+<li>Generate output, visualizations, etc. as needed.</li>
+<li>When changes have to happen to your package, make them in your package and then
+restart the notebook kernel and re-import the package.</li>
+</ol>
+
+<p>
+While notebooks do not expose unit testing functionality, a notebook SHALL execute
+cleanly if the kernel is restarted and each cell is executed sequentially on a clean
+machine.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd8274eb" class="outline-3">
+<h3 id="orgd8274eb"><span class="section-number-3">5.4</span> Environment management tools</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+Packages SHALL BE written such that <code>pip install my_package</code> succeeds, installs all
+required dependencies, and compiles any necessary <code>Cython</code> modules, by whichever means
+necessary.
+</p>
+
+<p>
+Virtual environment directories SHALL NOT BE committed to source control.
+</p>
+
+<p>
+There are several ways to manage local environments for python development. As of
+this writing, none of them are clearly better or worse than others.
+</p>
+
+<p>
+Some common environment management tools include pipenv, poetry, and manual virtual
+environment management.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1a4696d" class="outline-2">
+<h2 id="org1a4696d"><span class="section-number-2">6</span> Testing</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org311160b" class="outline-3">
+<h3 id="org311160b"><span class="section-number-3">6.1</span> Py.test</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Unit and functional tests SHALL BE written with <code>pytest</code>:
+<a href="https://docs.pytest.org/en/latest/">https://docs.pytest.org/en/latest/</a>
+</p>
+
+<p>
+This offers a great deal more functionality over <code>UnitTest</code> and all other third-party
+testing frameworks (e.g., <code>nose</code>) are deprecated now anyway.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd884dc1" class="outline-3">
+<h3 id="orgd884dc1"><span class="section-number-3">6.2</span> Coverage</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Code coverage metrics SHOULD BE obtained using <code>coverage.py</code> using the <code>pytest-cov</code>
+plugin framework: <a href="https://pytest-cov.readthedocs.io/en/latest/">https://pytest-cov.readthedocs.io/en/latest/</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orga07a6f9" class="outline-3">
+<h3 id="orga07a6f9"><span class="section-number-3">6.3</span> Hypothesis</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+Quickcheck-like unit tests SHOULD BE written using <code>hypothesis</code>
+<a href="https://hypothesis.readthedocs.io/en/latest/">https://hypothesis.readthedocs.io/en/latest/</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org06da70b" class="outline-2">
+<h2 id="org06da70b"><span class="section-number-2">7</span> The Naughty List</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+The following practices SHALL NOT BE used if you want your PRs to get accepted.
+</p>
+</div>
+<div id="outline-container-orgfd3b50f" class="outline-3">
+<h3 id="orgfd3b50f"><span class="section-number-3">7.1</span> Named lambdas</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+Assigning a <code>lambda</code> to a name SHALL NOT BE used:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">this is bad</span>
+<span style="color: #268bd2;">my_function</span> = <span style="color: #859900; font-weight: bold;">lambda</span> x: x+5
+</pre>
+</div>
+<p>
+This has no performance benefit over a normal function.  Named lambdas decrease
+readability in most cases, are impossible to unit test, and have a confusing <code>repr()</code>
+for debugging.
+</p>
+
+<p>
+Instead, define a regular function:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">my_function</span><span style="color: #e146c662851e;">(</span>x<span style="color: #e146c662851e;">)</span>:
+    <span style="color: #2aa198;">"""Increment `x` by 5."""</span>
+    <span style="color: #859900; font-weight: bold;">return</span> x+5
+</pre>
+</div>
+
+<p>
+Use of lambdas SHOULD BE used for creation of anonymous functions; e.g., when using
+<code>sorted</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">Example: sort a list of Point classes by their y-value.</span>
+<span style="color: #586e75;"># </span><span style="color: #586e75;">this is an appropriate use of lambdas.</span>
+<span style="color: #b58900;">@attr.s</span>
+<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
+    <span style="color: #268bd2;">x</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+    <span style="color: #268bd2;">y</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+
+<span style="color: #268bd2;">my_points</span> = <span style="color: #e146c662851e;">[</span>Point<span style="color: #ab7e851ee146;">(</span>1,2<span style="color: #ab7e851ee146;">)</span>,Point<span style="color: #ab7e851ee146;">(</span>2,3<span style="color: #ab7e851ee146;">)</span><span style="color: #e146c662851e;">]</span>
+
+<span style="color: #268bd2;">points_sorted_by_y</span> = <span style="color: #839496; font-weight: bold;">sorted</span><span style="color: #e146c662851e;">(</span>my_points, key=<span style="color: #859900; font-weight: bold;">lambda</span> point: point.y<span style="color: #e146c662851e;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6f5b445" class="outline-3">
+<h3 id="org6f5b445"><span class="section-number-3">7.2</span> Star Imports</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+The &ldquo;star import&rdquo; SHALL NOT BE used.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">from</span> my_package <span style="color: #859900; font-weight: bold;">import</span> *
+</pre>
+</div>
+
+<p>
+This decreases readability and introduces namespace pollution issues which can cause
+subtle bugs.
+</p>
+
+<p>
+Instead, import what you need by name.
+</p>
+
+<p>
+Generally, this is RECOMMENDED:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> my_package
+</pre>
+</div>
+
+<p>
+Some libraries have abbreviation aliases that are so common that they&rsquo;re universally
+understood and SHOULD BE used.  A not-exhaustive list of such packages includes:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> numpy <span style="color: #859900; font-weight: bold;">as</span> np
+<span style="color: #859900; font-weight: bold;">import</span> pandas <span style="color: #859900; font-weight: bold;">as</span> pd
+<span style="color: #859900; font-weight: bold;">import</span> typing <span style="color: #859900; font-weight: bold;">as</span> t
+<span style="color: #859900; font-weight: bold;">import</span> tensorflow <span style="color: #859900; font-weight: bold;">as</span> tf
+<span style="color: #859900; font-weight: bold;">import</span> matplotlib.pyplot <span style="color: #859900; font-weight: bold;">as</span> plt
+</pre>
+</div>
+
+<p>
+Finally, this MAY BE used where terseness is appreciated for readability and
+function names are not easily confused:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">from</span> mypackage <span style="color: #859900; font-weight: bold;">import</span> <span style="color: #e146c662851e;">(</span>foo,
+                       bar,
+                       baz,
+                       quux<span style="color: #e146c662851e;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org62a9da9" class="outline-3">
+<h3 id="org62a9da9"><span class="section-number-3">7.3</span> User-created namedtuples</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+To make instances of lightweight data containers, you SHOULD use <code>attrs</code>.   <code>namedtuple</code>
+SHALL NOT BE used.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">this is bad</span>
+<span style="color: #859900; font-weight: bold;">from</span> collections <span style="color: #859900; font-weight: bold;">import</span> namedtuple
+<span style="color: #268bd2;">Point</span> = namedtuple<span style="color: #e146c662851e;">(</span><span style="color: #2aa198;">'Point'</span>,<span style="color: #ab7e851ee146;">[</span><span style="color: #2aa198;">'x'</span>,<span style="color: #2aa198;">'y'</span><span style="color: #ab7e851ee146;">]</span><span style="color: #e146c662851e;">)</span>
+<span style="color: #268bd2;">my_point</span> = Point<span style="color: #e146c662851e;">(</span>1,2<span style="color: #e146c662851e;">)</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">this is good</span>
+<span style="color: #859900; font-weight: bold;">import</span> attr
+
+<span style="color: #b58900;">@attr.s</span>
+<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
+    <span style="color: #268bd2;">x</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+    <span style="color: #268bd2;">y</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">this is fine for programmatic creation of classes, not normal classes</span>
+<span style="color: #268bd2;">Point</span> = attr.make_class<span style="color: #e146c662851e;">(</span><span style="color: #2aa198;">'Point'</span>,<span style="color: #ab7e851ee146;">[</span><span style="color: #2aa198;">'x'</span>,<span style="color: #2aa198;">'y'</span><span style="color: #ab7e851ee146;">]</span><span style="color: #e146c662851e;">)</span>
+
+<span style="color: #586e75;"># </span><span style="color: #586e75;">this is fine if you like typing</span>
+<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
+    <span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">__init__</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>,x,y<span style="color: #e146c662851e;">)</span>:
+        <span style="color: #859900; font-weight: bold;">self</span>.x = x
+        <span style="color: #859900; font-weight: bold;">self</span>.y = y
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfefa58a" class="outline-3">
+<h3 id="orgfefa58a"><span class="section-number-3">7.4</span> Manipulation of <code>sys.path</code></h3>
+<div class="outline-text-3" id="text-7-4">
+<p>
+Adding modules to the namespace SHALL NOT BE accomplished in this way:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> sys
+sys.path.append<span style="color: #e146c662851e;">(</span><span style="color: #2aa198;">'..'</span><span style="color: #e146c662851e;">)</span>
+</pre>
+</div>
+
+<p>
+Instead, install the package that provides those modules into your environment with
+<code>pip</code> and then import them normally.
+</p>
+</div>
+</div>
+<div id="outline-container-org79ec665" class="outline-3">
+<h3 id="org79ec665"><span class="section-number-3">7.5</span> Use of <code>os.system()</code></h3>
+<div class="outline-text-3" id="text-7-5">
+<p>
+<code>os.system</code> SHALL NOT BE used to invoke external commands.
+</p>
+
+<p>
+<a href="https://docs.python.org/3.6/library/os.html#os.system">The python docs for this function</a> say:
+</p>
+<blockquote>
+<p>
+The subprocess module provides more powerful facilities for spawning new processes
+and retrieving their results; using that module is preferable to using this
+function. See the Replacing Older Functions with the subprocess Module section in the
+subprocess documentation for some helpful recipes.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgc4b130d" class="outline-3">
+<h3 id="orgc4b130d"><span class="section-number-3">7.6</span> Use of <code>exec()</code></h3>
+<div class="outline-text-3" id="text-7-6">
+<p>
+<code>exec()</code> SHALL NOT BE used.
+</p>
+
+<p>
+Use of <code>exec()</code> vastly decreases readability, <a href="https://nedbatchelder.com/blog/201206/eval_really_is_dangerous.html">increases attack surface of the API</a>, and
+makes testing and debugging much more difficult.
+</p>
+
+<p>
+If something like <code>exec()</code> seems actually required, sparing use of <code>ast.literal_eval()</code>
+MAY be used.  This closes the security hole(s), but you should still be concerned
+about readability and debugging.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1f3800a" class="outline-3">
+<h3 id="org1f3800a"><span class="section-number-3">7.7</span> Mutable defaults in function signatures</h3>
+<div class="outline-text-3" id="text-7-7">
+<p>
+Function signatures SHALL NOT have defaults which have mutable types. Defaults SHOULD
+BE specified, when appropriate, for immutable types (<code>str</code>, <code>int</code>, <code>float</code>&#x2026;)
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">bad</span><span style="color: #e146c662851e;">(</span>x=<span style="color: #ab7e851ee146;">[]</span>, y=5<span style="color: #e146c662851e;">)</span>
+    x.append<span style="color: #e146c662851e;">(</span>y<span style="color: #e146c662851e;">)</span>
+    <span style="color: #859900; font-weight: bold;">return</span> x
+
+<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">good</span><span style="color: #e146c662851e;">(</span>x=<span style="color: #268bd2; font-weight: bold;">None</span>, y=5<span style="color: #e146c662851e;">)</span>
+    <span style="color: #859900; font-weight: bold;">if</span> x <span style="color: #859900; font-weight: bold;">is</span> <span style="color: #268bd2; font-weight: bold;">None</span>:
+        <span style="color: #268bd2;">x</span> = <span style="color: #e146c662851e;">[]</span>
+    x.append<span style="color: #e146c662851e;">(</span>y<span style="color: #e146c662851e;">)</span>
+    <span style="color: #859900; font-weight: bold;">return</span> x
+</pre>
+</div>
+
+<p>
+See <a href="https://docs.python-guide.org/writing/gotchas/#mutable-default-arguments">this gotcha explainer</a> for why this is a pattern that causes unexpected side effects.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd3f636a" class="outline-2">
+<h2 id="orgd3f636a"><span class="section-number-2">8</span> Errata</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+<div id="outline-container-org9954de9" class="outline-3">
+<h3 id="org9954de9"><span class="section-number-3">8.1</span> Motivational Design References</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+This style guide was strongly influenced by the following sources:
+</p>
+</div>
+<div id="outline-container-org72ea720" class="outline-4">
+<h4 id="org72ea720"><span class="section-number-4">8.1.1</span> &ldquo;Beyond PEP-8: Best Practices for Beautiful, Intelligible Code&rdquo;</h4>
+<div class="outline-text-4" id="text-8-1-1">
+<p>
+Youtube Link: <a href="https://www.youtube.com/watch?v=wf-BqAjZb8M">https://www.youtube.com/watch?v=wf-BqAjZb8M</a>
+</p>
+
+<p>
+This talk is by Raymond Hettinger:
+</p>
+<blockquote>
+<p>
+Distillation of knowledge gained from a decade of Python consulting, Python training,
+code reviews, and serving as a core developer. Learn to avoid some of the hazards of
+the PEP 8 style guide and learn what really matters for creating beautiful
+intelligible code.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgf9ebb95" class="outline-4">
+<h4 id="orgf9ebb95"><span class="section-number-4">8.1.2</span> &ldquo;The Clean Architecture in Python&rdquo;</h4>
+<div class="outline-text-4" id="text-8-1-2">
+<p>
+Youtube Link: <a href="https://www.youtube.com/watch?v=DJtef410XaM">https://www.youtube.com/watch?v=DJtef410XaM</a>
+</p>
+
+<p>
+This talk is by Brandon Rhoades:
+</p>
+<blockquote>
+<p>
+Python programmers already use many design patterns in their work. Each pattern
+distills the wisdom the community has learned over the years, often at great expense,
+and makes it available to younger programmers. But even design-conscious programmers
+often find their applications growing more difficult to test and expand. In this
+talk, we will learn about how the recently propounded “Clean Architecture” applies to
+Python applications, and how this high-level design pattern fits particularly well
+with the features of the Python language.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org36257bc" class="outline-4">
+<h4 id="org36257bc"><span class="section-number-4">8.1.3</span> &ldquo;How Python Linters Will Save Your Large Python Project&rdquo;</h4>
+<div class="outline-text-4" id="text-8-1-3">
+<p>
+Jeff Knupp has a blog post on linters:
+<a href="https://jeffknupp.com/blog/2016/12/09/how-python-linters-will-save-your-large-python-project/">https://jeffknupp.com/blog/2016/12/09/how-python-linters-will-save-your-large-python-project/</a>
+</p>
+
+<blockquote>
+<p>
+As Python projects grow, maintenance becomes a nightmare (I&rsquo;m more referring to
+enterprise-sized projects rather than &ldquo;large&rdquo; personal projects, but the same idea
+holds). Code becomes disorganized, messy, reflects the style of the author (even for
+teams doing a decent job enforcing PEP-8 and PEP-257, and docstrings fall by the
+wayside. It takes new developers longer and longer to ramp up on the project. Simple
+fixes and feature changes become not so simple when it comes time to actually make
+them. All of these are due to the necessary increase in complexity as a project
+grows. So how to we reduce that complexity as much as possible?
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgd045ba0" class="outline-4">
+<h4 id="orgd045ba0"><span class="section-number-4">8.1.4</span> &ldquo;The Many Layers of Packaging&rdquo;</h4>
+<div class="outline-text-4" id="text-8-1-4">
+<p>
+Mahmoud Hashemi has a long post on the many forms of python packaging there are, and
+where each are useful:
+<a href="https://sedimental.org/the_packaging_gradient.html">https://sedimental.org/the_packaging_gradient.html</a>
+</p>
+
+<blockquote>
+<p>
+Everyone&rsquo;s first exposure to Python deployment was something so innocuous you
+probably wouldn&rsquo;t remember. You copied a script from point A to point B. Chances are,
+whether A and B were separate directories or computers, your days of &ldquo;just use cp&rdquo;
+didn&rsquo;t last long.
+</p>
+
+<p>
+Because while a single file is the ideal format for copying, it doesn&rsquo;t work when
+that file has unmet dependencies at the destination.
+</p>
+
+<p>
+Even simple scripts end up depending on:
+</p>
+
+<p>
+Python libraries - boltons, requests, NumPy
+Python, the runtime - CPython, PyPy
+System libraries - glibc, zlib, libxml2
+Operating system - Ubuntu, FreeBSD, Windows
+</p>
+
+<p>
+So every good packaging adventure always starts with the question:
+</p>
+
+<p>
+Where is your code going, and what can we depend on being there?
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: gvoysey</p>
+<p class="date">Created: 2019-12-30 Mon 16:42</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
