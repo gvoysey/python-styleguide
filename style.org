@@ -1,11 +1,10 @@
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 #+TITLE: Python Style Guide
-  - [[#motivational-quotes][Motivational quotes]]
 * Introduction
 This is a python style guide based on 5 years experience of heavy python use for
 scientific research and AI/ML.  It's intended for use by research and engineering
 teams for maintaining scientific stack python code in a way that is easy to reason
-about, maintain, and collaborate on. 
+about, maintain, and collaborate on.
 
 Use of CAPITALIZED TERMS follows [[https://www.ietf.org/rfc/rfc2119.txt][RFC 2119]]:
 
