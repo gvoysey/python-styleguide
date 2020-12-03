@@ -4,7 +4,7 @@
 This is a python style guide based on 5 years experience of heavy python use for
 scientific research and AI/ML.  It's intended for use by research and engineering
 teams for maintaining scientific stack python code in a way that is easy to reason
-about, maintain, and collaborate on. 
+about, maintain, and collaborate on.
 
 Use of CAPITALIZED TERMS follows [[https://www.ietf.org/rfc/rfc2119.txt][RFC 2119]]:
 
@@ -53,7 +53,7 @@ that is difficult to read and maintain.
 The code should be written in a style that allows easy unit and functional testing,
 Tests should be kept up to date and maintained throughout a project's history.
 
-*** Motivational quotes
+** Motivational quotes
 #+begin_quote
 “Always code as if the guy who ends up maintaining your code will be a violent
 psychopath who knows where you live”  -- John Woods
@@ -79,6 +79,14 @@ Rule 4. Fancy algorithms are buggier than simple ones, and they're much harder t
 Rule 5. Data dominates. If you've chosen the right data structures and organized
     things well, the algorithms will almost always be self-evident. Data structures,
     not algorithms, are central to programming.
+#+end_quote
+
+#+begin_quote
+Everyone knows that debugging is twice as hard as writing a program in the first
+place. So if you're as clever as you can be when you write it, how will you ever
+debug it?
+
+-- Brian Kernighan
 #+end_quote
 
 * General

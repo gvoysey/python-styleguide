@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-12-30 Mon 16:42 -->
+<!-- 2020-01-22 Wed 20:07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Python Style Guide</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="gvoysey" />
+<meta name="author" content="graham" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -193,8 +193,8 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
-<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/org/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/org/readtheorg/css/readtheorg.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
@@ -253,127 +253,127 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgba1f97b">1. Introduction</a>
+<li><a href="#org394139f">1. Introduction</a>
 <ul>
-<li><a href="#org76d0f47">1.1. Goals</a>
+<li><a href="#org1bec38e">1.1. Goals</a>
 <ul>
-<li><a href="#orgf2c6418">1.1.1. Consistent</a></li>
-<li><a href="#org89fb3b8">1.1.2. Readable</a></li>
-<li><a href="#orgd32523c">1.1.3. Testable</a></li>
-<li><a href="#orgc5b6441">1.1.4. Motivational quotes</a></li>
+<li><a href="#org72ef469">1.1.1. Consistent</a></li>
+<li><a href="#orgb169a48">1.1.2. Readable</a></li>
+<li><a href="#orgc0a090f">1.1.3. Testable</a></li>
+</ul>
+</li>
+<li><a href="#org4e32f9b">1.2. Motivational quotes</a></li>
+</ul>
+</li>
+<li><a href="#org2f4e0f7">2. General</a>
+<ul>
+<li><a href="#org4d2a63d">2.1. Python version(s)</a></li>
+<li><a href="#orgbfceec2">2.2. Style</a></li>
+</ul>
+</li>
+<li><a href="#org6d26d82">3. Language Style</a>
+<ul>
+<li><a href="#org27fa005">3.1. Modules</a>
+<ul>
+<li><a href="#org5b3039c">3.1.1. Naming</a></li>
+<li><a href="#org5b60af4">3.1.2. Imports</a></li>
+</ul>
+</li>
+<li><a href="#org7d52d60">3.2. Classes</a>
+<ul>
+<li><a href="#org8b63d9e">3.2.1. Creation</a></li>
+<li><a href="#org4b4f435">3.2.2. Naming</a></li>
+<li><a href="#org8b8550a">3.2.3. Keyword attributes</a></li>
+<li><a href="#orgebe7657">3.2.4. Type Hinting</a></li>
+</ul>
+</li>
+<li><a href="#org63aaabd">3.3. Functions</a>
+<ul>
+<li><a href="#orgc9f9eec">3.3.1. Naming</a></li>
+<li><a href="#org5574de0">3.3.2. Length</a></li>
+<li><a href="#org3053bb3">3.3.3. Keyword Arguments</a></li>
+<li><a href="#org595c8ee">3.3.4. Type Hinting</a></li>
+<li><a href="#org907f1a0">3.3.5. Return values</a></li>
+</ul>
+</li>
+<li><a href="#orgb377049">3.4. Variables</a>
+<ul>
+<li><a href="#org3da9778">3.4.1. Naming</a></li>
+<li><a href="#orgd9ea143">3.4.2. Type hinting</a></li>
+<li><a href="#orgbe29d32">3.4.3. Globals</a></li>
+</ul>
+</li>
+<li><a href="#org07fa916">3.5. Docstrings, Comments</a>
+<ul>
+<li><a href="#orgb71ce1c">3.5.1. Docstrings</a></li>
+<li><a href="#orgdb087df">3.5.2. Comments</a></li>
+</ul>
+</li>
+<li><a href="#org5b9a710">3.6. Serialization</a>
+<ul>
+<li><a href="#org6424c4d">3.6.1. JSON</a></li>
+<li><a href="#orgfc9271d">3.6.2. TOML</a></li>
+<li><a href="#orga06320b">3.6.3. YAML</a></li>
+<li><a href="#org42a467c">3.6.4. Pickle</a></li>
+<li><a href="#org799c684">3.6.5. HDF5</a></li>
+<li><a href="#org2757dc1">3.6.6. NPY/NPZ</a></li>
+</ul>
+</li>
+<li><a href="#org2317cdc">3.7. Preferred APIs</a>
+<ul>
+<li><a href="#orgb441330">3.7.1. pathlib</a></li>
+<li><a href="#org8cf7ac0">3.7.2. String formatting</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org6f3cd3d">2. General</a>
+<li><a href="#org5c481c1">4. Autoformatting tools and linters</a>
 <ul>
-<li><a href="#orgff8e4b5">2.1. Python version(s)</a></li>
-<li><a href="#org85967b6">2.2. Style</a></li>
+<li><a href="#orgcbd4a2f">4.1. Black</a>
+<ul>
+<li><a href="#org17b10e2">4.1.1. Configuration file</a></li>
 </ul>
 </li>
-<li><a href="#org492cb29">3. Language Style</a>
-<ul>
-<li><a href="#orgba4ae6c">3.1. Modules</a>
-<ul>
-<li><a href="#org0808283">3.1.1. Naming</a></li>
-<li><a href="#org99aa324">3.1.2. Imports</a></li>
+<li><a href="#org10163a0">4.2. pydocstyle</a></li>
+<li><a href="#orgb7b3ea9">4.3. pycodestyle</a></li>
+<li><a href="#org35b1834">4.4. mypy</a></li>
+<li><a href="#orgf45c62c">4.5. pre-commit</a></li>
 </ul>
 </li>
-<li><a href="#org33db7d3">3.2. Classes</a>
+<li><a href="#org7659376">5. Packaging and File Structure</a>
 <ul>
-<li><a href="#org4a906cd">3.2.1. Creation</a></li>
-<li><a href="#org4b1756e">3.2.2. Naming</a></li>
-<li><a href="#org958459e">3.2.3. Keyword attributes</a></li>
-<li><a href="#orgdc94fd7">3.2.4. Type Hinting</a></li>
+<li><a href="#orgdb8f472">5.1. Single-file scripts</a></li>
+<li><a href="#orga9c7bb6">5.2. Package layout</a></li>
+<li><a href="#orgc6f5741">5.3. Jupyter notebooks</a></li>
+<li><a href="#orgc0cb07e">5.4. Environment management tools</a></li>
 </ul>
 </li>
-<li><a href="#orge5368c9">3.3. Functions</a>
+<li><a href="#org2fb01fc">6. Testing</a>
 <ul>
-<li><a href="#org387c447">3.3.1. Naming</a></li>
-<li><a href="#org187345d">3.3.2. Length</a></li>
-<li><a href="#orgac5bf20">3.3.3. Keyword Arguments</a></li>
-<li><a href="#org67bdf48">3.3.4. Type Hinting</a></li>
-<li><a href="#orgaed5600">3.3.5. Return values</a></li>
+<li><a href="#orgc88ec9a">6.1. Py.test</a></li>
+<li><a href="#org1d274de">6.2. Coverage</a></li>
+<li><a href="#org08ec379">6.3. Hypothesis</a></li>
 </ul>
 </li>
-<li><a href="#org70def48">3.4. Variables</a>
+<li><a href="#org39ccfe6">7. The Naughty List</a>
 <ul>
-<li><a href="#org6bb47d3">3.4.1. Naming</a></li>
-<li><a href="#org7753f2f">3.4.2. Type hinting</a></li>
-<li><a href="#org491e422">3.4.3. Globals</a></li>
+<li><a href="#org804bbc5">7.1. Named lambdas</a></li>
+<li><a href="#orgc9a22f5">7.2. Star Imports</a></li>
+<li><a href="#org454ae40">7.3. User-created namedtuples</a></li>
+<li><a href="#org8667245">7.4. Manipulation of <code>sys.path</code></a></li>
+<li><a href="#orge8e9876">7.5. Use of <code>os.system()</code></a></li>
+<li><a href="#orgacb07e5">7.6. Use of <code>exec()</code></a></li>
+<li><a href="#org53cf82b">7.7. Mutable defaults in function signatures</a></li>
 </ul>
 </li>
-<li><a href="#org7727f33">3.5. Docstrings, Comments</a>
+<li><a href="#org54f7277">8. Errata</a>
 <ul>
-<li><a href="#org8a62d95">3.5.1. Docstrings</a></li>
-<li><a href="#orgf90e8d3">3.5.2. Comments</a></li>
-</ul>
-</li>
-<li><a href="#orgca5a5b5">3.6. Serialization</a>
+<li><a href="#orgabe3e94">8.1. Motivational Design References</a>
 <ul>
-<li><a href="#org23330e2">3.6.1. JSON</a></li>
-<li><a href="#orgfc8868e">3.6.2. TOML</a></li>
-<li><a href="#orgd6b563b">3.6.3. YAML</a></li>
-<li><a href="#org094056f">3.6.4. Pickle</a></li>
-<li><a href="#org3c18ad9">3.6.5. HDF5</a></li>
-<li><a href="#org7a7623e">3.6.6. NPY/NPZ</a></li>
-</ul>
-</li>
-<li><a href="#org3bb6e72">3.7. Preferred APIs</a>
-<ul>
-<li><a href="#org8f2e82c">3.7.1. pathlib</a></li>
-<li><a href="#org97a50f7">3.7.2. String formatting</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#orge2841d6">4. Autoformatting tools and linters</a>
-<ul>
-<li><a href="#org4ff4179">4.1. Black</a>
-<ul>
-<li><a href="#org3edd7f2">4.1.1. Configuration file</a></li>
-</ul>
-</li>
-<li><a href="#orgda69ba2">4.2. pydocstyle</a></li>
-<li><a href="#org63d7e75">4.3. pycodestyle</a></li>
-<li><a href="#orge3d0e13">4.4. mypy</a></li>
-<li><a href="#org5026ad2">4.5. pre-commit</a></li>
-</ul>
-</li>
-<li><a href="#org0d0aecc">5. Packaging and File Structure</a>
-<ul>
-<li><a href="#org99abfc0">5.1. Single-file scripts</a></li>
-<li><a href="#org87a38b0">5.2. Package layout</a></li>
-<li><a href="#org0e2802a">5.3. Jupyter notebooks</a></li>
-<li><a href="#orgd8274eb">5.4. Environment management tools</a></li>
-</ul>
-</li>
-<li><a href="#org1a4696d">6. Testing</a>
-<ul>
-<li><a href="#org311160b">6.1. Py.test</a></li>
-<li><a href="#orgd884dc1">6.2. Coverage</a></li>
-<li><a href="#orga07a6f9">6.3. Hypothesis</a></li>
-</ul>
-</li>
-<li><a href="#org06da70b">7. The Naughty List</a>
-<ul>
-<li><a href="#orgfd3b50f">7.1. Named lambdas</a></li>
-<li><a href="#org6f5b445">7.2. Star Imports</a></li>
-<li><a href="#org62a9da9">7.3. User-created namedtuples</a></li>
-<li><a href="#orgfefa58a">7.4. Manipulation of <code>sys.path</code></a></li>
-<li><a href="#org79ec665">7.5. Use of <code>os.system()</code></a></li>
-<li><a href="#orgc4b130d">7.6. Use of <code>exec()</code></a></li>
-<li><a href="#org1f3800a">7.7. Mutable defaults in function signatures</a></li>
-</ul>
-</li>
-<li><a href="#orgd3f636a">8. Errata</a>
-<ul>
-<li><a href="#org9954de9">8.1. Motivational Design References</a>
-<ul>
-<li><a href="#org72ea720">8.1.1. &ldquo;Beyond PEP-8: Best Practices for Beautiful, Intelligible Code&rdquo;</a></li>
-<li><a href="#orgf9ebb95">8.1.2. &ldquo;The Clean Architecture in Python&rdquo;</a></li>
-<li><a href="#org36257bc">8.1.3. &ldquo;How Python Linters Will Save Your Large Python Project&rdquo;</a></li>
-<li><a href="#orgd045ba0">8.1.4. &ldquo;The Many Layers of Packaging&rdquo;</a></li>
+<li><a href="#orgd545632">8.1.1. &ldquo;Beyond PEP-8: Best Practices for Beautiful, Intelligible Code&rdquo;</a></li>
+<li><a href="#org516c831">8.1.2. &ldquo;The Clean Architecture in Python&rdquo;</a></li>
+<li><a href="#orgdf12d6a">8.1.3. &ldquo;How Python Linters Will Save Your Large Python Project&rdquo;</a></li>
+<li><a href="#orgde7aedd">8.1.4. &ldquo;The Many Layers of Packaging&rdquo;</a></li>
 </ul>
 </li>
 </ul>
@@ -381,14 +381,14 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
-<div id="outline-container-orgba1f97b" class="outline-2">
-<h2 id="orgba1f97b"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org394139f" class="outline-2">
+<h2 id="org394139f"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This is a python style guide based on 5 years experience of heavy python use for
 scientific research and AI/ML.  It&rsquo;s intended for use by research and engineering
 teams for maintaining scientific stack python code in a way that is easy to reason
-about, maintain, and collaborate on. 
+about, maintain, and collaborate on.
 </p>
 
 <p>
@@ -429,15 +429,15 @@ option provides.)</li>
 </blockquote>
 </div>
 
-<div id="outline-container-org76d0f47" class="outline-3">
-<h3 id="org76d0f47"><span class="section-number-3">1.1</span> Goals</h3>
+<div id="outline-container-org1bec38e" class="outline-3">
+<h3 id="org1bec38e"><span class="section-number-3">1.1</span> Goals</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Our code ought to be:
 </p>
 </div>
-<div id="outline-container-orgf2c6418" class="outline-4">
-<h4 id="orgf2c6418"><span class="section-number-4">1.1.1</span> Consistent</h4>
+<div id="outline-container-org72ef469" class="outline-4">
+<h4 id="org72ef469"><span class="section-number-4">1.1.1</span> Consistent</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <p>
 The code style should be the same across all our codebases.  This improves
@@ -445,8 +445,8 @@ readability and makes reading code a predictable activity.
 </p>
 </div>
 </div>
-<div id="outline-container-org89fb3b8" class="outline-4">
-<h4 id="org89fb3b8"><span class="section-number-4">1.1.2</span> Readable</h4>
+<div id="outline-container-orgb169a48" class="outline-4">
+<h4 id="orgb169a48"><span class="section-number-4">1.1.2</span> Readable</h4>
 <div class="outline-text-4" id="text-1-1-2">
 <p>
 The code should be well documented and easily understood by future maintainers, not
@@ -456,8 +456,8 @@ that is difficult to read and maintain.
 </div>
 </div>
 
-<div id="outline-container-orgd32523c" class="outline-4">
-<h4 id="orgd32523c"><span class="section-number-4">1.1.3</span> Testable</h4>
+<div id="outline-container-orgc0a090f" class="outline-4">
+<h4 id="orgc0a090f"><span class="section-number-4">1.1.3</span> Testable</h4>
 <div class="outline-text-4" id="text-1-1-3">
 <p>
 The code should be written in a style that allows easy unit and functional testing,
@@ -465,10 +465,11 @@ Tests should be kept up to date and maintained throughout a project&rsquo;s hist
 </p>
 </div>
 </div>
+</div>
 
-<div id="outline-container-orgc5b6441" class="outline-4">
-<h4 id="orgc5b6441"><span class="section-number-4">1.1.4</span> Motivational quotes</h4>
-<div class="outline-text-4" id="text-1-1-4">
+<div id="outline-container-org4e32f9b" class="outline-3">
+<h3 id="org4e32f9b"><span class="section-number-3">1.2</span> Motivational quotes</h3>
+<div class="outline-text-3" id="text-1-2">
 <blockquote>
 <p>
 “Always code as if the guy who ends up maintaining your code will be a violent
@@ -509,17 +510,28 @@ Rule 5. Data dominates. If you&rsquo;ve chosen the right data structures and org
     not algorithms, are central to programming.
 </p>
 </blockquote>
-</div>
+
+<blockquote>
+<p>
+Everyone knows that debugging is twice as hard as writing a program in the first
+place. So if you&rsquo;re as clever as you can be when you write it, how will you ever
+debug it?
+</p>
+
+<p>
+&#x2013; Brian Kernighan
+</p>
+</blockquote>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org6f3cd3d" class="outline-2">
-<h2 id="org6f3cd3d"><span class="section-number-2">2</span> General</h2>
+<div id="outline-container-org2f4e0f7" class="outline-2">
+<h2 id="org2f4e0f7"><span class="section-number-2">2</span> General</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgff8e4b5" class="outline-3">
-<h3 id="orgff8e4b5"><span class="section-number-3">2.1</span> Python version(s)</h3>
+<div id="outline-container-org4d2a63d" class="outline-3">
+<h3 id="org4d2a63d"><span class="section-number-3">2.1</span> Python version(s)</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Python 3.6 or higher SHALL BE used for new projects.  CPython or PyPy are both
@@ -533,8 +545,8 @@ but SHOULD BE avoided when possible.
 </div>
 </div>
 
-<div id="outline-container-org85967b6" class="outline-3">
-<h3 id="org85967b6"><span class="section-number-3">2.2</span> Style</h3>
+<div id="outline-container-orgbfceec2" class="outline-3">
+<h3 id="orgbfceec2"><span class="section-number-3">2.2</span> Style</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Overall style SHALL follow <a href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a> with some modifications.  PEP-8 is worth reading in
@@ -553,20 +565,20 @@ Basic style issues SHALL BE automated with the use of the <code>black</code> aut
 </div>
 </div>
 </div>
-<div id="outline-container-org492cb29" class="outline-2">
-<h2 id="org492cb29"><span class="section-number-2">3</span> Language Style</h2>
+<div id="outline-container-org6d26d82" class="outline-2">
+<h2 id="org6d26d82"><span class="section-number-2">3</span> Language Style</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgba4ae6c" class="outline-3">
-<h3 id="orgba4ae6c"><span class="section-number-3">3.1</span> Modules</h3>
+<div id="outline-container-org27fa005" class="outline-3">
+<h3 id="org27fa005"><span class="section-number-3">3.1</span> Modules</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Modules are most commonly stored as single source code files on disk.  They are the
 fundamental namespace of Python.  A file such as <code>foo.py</code> is a module.
 </p>
 </div>
-<div id="outline-container-org0808283" class="outline-4">
-<h4 id="org0808283"><span class="section-number-4">3.1.1</span> Naming</h4>
+<div id="outline-container-org5b3039c" class="outline-4">
+<h4 id="org5b3039c"><span class="section-number-4">3.1.1</span> Naming</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <blockquote>
 <p>
@@ -584,8 +596,8 @@ leading underscore (e.g. _socket).
 </div>
 </div>
 
-<div id="outline-container-org99aa324" class="outline-4">
-<h4 id="org99aa324"><span class="section-number-4">3.1.2</span> Imports</h4>
+<div id="outline-container-org5b60af4" class="outline-4">
+<h4 id="org5b60af4"><span class="section-number-4">3.1.2</span> Imports</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 Absolute imports SHALL BE used over relative imports.  This removes all ambiguities
@@ -603,8 +615,8 @@ about module location.
 </div>
 </div>
 
-<div id="outline-container-org33db7d3" class="outline-3">
-<h3 id="org33db7d3"><span class="section-number-3">3.2</span> Classes</h3>
+<div id="outline-container-org7d52d60" class="outline-3">
+<h3 id="org7d52d60"><span class="section-number-3">3.2</span> Classes</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Classes should be created when a discrete collection of data needs to be stored as a
@@ -619,8 +631,8 @@ Point can compute its Euclidean Distance to the origin.&rdquo;
 </p>
 </div>
 
-<div id="outline-container-org4a906cd" class="outline-4">
-<h4 id="org4a906cd"><span class="section-number-4">3.2.1</span> Creation</h4>
+<div id="outline-container-org8b63d9e" class="outline-4">
+<h4 id="org8b63d9e"><span class="section-number-4">3.2.1</span> Creation</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 The <code>attrs</code> library (<a href="https://attrs.org">https://attrs.org</a>) SHOULD BE used for creation of normal
@@ -664,8 +676,8 @@ includes a readable <code>repr</code> and comparability between instances:
 </div>
 </div>
 
-<div id="outline-container-org4b1756e" class="outline-4">
-<h4 id="org4b1756e"><span class="section-number-4">3.2.2</span> Naming</h4>
+<div id="outline-container-org4b4f435" class="outline-4">
+<h4 id="org4b4f435"><span class="section-number-4">3.2.2</span> Naming</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 Class names SHALL be <code>BumpyCase</code>.
@@ -682,8 +694,8 @@ Class names SHALL be <code>BumpyCase</code>.
 </div>
 </div>
 
-<div id="outline-container-org958459e" class="outline-4">
-<h4 id="org958459e"><span class="section-number-4">3.2.3</span> Keyword attributes</h4>
+<div id="outline-container-org8b8550a" class="outline-4">
+<h4 id="org8b8550a"><span class="section-number-4">3.2.3</span> Keyword attributes</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 If a class needs many attributes for initialization, keyword-only attributes SHOULD
@@ -719,8 +731,8 @@ BE used to maintain explicit initialization and clarity:
 </div>
 </div>
 
-<div id="outline-container-orgdc94fd7" class="outline-4">
-<h4 id="orgdc94fd7"><span class="section-number-4">3.2.4</span> Type Hinting</h4>
+<div id="outline-container-orgebe7657" class="outline-4">
+<h4 id="orgebe7657"><span class="section-number-4">3.2.4</span> Type Hinting</h4>
 <div class="outline-text-4" id="text-3-2-4">
 <p>
 Class attributes MAY BE type hinted if it improves clarity:
@@ -743,12 +755,12 @@ Class attributes MAY BE type hinted if it improves clarity:
 </div>
 </div>
 
-<div id="outline-container-orge5368c9" class="outline-3">
-<h3 id="orge5368c9"><span class="section-number-3">3.3</span> Functions</h3>
+<div id="outline-container-org63aaabd" class="outline-3">
+<h3 id="org63aaabd"><span class="section-number-3">3.3</span> Functions</h3>
 <div class="outline-text-3" id="text-3-3">
 </div>
-<div id="outline-container-org387c447" class="outline-4">
-<h4 id="org387c447"><span class="section-number-4">3.3.1</span> Naming</h4>
+<div id="outline-container-orgc9f9eec" class="outline-4">
+<h4 id="orgc9f9eec"><span class="section-number-4">3.3.1</span> Naming</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <p>
 Function names SHALL BE snake<sub>case</sub>.
@@ -768,8 +780,8 @@ instance in place, and <code>sorted(mylist)</code> returns a new sorted list and
 </p>
 </div>
 </div>
-<div id="outline-container-org187345d" class="outline-4">
-<h4 id="org187345d"><span class="section-number-4">3.3.2</span> Length</h4>
+<div id="outline-container-org5574de0" class="outline-4">
+<h4 id="org5574de0"><span class="section-number-4">3.3.2</span> Length</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <p>
 Very long functions impair readability, make testing difficult, and are a clear sign
@@ -802,8 +814,8 @@ screen at once is still a good one.
 </p>
 </div>
 </div>
-<div id="outline-container-orgac5bf20" class="outline-4">
-<h4 id="orgac5bf20"><span class="section-number-4">3.3.3</span> Keyword Arguments</h4>
+<div id="outline-container-org3053bb3" class="outline-4">
+<h4 id="org3053bb3"><span class="section-number-4">3.3.3</span> Keyword Arguments</h4>
 <div class="outline-text-4" id="text-3-3-3">
 <p>
 Functions SHOULD NOT have an unwieldy number of arguments in their signature if it can
@@ -832,8 +844,8 @@ foo<span style="color: #e146c662851e;">(</span>param1=1,
 </div>
 </div>
 
-<div id="outline-container-org67bdf48" class="outline-4">
-<h4 id="org67bdf48"><span class="section-number-4">3.3.4</span> Type Hinting</h4>
+<div id="outline-container-org595c8ee" class="outline-4">
+<h4 id="org595c8ee"><span class="section-number-4">3.3.4</span> Type Hinting</h4>
 <div class="outline-text-4" id="text-3-3-4">
 <p>
 Function signatures SHOULD BE type hinted if it improves clarity.
@@ -846,8 +858,8 @@ Function signatures SHOULD BE type hinted if it improves clarity.
 </div>
 </div>
 
-<div id="outline-container-orgaed5600" class="outline-4">
-<h4 id="orgaed5600"><span class="section-number-4">3.3.5</span> Return values</h4>
+<div id="outline-container-org907f1a0" class="outline-4">
+<h4 id="org907f1a0"><span class="section-number-4">3.3.5</span> Return values</h4>
 <div class="outline-text-4" id="text-3-3-5">
 <p>
 Functions SHALL either:
@@ -891,12 +903,12 @@ functions which do not mutate state outside of themselves.
 </div>
 </div>
 
-<div id="outline-container-org70def48" class="outline-3">
-<h3 id="org70def48"><span class="section-number-3">3.4</span> Variables</h3>
+<div id="outline-container-orgb377049" class="outline-3">
+<h3 id="orgb377049"><span class="section-number-3">3.4</span> Variables</h3>
 <div class="outline-text-3" id="text-3-4">
 </div>
-<div id="outline-container-org6bb47d3" class="outline-4">
-<h4 id="org6bb47d3"><span class="section-number-4">3.4.1</span> Naming</h4>
+<div id="outline-container-org3da9778" class="outline-4">
+<h4 id="org3da9778"><span class="section-number-4">3.4.1</span> Naming</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <p>
 Variable names SHALL BE <code>snake_case</code>.  Module-level constants SHALL BE <code>SHOUTY_CASE</code>.
@@ -934,8 +946,8 @@ _
 </div>
 </div>
 
-<div id="outline-container-org7753f2f" class="outline-4">
-<h4 id="org7753f2f"><span class="section-number-4">3.4.2</span> Type hinting</h4>
+<div id="outline-container-orgd9ea143" class="outline-4">
+<h4 id="orgd9ea143"><span class="section-number-4">3.4.2</span> Type hinting</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <p>
 Variables MAY BE type-hinted if it improves clarity:
@@ -948,8 +960,8 @@ x:<span style="color: #839496; font-weight: bold;">dict</span> = <span style="co
 </div>
 </div>
 
-<div id="outline-container-org491e422" class="outline-4">
-<h4 id="org491e422"><span class="section-number-4">3.4.3</span> Globals</h4>
+<div id="outline-container-orgbe29d32" class="outline-4">
+<h4 id="orgbe29d32"><span class="section-number-4">3.4.3</span> Globals</h4>
 <div class="outline-text-4" id="text-3-4-3">
 <p>
 The <code>nonlocal</code> and <code>global</code> keywords SHOULD NOT BE used.  Needing or wanting to use them
@@ -959,12 +971,12 @@ to code that&rsquo;s easy to read, reason about, and test.
 </div>
 </div>
 </div>
-<div id="outline-container-org7727f33" class="outline-3">
-<h3 id="org7727f33"><span class="section-number-3">3.5</span> Docstrings, Comments</h3>
+<div id="outline-container-org07fa916" class="outline-3">
+<h3 id="org07fa916"><span class="section-number-3">3.5</span> Docstrings, Comments</h3>
 <div class="outline-text-3" id="text-3-5">
 </div>
-<div id="outline-container-org8a62d95" class="outline-4">
-<h4 id="org8a62d95"><span class="section-number-4">3.5.1</span> Docstrings</h4>
+<div id="outline-container-orgb71ce1c" class="outline-4">
+<h4 id="orgb71ce1c"><span class="section-number-4">3.5.1</span> Docstrings</h4>
 <div class="outline-text-4" id="text-3-5-1">
 <p>
 Docstring conventions are laid out in <a href="https://www.python.org/dev/peps/pep-0257">PEP 257</a>.
@@ -1007,8 +1019,8 @@ not all argument parsers can generate nicely formatted output from it.
 </div>
 </div>
 
-<div id="outline-container-orgf90e8d3" class="outline-4">
-<h4 id="orgf90e8d3"><span class="section-number-4">3.5.2</span> Comments</h4>
+<div id="outline-container-orgdb087df" class="outline-4">
+<h4 id="orgdb087df"><span class="section-number-4">3.5.2</span> Comments</h4>
 <div class="outline-text-4" id="text-3-5-2">
 <p>
 Block comments SHOULD BE preferred over inline comments.  They are easier to read and
@@ -1051,8 +1063,8 @@ SHOULD BE used when they become <code>__doc__</code> attributes of modules, clas
 </div>
 </div>
 
-<div id="outline-container-orgca5a5b5" class="outline-3">
-<h3 id="orgca5a5b5"><span class="section-number-3">3.6</span> Serialization</h3>
+<div id="outline-container-org5b9a710" class="outline-3">
+<h3 id="org5b9a710"><span class="section-number-3">3.6</span> Serialization</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 Serialization is the process of &ldquo;saving state&rdquo; of in-memory objects to disk so that
@@ -1061,8 +1073,8 @@ common use.
 </p>
 </div>
 
-<div id="outline-container-org23330e2" class="outline-4">
-<h4 id="org23330e2"><span class="section-number-4">3.6.1</span> JSON</h4>
+<div id="outline-container-org6424c4d" class="outline-4">
+<h4 id="org6424c4d"><span class="section-number-4">3.6.1</span> JSON</h4>
 <div class="outline-text-4" id="text-3-6-1">
 <p>
 <a href="http://json.org/">JSON</a> SHOULD BE used for situations where a program will write the file and a program
@@ -1070,8 +1082,8 @@ will read the file.
 </p>
 </div>
 </div>
-<div id="outline-container-orgfc8868e" class="outline-4">
-<h4 id="orgfc8868e"><span class="section-number-4">3.6.2</span> TOML</h4>
+<div id="outline-container-orgfc9271d" class="outline-4">
+<h4 id="orgfc9271d"><span class="section-number-4">3.6.2</span> TOML</h4>
 <div class="outline-text-4" id="text-3-6-2">
 <p>
 <a href="https://github.com/toml-lang/toml">TOML</a> SHOULD BE used for situations where a human will write the file and a program
@@ -1079,8 +1091,8 @@ will read the file.
 </p>
 </div>
 </div>
-<div id="outline-container-orgd6b563b" class="outline-4">
-<h4 id="orgd6b563b"><span class="section-number-4">3.6.3</span> YAML</h4>
+<div id="outline-container-orga06320b" class="outline-4">
+<h4 id="orga06320b"><span class="section-number-4">3.6.3</span> YAML</h4>
 <div class="outline-text-4" id="text-3-6-3">
 <p>
 <a href="https://yaml.org/">YAML</a> MAY BE used instead of TOML.
@@ -1092,8 +1104,8 @@ NOT be used, it&rsquo;s a security concern.
 </p>
 </div>
 </div>
-<div id="outline-container-org094056f" class="outline-4">
-<h4 id="org094056f"><span class="section-number-4">3.6.4</span> Pickle</h4>
+<div id="outline-container-org42a467c" class="outline-4">
+<h4 id="org42a467c"><span class="section-number-4">3.6.4</span> Pickle</h4>
 <div class="outline-text-4" id="text-3-6-4">
 <p>
 <a href="https://docs.python.org/3/library/pickle.html">Pickle</a> SHALL NOT BE used for serialization that persists longer than a single run of
@@ -1116,8 +1128,8 @@ data. Never unpickle data received from an untrusted or unauthenticated source.
 </div>
 </div>
 
-<div id="outline-container-org3c18ad9" class="outline-4">
-<h4 id="org3c18ad9"><span class="section-number-4">3.6.5</span> HDF5</h4>
+<div id="outline-container-org799c684" class="outline-4">
+<h4 id="org799c684"><span class="section-number-4">3.6.5</span> HDF5</h4>
 <div class="outline-text-4" id="text-3-6-5">
 <p>
 <a href="https://www.h5py.org/">HDF5</a> SHOULD BE used when fast random single-threaded access to potentially very large
@@ -1126,8 +1138,8 @@ lists, etc.) is needed.
 </p>
 </div>
 </div>
-<div id="outline-container-org7a7623e" class="outline-4">
-<h4 id="org7a7623e"><span class="section-number-4">3.6.6</span> NPY/NPZ</h4>
+<div id="outline-container-org2757dc1" class="outline-4">
+<h4 id="org2757dc1"><span class="section-number-4">3.6.6</span> NPY/NPZ</h4>
 <div class="outline-text-4" id="text-3-6-6">
 <p>
 <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.lib.format.html">NPY/NPZ</a> SHOULD BE used for serialization of small amounts of raw numpy arrays is needed.
@@ -1136,12 +1148,12 @@ lists, etc.) is needed.
 </div>
 </div>
 
-<div id="outline-container-org3bb6e72" class="outline-3">
-<h3 id="org3bb6e72"><span class="section-number-3">3.7</span> Preferred APIs</h3>
+<div id="outline-container-org2317cdc" class="outline-3">
+<h3 id="org2317cdc"><span class="section-number-3">3.7</span> Preferred APIs</h3>
 <div class="outline-text-3" id="text-3-7">
 </div>
-<div id="outline-container-org8f2e82c" class="outline-4">
-<h4 id="org8f2e82c"><span class="section-number-4">3.7.1</span> pathlib</h4>
+<div id="outline-container-orgb441330" class="outline-4">
+<h4 id="orgb441330"><span class="section-number-4">3.7.1</span> pathlib</h4>
 <div class="outline-text-4" id="text-3-7-1">
 <p>
 The <code>pathlib</code> standard library package SHOULD BE preferred over <code>os.path</code> for path
@@ -1159,8 +1171,8 @@ manipulation.  It&rsquo;s more useful, less verbose, and overall much more versa
 </div>
 </div>
 
-<div id="outline-container-org97a50f7" class="outline-4">
-<h4 id="org97a50f7"><span class="section-number-4">3.7.2</span> String formatting</h4>
+<div id="outline-container-org8cf7ac0" class="outline-4">
+<h4 id="org8cf7ac0"><span class="section-number-4">3.7.2</span> String formatting</h4>
 <div class="outline-text-4" id="text-3-7-2">
 <p>
 f-string formatting syntax SHOULD BE used.  <code>str.format()</code> MAY be used.  The <code>%</code> operator
@@ -1196,16 +1208,16 @@ SHALL NOT be used:
 </div>
 </div>
 
-<div id="outline-container-orge2841d6" class="outline-2">
-<h2 id="orge2841d6"><span class="section-number-2">4</span> Autoformatting tools and linters</h2>
+<div id="outline-container-org5c481c1" class="outline-2">
+<h2 id="org5c481c1"><span class="section-number-2">4</span> Autoformatting tools and linters</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 The following code inspection tools have all proven to be very useful for maintaining
 large python projects.
 </p>
 </div>
-<div id="outline-container-org4ff4179" class="outline-3">
-<h3 id="org4ff4179"><span class="section-number-3">4.1</span> Black</h3>
+<div id="outline-container-orgcbd4a2f" class="outline-3">
+<h3 id="orgcbd4a2f"><span class="section-number-3">4.1</span> Black</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Code SHALL BE formatted with the <a href="https://black.readthedocs.io/en/stable/">black</a> python autoformatter with a line-length
@@ -1227,8 +1239,8 @@ transparent after a while and you can focus on the content instead.
 </blockquote>
 </div>
 
-<div id="outline-container-org3edd7f2" class="outline-4">
-<h4 id="org3edd7f2"><span class="section-number-4">4.1.1</span> Configuration file</h4>
+<div id="outline-container-org17b10e2" class="outline-4">
+<h4 id="org17b10e2"><span class="section-number-4">4.1.1</span> Configuration file</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <p>
 A sample <code>pyproject.toml</code> section for black is:
@@ -1245,8 +1257,8 @@ exclude = "(versioneer|_version).py"
 </div>
 </div>
 
-<div id="outline-container-orgda69ba2" class="outline-3">
-<h3 id="orgda69ba2"><span class="section-number-3">4.2</span> pydocstyle</h3>
+<div id="outline-container-org10163a0" class="outline-3">
+<h3 id="org10163a0"><span class="section-number-3">4.2</span> pydocstyle</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 <code>pydocstyle</code> is a static analysis tool for checking compliance with python docstring
@@ -1263,8 +1275,8 @@ It SHOULD BE used as a style linter before commiting.
 </div>
 </div>
 
-<div id="outline-container-org63d7e75" class="outline-3">
-<h3 id="org63d7e75"><span class="section-number-3">4.3</span> pycodestyle</h3>
+<div id="outline-container-orgb7b3ea9" class="outline-3">
+<h3 id="orgb7b3ea9"><span class="section-number-3">4.3</span> pycodestyle</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 <code>pycodestyle</code> is a tool to check your code against conventions in PEP8.
@@ -1276,8 +1288,8 @@ It SHOULD BE used as a style linter before commiting.
 </p>
 </div>
 </div>
-<div id="outline-container-orge3d0e13" class="outline-3">
-<h3 id="orge3d0e13"><span class="section-number-3">4.4</span> mypy</h3>
+<div id="outline-container-org35b1834" class="outline-3">
+<h3 id="org35b1834"><span class="section-number-3">4.4</span> mypy</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 <code>mypy</code> is a static type checker for python.
@@ -1294,8 +1306,8 @@ interpreted by IDEs to provide assistance, so this is often convenient.
 </div>
 </div>
 
-<div id="outline-container-org5026ad2" class="outline-3">
-<h3 id="org5026ad2"><span class="section-number-3">4.5</span> pre-commit</h3>
+<div id="outline-container-orgf45c62c" class="outline-3">
+<h3 id="orgf45c62c"><span class="section-number-3">4.5</span> pre-commit</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 <code>pre-commit</code> is a framework for managing pre-commit hooks.
@@ -1308,12 +1320,12 @@ It SHOULD BE used to automate linting and autoformatting.
 </div>
 </div>
 </div>
-<div id="outline-container-org0d0aecc" class="outline-2">
-<h2 id="org0d0aecc"><span class="section-number-2">5</span> Packaging and File Structure</h2>
+<div id="outline-container-org7659376" class="outline-2">
+<h2 id="org7659376"><span class="section-number-2">5</span> Packaging and File Structure</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org99abfc0" class="outline-3">
-<h3 id="org99abfc0"><span class="section-number-3">5.1</span> Single-file scripts</h3>
+<div id="outline-container-orgdb8f472" class="outline-3">
+<h3 id="orgdb8f472"><span class="section-number-3">5.1</span> Single-file scripts</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Very rarely, it is useful to write a single-file python script which looks like
@@ -1338,8 +1350,8 @@ installed with <code>pip</code>, the python packaging tool.  Including a third-p
 </div>
 </div>
 
-<div id="outline-container-org87a38b0" class="outline-3">
-<h3 id="org87a38b0"><span class="section-number-3">5.2</span> Package layout</h3>
+<div id="outline-container-orga9c7bb6" class="outline-3">
+<h3 id="orga9c7bb6"><span class="section-number-3">5.2</span> Package layout</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 A RECOMMENDED directory structure for packages is shown below.  There are alternative
@@ -1373,8 +1385,8 @@ forms (e.g., use of <code>src/PACKAGE_NAME</code>, inclusion of <code>tests</cod
 </div>
 </div>
 
-<div id="outline-container-org0e2802a" class="outline-3">
-<h3 id="org0e2802a"><span class="section-number-3">5.3</span> Jupyter notebooks</h3>
+<div id="outline-container-orgc6f5741" class="outline-3">
+<h3 id="orgc6f5741"><span class="section-number-3">5.3</span> Jupyter notebooks</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Jupyter notebooks are often an extremely convenient way of prototyping, plotting,
@@ -1407,8 +1419,8 @@ machine.
 </p>
 </div>
 </div>
-<div id="outline-container-orgd8274eb" class="outline-3">
-<h3 id="orgd8274eb"><span class="section-number-3">5.4</span> Environment management tools</h3>
+<div id="outline-container-orgc0cb07e" class="outline-3">
+<h3 id="orgc0cb07e"><span class="section-number-3">5.4</span> Environment management tools</h3>
 <div class="outline-text-3" id="text-5-4">
 <p>
 Packages SHALL BE written such that <code>pip install my_package</code> succeeds, installs all
@@ -1433,12 +1445,12 @@ environment management.
 </div>
 </div>
 
-<div id="outline-container-org1a4696d" class="outline-2">
-<h2 id="org1a4696d"><span class="section-number-2">6</span> Testing</h2>
+<div id="outline-container-org2fb01fc" class="outline-2">
+<h2 id="org2fb01fc"><span class="section-number-2">6</span> Testing</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-org311160b" class="outline-3">
-<h3 id="org311160b"><span class="section-number-3">6.1</span> Py.test</h3>
+<div id="outline-container-orgc88ec9a" class="outline-3">
+<h3 id="orgc88ec9a"><span class="section-number-3">6.1</span> Py.test</h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
 Unit and functional tests SHALL BE written with <code>pytest</code>:
@@ -1451,8 +1463,8 @@ testing frameworks (e.g., <code>nose</code>) are deprecated now anyway.
 </p>
 </div>
 </div>
-<div id="outline-container-orgd884dc1" class="outline-3">
-<h3 id="orgd884dc1"><span class="section-number-3">6.2</span> Coverage</h3>
+<div id="outline-container-org1d274de" class="outline-3">
+<h3 id="org1d274de"><span class="section-number-3">6.2</span> Coverage</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 Code coverage metrics SHOULD BE obtained using <code>coverage.py</code> using the <code>pytest-cov</code>
@@ -1460,8 +1472,8 @@ plugin framework: <a href="https://pytest-cov.readthedocs.io/en/latest/">https:/
 </p>
 </div>
 </div>
-<div id="outline-container-orga07a6f9" class="outline-3">
-<h3 id="orga07a6f9"><span class="section-number-3">6.3</span> Hypothesis</h3>
+<div id="outline-container-org08ec379" class="outline-3">
+<h3 id="org08ec379"><span class="section-number-3">6.3</span> Hypothesis</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 Quickcheck-like unit tests SHOULD BE written using <code>hypothesis</code>
@@ -1471,15 +1483,15 @@ Quickcheck-like unit tests SHOULD BE written using <code>hypothesis</code>
 </div>
 </div>
 
-<div id="outline-container-org06da70b" class="outline-2">
-<h2 id="org06da70b"><span class="section-number-2">7</span> The Naughty List</h2>
+<div id="outline-container-org39ccfe6" class="outline-2">
+<h2 id="org39ccfe6"><span class="section-number-2">7</span> The Naughty List</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 The following practices SHALL NOT BE used if you want your PRs to get accepted.
 </p>
 </div>
-<div id="outline-container-orgfd3b50f" class="outline-3">
-<h3 id="orgfd3b50f"><span class="section-number-3">7.1</span> Named lambdas</h3>
+<div id="outline-container-org804bbc5" class="outline-3">
+<h3 id="org804bbc5"><span class="section-number-3">7.1</span> Named lambdas</h3>
 <div class="outline-text-3" id="text-7-1">
 <p>
 Assigning a <code>lambda</code> to a name SHALL NOT BE used:
@@ -1525,8 +1537,8 @@ Use of lambdas SHOULD BE used for creation of anonymous functions; e.g., when us
 </div>
 </div>
 
-<div id="outline-container-org6f5b445" class="outline-3">
-<h3 id="org6f5b445"><span class="section-number-3">7.2</span> Star Imports</h3>
+<div id="outline-container-orgc9a22f5" class="outline-3">
+<h3 id="orgc9a22f5"><span class="section-number-3">7.2</span> Star Imports</h3>
 <div class="outline-text-3" id="text-7-2">
 <p>
 The &ldquo;star import&rdquo; SHALL NOT BE used.
@@ -1580,8 +1592,8 @@ function names are not easily confused:
 </div>
 </div>
 
-<div id="outline-container-org62a9da9" class="outline-3">
-<h3 id="org62a9da9"><span class="section-number-3">7.3</span> User-created namedtuples</h3>
+<div id="outline-container-org454ae40" class="outline-3">
+<h3 id="org454ae40"><span class="section-number-3">7.3</span> User-created namedtuples</h3>
 <div class="outline-text-3" id="text-7-3">
 <p>
 To make instances of lightweight data containers, you SHOULD use <code>attrs</code>.   <code>namedtuple</code>
@@ -1615,8 +1627,8 @@ SHALL NOT BE used.
 </div>
 </div>
 
-<div id="outline-container-orgfefa58a" class="outline-3">
-<h3 id="orgfefa58a"><span class="section-number-3">7.4</span> Manipulation of <code>sys.path</code></h3>
+<div id="outline-container-org8667245" class="outline-3">
+<h3 id="org8667245"><span class="section-number-3">7.4</span> Manipulation of <code>sys.path</code></h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 Adding modules to the namespace SHALL NOT BE accomplished in this way:
@@ -1633,8 +1645,8 @@ Instead, install the package that provides those modules into your environment w
 </p>
 </div>
 </div>
-<div id="outline-container-org79ec665" class="outline-3">
-<h3 id="org79ec665"><span class="section-number-3">7.5</span> Use of <code>os.system()</code></h3>
+<div id="outline-container-orge8e9876" class="outline-3">
+<h3 id="orge8e9876"><span class="section-number-3">7.5</span> Use of <code>os.system()</code></h3>
 <div class="outline-text-3" id="text-7-5">
 <p>
 <code>os.system</code> SHALL NOT BE used to invoke external commands.
@@ -1654,8 +1666,8 @@ subprocess documentation for some helpful recipes.
 </div>
 </div>
 
-<div id="outline-container-orgc4b130d" class="outline-3">
-<h3 id="orgc4b130d"><span class="section-number-3">7.6</span> Use of <code>exec()</code></h3>
+<div id="outline-container-orgacb07e5" class="outline-3">
+<h3 id="orgacb07e5"><span class="section-number-3">7.6</span> Use of <code>exec()</code></h3>
 <div class="outline-text-3" id="text-7-6">
 <p>
 <code>exec()</code> SHALL NOT BE used.
@@ -1674,8 +1686,8 @@ about readability and debugging.
 </div>
 </div>
 
-<div id="outline-container-org1f3800a" class="outline-3">
-<h3 id="org1f3800a"><span class="section-number-3">7.7</span> Mutable defaults in function signatures</h3>
+<div id="outline-container-org53cf82b" class="outline-3">
+<h3 id="org53cf82b"><span class="section-number-3">7.7</span> Mutable defaults in function signatures</h3>
 <div class="outline-text-3" id="text-7-7">
 <p>
 Function signatures SHALL NOT have defaults which have mutable types. Defaults SHOULD
@@ -1700,19 +1712,19 @@ See <a href="https://docs.python-guide.org/writing/gotchas/#mutable-default-argu
 </div>
 </div>
 </div>
-<div id="outline-container-orgd3f636a" class="outline-2">
-<h2 id="orgd3f636a"><span class="section-number-2">8</span> Errata</h2>
+<div id="outline-container-org54f7277" class="outline-2">
+<h2 id="org54f7277"><span class="section-number-2">8</span> Errata</h2>
 <div class="outline-text-2" id="text-8">
 </div>
-<div id="outline-container-org9954de9" class="outline-3">
-<h3 id="org9954de9"><span class="section-number-3">8.1</span> Motivational Design References</h3>
+<div id="outline-container-orgabe3e94" class="outline-3">
+<h3 id="orgabe3e94"><span class="section-number-3">8.1</span> Motivational Design References</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 This style guide was strongly influenced by the following sources:
 </p>
 </div>
-<div id="outline-container-org72ea720" class="outline-4">
-<h4 id="org72ea720"><span class="section-number-4">8.1.1</span> &ldquo;Beyond PEP-8: Best Practices for Beautiful, Intelligible Code&rdquo;</h4>
+<div id="outline-container-orgd545632" class="outline-4">
+<h4 id="orgd545632"><span class="section-number-4">8.1.1</span> &ldquo;Beyond PEP-8: Best Practices for Beautiful, Intelligible Code&rdquo;</h4>
 <div class="outline-text-4" id="text-8-1-1">
 <p>
 Youtube Link: <a href="https://www.youtube.com/watch?v=wf-BqAjZb8M">https://www.youtube.com/watch?v=wf-BqAjZb8M</a>
@@ -1732,8 +1744,8 @@ intelligible code.
 </div>
 </div>
 
-<div id="outline-container-orgf9ebb95" class="outline-4">
-<h4 id="orgf9ebb95"><span class="section-number-4">8.1.2</span> &ldquo;The Clean Architecture in Python&rdquo;</h4>
+<div id="outline-container-org516c831" class="outline-4">
+<h4 id="org516c831"><span class="section-number-4">8.1.2</span> &ldquo;The Clean Architecture in Python&rdquo;</h4>
 <div class="outline-text-4" id="text-8-1-2">
 <p>
 Youtube Link: <a href="https://www.youtube.com/watch?v=DJtef410XaM">https://www.youtube.com/watch?v=DJtef410XaM</a>
@@ -1756,8 +1768,8 @@ with the features of the Python language.
 </div>
 </div>
 
-<div id="outline-container-org36257bc" class="outline-4">
-<h4 id="org36257bc"><span class="section-number-4">8.1.3</span> &ldquo;How Python Linters Will Save Your Large Python Project&rdquo;</h4>
+<div id="outline-container-orgdf12d6a" class="outline-4">
+<h4 id="orgdf12d6a"><span class="section-number-4">8.1.3</span> &ldquo;How Python Linters Will Save Your Large Python Project&rdquo;</h4>
 <div class="outline-text-4" id="text-8-1-3">
 <p>
 Jeff Knupp has a blog post on linters:
@@ -1779,8 +1791,8 @@ grows. So how to we reduce that complexity as much as possible?
 </div>
 </div>
 
-<div id="outline-container-orgd045ba0" class="outline-4">
-<h4 id="orgd045ba0"><span class="section-number-4">8.1.4</span> &ldquo;The Many Layers of Packaging&rdquo;</h4>
+<div id="outline-container-orgde7aedd" class="outline-4">
+<h4 id="orgde7aedd"><span class="section-number-4">8.1.4</span> &ldquo;The Many Layers of Packaging&rdquo;</h4>
 <div class="outline-text-4" id="text-8-1-4">
 <p>
 Mahmoud Hashemi has a long post on the many forms of python packaging there are, and
@@ -1826,8 +1838,8 @@ Where is your code going, and what can we depend on being there?
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: gvoysey</p>
-<p class="date">Created: 2019-12-30 Mon 16:42</p>
+<p class="author">Author: graham</p>
+<p class="date">Created: 2020-01-22 Wed 20:07</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
