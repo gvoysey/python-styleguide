@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-01-22 Wed 20:07 -->
+<!-- 2020-12-02 Wed 22:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Python Style Guide</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="graham" />
+<meta name="author" content="gvoysey" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -40,7 +40,7 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
+    overflow: auto;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -193,57 +193,33 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
-<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
-<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
 <script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2019 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
 <!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
 </script>
 </head>
 <body>
@@ -253,127 +229,127 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org394139f">1. Introduction</a>
+<li><a href="#org46b7824">1. Introduction</a>
 <ul>
-<li><a href="#org1bec38e">1.1. Goals</a>
+<li><a href="#org1c25683">1.1. Goals</a>
 <ul>
-<li><a href="#org72ef469">1.1.1. Consistent</a></li>
-<li><a href="#orgb169a48">1.1.2. Readable</a></li>
-<li><a href="#orgc0a090f">1.1.3. Testable</a></li>
+<li><a href="#orgef00582">1.1.1. Consistent</a></li>
+<li><a href="#org54b8530">1.1.2. Readable</a></li>
+<li><a href="#org12c3ffe">1.1.3. Testable</a></li>
 </ul>
 </li>
-<li><a href="#org4e32f9b">1.2. Motivational quotes</a></li>
+<li><a href="#org85632e5">1.2. Motivational quotes</a></li>
 </ul>
 </li>
-<li><a href="#org2f4e0f7">2. General</a>
+<li><a href="#org4e5f172">2. General</a>
 <ul>
-<li><a href="#org4d2a63d">2.1. Python version(s)</a></li>
-<li><a href="#orgbfceec2">2.2. Style</a></li>
+<li><a href="#org1c0b507">2.1. Python version(s)</a></li>
+<li><a href="#orgf5bc38c">2.2. Style</a></li>
 </ul>
 </li>
-<li><a href="#org6d26d82">3. Language Style</a>
+<li><a href="#orgc6db322">3. Language Style</a>
 <ul>
-<li><a href="#org27fa005">3.1. Modules</a>
+<li><a href="#org12c311e">3.1. Modules</a>
 <ul>
-<li><a href="#org5b3039c">3.1.1. Naming</a></li>
-<li><a href="#org5b60af4">3.1.2. Imports</a></li>
+<li><a href="#orgcc11cee">3.1.1. Naming</a></li>
+<li><a href="#orgb3dd675">3.1.2. Imports</a></li>
 </ul>
 </li>
-<li><a href="#org7d52d60">3.2. Classes</a>
+<li><a href="#orgba25b7c">3.2. Classes</a>
 <ul>
-<li><a href="#org8b63d9e">3.2.1. Creation</a></li>
-<li><a href="#org4b4f435">3.2.2. Naming</a></li>
-<li><a href="#org8b8550a">3.2.3. Keyword attributes</a></li>
-<li><a href="#orgebe7657">3.2.4. Type Hinting</a></li>
+<li><a href="#org1d18277">3.2.1. Creation</a></li>
+<li><a href="#org9a612f4">3.2.2. Naming</a></li>
+<li><a href="#org015c01a">3.2.3. Keyword attributes</a></li>
+<li><a href="#org3d20b90">3.2.4. Type Hinting</a></li>
 </ul>
 </li>
-<li><a href="#org63aaabd">3.3. Functions</a>
+<li><a href="#org18ecfaa">3.3. Functions</a>
 <ul>
-<li><a href="#orgc9f9eec">3.3.1. Naming</a></li>
-<li><a href="#org5574de0">3.3.2. Length</a></li>
-<li><a href="#org3053bb3">3.3.3. Keyword Arguments</a></li>
-<li><a href="#org595c8ee">3.3.4. Type Hinting</a></li>
-<li><a href="#org907f1a0">3.3.5. Return values</a></li>
+<li><a href="#org2d9349b">3.3.1. Naming</a></li>
+<li><a href="#org11d4e32">3.3.2. Length</a></li>
+<li><a href="#orgd7f3e0c">3.3.3. Keyword Arguments</a></li>
+<li><a href="#org62a1d3b">3.3.4. Type Hinting</a></li>
+<li><a href="#orgfce010c">3.3.5. Return values</a></li>
 </ul>
 </li>
-<li><a href="#orgb377049">3.4. Variables</a>
+<li><a href="#orgbd5d32f">3.4. Variables</a>
 <ul>
-<li><a href="#org3da9778">3.4.1. Naming</a></li>
-<li><a href="#orgd9ea143">3.4.2. Type hinting</a></li>
-<li><a href="#orgbe29d32">3.4.3. Globals</a></li>
+<li><a href="#org1aae3db">3.4.1. Naming</a></li>
+<li><a href="#orgad327e8">3.4.2. Type hinting</a></li>
+<li><a href="#orgc6b9c65">3.4.3. Globals</a></li>
 </ul>
 </li>
-<li><a href="#org07fa916">3.5. Docstrings, Comments</a>
+<li><a href="#org45678bc">3.5. Docstrings, Comments</a>
 <ul>
-<li><a href="#orgb71ce1c">3.5.1. Docstrings</a></li>
-<li><a href="#orgdb087df">3.5.2. Comments</a></li>
+<li><a href="#orgfddf4fd">3.5.1. Docstrings</a></li>
+<li><a href="#orge65a32c">3.5.2. Comments</a></li>
 </ul>
 </li>
-<li><a href="#org5b9a710">3.6. Serialization</a>
+<li><a href="#org2369b3b">3.6. Serialization</a>
 <ul>
-<li><a href="#org6424c4d">3.6.1. JSON</a></li>
-<li><a href="#orgfc9271d">3.6.2. TOML</a></li>
-<li><a href="#orga06320b">3.6.3. YAML</a></li>
-<li><a href="#org42a467c">3.6.4. Pickle</a></li>
-<li><a href="#org799c684">3.6.5. HDF5</a></li>
-<li><a href="#org2757dc1">3.6.6. NPY/NPZ</a></li>
+<li><a href="#org887fed9">3.6.1. JSON</a></li>
+<li><a href="#org0b4ce6a">3.6.2. TOML</a></li>
+<li><a href="#org65141f7">3.6.3. YAML</a></li>
+<li><a href="#org9851c3d">3.6.4. Pickle</a></li>
+<li><a href="#org20b9f8d">3.6.5. HDF5</a></li>
+<li><a href="#org881a169">3.6.6. NPY/NPZ</a></li>
 </ul>
 </li>
-<li><a href="#org2317cdc">3.7. Preferred APIs</a>
+<li><a href="#org9003631">3.7. Preferred APIs</a>
 <ul>
-<li><a href="#orgb441330">3.7.1. pathlib</a></li>
-<li><a href="#org8cf7ac0">3.7.2. String formatting</a></li>
+<li><a href="#orge94ac98">3.7.1. pathlib</a></li>
+<li><a href="#orgb4bd995">3.7.2. String formatting</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org5c481c1">4. Autoformatting tools and linters</a>
+<li><a href="#org4ffbf3e">4. Autoformatting tools and linters</a>
 <ul>
-<li><a href="#orgcbd4a2f">4.1. Black</a>
+<li><a href="#org627b3bc">4.1. Black</a>
 <ul>
-<li><a href="#org17b10e2">4.1.1. Configuration file</a></li>
+<li><a href="#orgc4bf18a">4.1.1. Configuration file</a></li>
 </ul>
 </li>
-<li><a href="#org10163a0">4.2. pydocstyle</a></li>
-<li><a href="#orgb7b3ea9">4.3. pycodestyle</a></li>
-<li><a href="#org35b1834">4.4. mypy</a></li>
-<li><a href="#orgf45c62c">4.5. pre-commit</a></li>
+<li><a href="#org1828eb9">4.2. pydocstyle</a></li>
+<li><a href="#orgd9494b5">4.3. pycodestyle</a></li>
+<li><a href="#orga0e3c04">4.4. mypy</a></li>
+<li><a href="#org5c9c552">4.5. pre-commit</a></li>
 </ul>
 </li>
-<li><a href="#org7659376">5. Packaging and File Structure</a>
+<li><a href="#org554c2c2">5. Packaging and File Structure</a>
 <ul>
-<li><a href="#orgdb8f472">5.1. Single-file scripts</a></li>
-<li><a href="#orga9c7bb6">5.2. Package layout</a></li>
-<li><a href="#orgc6f5741">5.3. Jupyter notebooks</a></li>
-<li><a href="#orgc0cb07e">5.4. Environment management tools</a></li>
+<li><a href="#org978ac2a">5.1. Single-file scripts</a></li>
+<li><a href="#org6d84e15">5.2. Package layout</a></li>
+<li><a href="#orga0b0588">5.3. Jupyter notebooks</a></li>
+<li><a href="#org184e379">5.4. Environment management tools</a></li>
 </ul>
 </li>
-<li><a href="#org2fb01fc">6. Testing</a>
+<li><a href="#orgeba9b91">6. Testing</a>
 <ul>
-<li><a href="#orgc88ec9a">6.1. Py.test</a></li>
-<li><a href="#org1d274de">6.2. Coverage</a></li>
-<li><a href="#org08ec379">6.3. Hypothesis</a></li>
+<li><a href="#org7c86976">6.1. Py.test</a></li>
+<li><a href="#org5dc0739">6.2. Coverage</a></li>
+<li><a href="#orgeb310fd">6.3. Hypothesis</a></li>
 </ul>
 </li>
-<li><a href="#org39ccfe6">7. The Naughty List</a>
+<li><a href="#orgffdec70">7. The Naughty List</a>
 <ul>
-<li><a href="#org804bbc5">7.1. Named lambdas</a></li>
-<li><a href="#orgc9a22f5">7.2. Star Imports</a></li>
-<li><a href="#org454ae40">7.3. User-created namedtuples</a></li>
-<li><a href="#org8667245">7.4. Manipulation of <code>sys.path</code></a></li>
-<li><a href="#orge8e9876">7.5. Use of <code>os.system()</code></a></li>
-<li><a href="#orgacb07e5">7.6. Use of <code>exec()</code></a></li>
-<li><a href="#org53cf82b">7.7. Mutable defaults in function signatures</a></li>
+<li><a href="#org0a70f18">7.1. Named lambdas</a></li>
+<li><a href="#orgfb82950">7.2. Star Imports</a></li>
+<li><a href="#org52bdfe7">7.3. User-created namedtuples</a></li>
+<li><a href="#org111ebcd">7.4. Manipulation of <code>sys.path</code></a></li>
+<li><a href="#org2638208">7.5. Use of <code>os.system()</code></a></li>
+<li><a href="#orgf6a6aa1">7.6. Use of <code>exec()</code></a></li>
+<li><a href="#orgbe8e419">7.7. Mutable defaults in function signatures</a></li>
 </ul>
 </li>
-<li><a href="#org54f7277">8. Errata</a>
+<li><a href="#org52bde1d">8. Errata</a>
 <ul>
-<li><a href="#orgabe3e94">8.1. Motivational Design References</a>
+<li><a href="#orge678fca">8.1. Motivational Design References</a>
 <ul>
-<li><a href="#orgd545632">8.1.1. &ldquo;Beyond PEP-8: Best Practices for Beautiful, Intelligible Code&rdquo;</a></li>
-<li><a href="#org516c831">8.1.2. &ldquo;The Clean Architecture in Python&rdquo;</a></li>
-<li><a href="#orgdf12d6a">8.1.3. &ldquo;How Python Linters Will Save Your Large Python Project&rdquo;</a></li>
-<li><a href="#orgde7aedd">8.1.4. &ldquo;The Many Layers of Packaging&rdquo;</a></li>
+<li><a href="#org88d3a33">8.1.1. &ldquo;Beyond PEP-8: Best Practices for Beautiful, Intelligible Code&rdquo;</a></li>
+<li><a href="#org509042a">8.1.2. &ldquo;The Clean Architecture in Python&rdquo;</a></li>
+<li><a href="#orgc56fa71">8.1.3. &ldquo;How Python Linters Will Save Your Large Python Project&rdquo;</a></li>
+<li><a href="#orga4f0499">8.1.4. &ldquo;The Many Layers of Packaging&rdquo;</a></li>
 </ul>
 </li>
 </ul>
@@ -381,8 +357,8 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
-<div id="outline-container-org394139f" class="outline-2">
-<h2 id="org394139f"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org46b7824" class="outline-2">
+<h2 id="org46b7824"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This is a python style guide based on 5 years experience of heavy python use for
@@ -429,15 +405,15 @@ option provides.)</li>
 </blockquote>
 </div>
 
-<div id="outline-container-org1bec38e" class="outline-3">
-<h3 id="org1bec38e"><span class="section-number-3">1.1</span> Goals</h3>
+<div id="outline-container-org1c25683" class="outline-3">
+<h3 id="org1c25683"><span class="section-number-3">1.1</span> Goals</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Our code ought to be:
 </p>
 </div>
-<div id="outline-container-org72ef469" class="outline-4">
-<h4 id="org72ef469"><span class="section-number-4">1.1.1</span> Consistent</h4>
+<div id="outline-container-orgef00582" class="outline-4">
+<h4 id="orgef00582"><span class="section-number-4">1.1.1</span> Consistent</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <p>
 The code style should be the same across all our codebases.  This improves
@@ -445,8 +421,8 @@ readability and makes reading code a predictable activity.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb169a48" class="outline-4">
-<h4 id="orgb169a48"><span class="section-number-4">1.1.2</span> Readable</h4>
+<div id="outline-container-org54b8530" class="outline-4">
+<h4 id="org54b8530"><span class="section-number-4">1.1.2</span> Readable</h4>
 <div class="outline-text-4" id="text-1-1-2">
 <p>
 The code should be well documented and easily understood by future maintainers, not
@@ -456,8 +432,8 @@ that is difficult to read and maintain.
 </div>
 </div>
 
-<div id="outline-container-orgc0a090f" class="outline-4">
-<h4 id="orgc0a090f"><span class="section-number-4">1.1.3</span> Testable</h4>
+<div id="outline-container-org12c3ffe" class="outline-4">
+<h4 id="org12c3ffe"><span class="section-number-4">1.1.3</span> Testable</h4>
 <div class="outline-text-4" id="text-1-1-3">
 <p>
 The code should be written in a style that allows easy unit and functional testing,
@@ -467,8 +443,8 @@ Tests should be kept up to date and maintained throughout a project&rsquo;s hist
 </div>
 </div>
 
-<div id="outline-container-org4e32f9b" class="outline-3">
-<h3 id="org4e32f9b"><span class="section-number-3">1.2</span> Motivational quotes</h3>
+<div id="outline-container-org85632e5" class="outline-3">
+<h3 id="org85632e5"><span class="section-number-3">1.2</span> Motivational quotes</h3>
 <div class="outline-text-3" id="text-1-2">
 <blockquote>
 <p>
@@ -526,12 +502,12 @@ debug it?
 </div>
 </div>
 
-<div id="outline-container-org2f4e0f7" class="outline-2">
-<h2 id="org2f4e0f7"><span class="section-number-2">2</span> General</h2>
+<div id="outline-container-org4e5f172" class="outline-2">
+<h2 id="org4e5f172"><span class="section-number-2">2</span> General</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org4d2a63d" class="outline-3">
-<h3 id="org4d2a63d"><span class="section-number-3">2.1</span> Python version(s)</h3>
+<div id="outline-container-org1c0b507" class="outline-3">
+<h3 id="org1c0b507"><span class="section-number-3">2.1</span> Python version(s)</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Python 3.6 or higher SHALL BE used for new projects.  CPython or PyPy are both
@@ -545,8 +521,8 @@ but SHOULD BE avoided when possible.
 </div>
 </div>
 
-<div id="outline-container-orgbfceec2" class="outline-3">
-<h3 id="orgbfceec2"><span class="section-number-3">2.2</span> Style</h3>
+<div id="outline-container-orgf5bc38c" class="outline-3">
+<h3 id="orgf5bc38c"><span class="section-number-3">2.2</span> Style</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Overall style SHALL follow <a href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a> with some modifications.  PEP-8 is worth reading in
@@ -565,20 +541,20 @@ Basic style issues SHALL BE automated with the use of the <code>black</code> aut
 </div>
 </div>
 </div>
-<div id="outline-container-org6d26d82" class="outline-2">
-<h2 id="org6d26d82"><span class="section-number-2">3</span> Language Style</h2>
+<div id="outline-container-orgc6db322" class="outline-2">
+<h2 id="orgc6db322"><span class="section-number-2">3</span> Language Style</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org27fa005" class="outline-3">
-<h3 id="org27fa005"><span class="section-number-3">3.1</span> Modules</h3>
+<div id="outline-container-org12c311e" class="outline-3">
+<h3 id="org12c311e"><span class="section-number-3">3.1</span> Modules</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Modules are most commonly stored as single source code files on disk.  They are the
 fundamental namespace of Python.  A file such as <code>foo.py</code> is a module.
 </p>
 </div>
-<div id="outline-container-org5b3039c" class="outline-4">
-<h4 id="org5b3039c"><span class="section-number-4">3.1.1</span> Naming</h4>
+<div id="outline-container-orgcc11cee" class="outline-4">
+<h4 id="orgcc11cee"><span class="section-number-4">3.1.1</span> Naming</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <blockquote>
 <p>
@@ -596,8 +572,8 @@ leading underscore (e.g. _socket).
 </div>
 </div>
 
-<div id="outline-container-org5b60af4" class="outline-4">
-<h4 id="org5b60af4"><span class="section-number-4">3.1.2</span> Imports</h4>
+<div id="outline-container-orgb3dd675" class="outline-4">
+<h4 id="orgb3dd675"><span class="section-number-4">3.1.2</span> Imports</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 Absolute imports SHALL BE used over relative imports.  This removes all ambiguities
@@ -605,18 +581,18 @@ about module location.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #586e75;">#  </span><span style="color: #586e75;">Yes.</span>
-<span style="color: #859900; font-weight: bold;">from</span> my_package.my_subpackage <span style="color: #859900; font-weight: bold;">import</span> foo
-<span style="color: #586e75;">#  </span><span style="color: #586e75;">No.</span>
-<span style="color: #859900; font-weight: bold;">from</span> ../my_subpackage <span style="color: #859900; font-weight: bold;">import</span> foo
+<pre class="src src-python"><span style="color: #74736e;">#  Yes.</span>
+<span style="color: #8ac6f2; font-weight: bold;">from</span> my_package.my_subpackage <span style="color: #8ac6f2; font-weight: bold;">import</span> foo
+<span style="color: #74736e;">#  No.</span>
+<span style="color: #8ac6f2; font-weight: bold;">from</span> ..<span style="color: #8ac6f2; font-weight: bold;">/</span>my_subpackage <span style="color: #8ac6f2; font-weight: bold;">import</span> foo
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org7d52d60" class="outline-3">
-<h3 id="org7d52d60"><span class="section-number-3">3.2</span> Classes</h3>
+<div id="outline-container-orgba25b7c" class="outline-3">
+<h3 id="orgba25b7c"><span class="section-number-3">3.2</span> Classes</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Classes should be created when a discrete collection of data needs to be stored as a
@@ -631,8 +607,8 @@ Point can compute its Euclidean Distance to the origin.&rdquo;
 </p>
 </div>
 
-<div id="outline-container-org8b63d9e" class="outline-4">
-<h4 id="org8b63d9e"><span class="section-number-4">3.2.1</span> Creation</h4>
+<div id="outline-container-org1d18277" class="outline-4">
+<h4 id="org1d18277"><span class="section-number-4">3.2.1</span> Creation</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 The <code>attrs</code> library (<a href="https://attrs.org">https://attrs.org</a>) SHOULD BE used for creation of normal
@@ -645,130 +621,130 @@ Here, both <code>Point</code> and <code>ILikeTypingPoint</code> implement the sa
 includes a readable <code>repr</code> and comparability between instances:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">good</span>
-<span style="color: #859900; font-weight: bold;">import</span> attr
+<pre class="src src-python"><span style="color: #74736e;"># good</span>
+<span style="color: #8ac6f2; font-weight: bold;">import</span> attr
 
-<span style="color: #b58900;">@attr.s</span>
-<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
-    <span style="color: #268bd2;">x</span> = attr.ib<span style="color: #e146c662851e;">()</span>
-    <span style="color: #268bd2;">y</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+<span style="color: #a4b5e6;">@attr.s</span>
+<span style="color: #8ac6f2; font-weight: bold;">class</span> <span style="color: #e5c06d;">Point</span>:
+    <span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">()</span>
+    <span style="color: #a4b5e6;">y</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">()</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">bad</span>
-<span style="color: #859900; font-weight: bold;">import</span> functools
-<span style="color: #586e75;"># </span><span style="color: #586e75;">total_ordering generates __gt__, __ne__, etc...</span>
-<span style="color: #586e75;"># </span><span style="color: #586e75;">given at least two rich comparison operators.</span>
-<span style="color: #b58900;">@functools.total_ordering</span>
-<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">ILikeTypingPoint</span>:
-    <span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">__init__</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>,x,y<span style="color: #e146c662851e;">)</span>:
-        <span style="color: #859900; font-weight: bold;">self</span>.x = x
-        <span style="color: #859900; font-weight: bold;">self</span>.y = y
+<span style="color: #74736e;"># bad</span>
+<span style="color: #8ac6f2; font-weight: bold;">import</span> functools
+<span style="color: #74736e;"># total_ordering generates __gt__, __ne__, etc...</span>
+<span style="color: #74736e;"># given at least two rich comparison operators.</span>
+<span style="color: #a4b5e6;">@functools.total_ordering</span>
+<span style="color: #8ac6f2; font-weight: bold;">class</span> <span style="color: #e5c06d;">ILikeTypingPoint</span>:
+    <span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">__init__</span><span style="color: #e146c662851e;">(</span><span style="color: #8ac6f2; font-weight: bold;">self</span>,<span style="color: #a4b5e6;">x</span>,<span style="color: #a4b5e6;">y</span><span style="color: #e146c662851e;">)</span>:
+        <span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">x</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> x
+        <span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">y</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> y
 
-    <span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">__eq__</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>, other<span style="color: #e146c662851e;">)</span>:
-        <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>.x, <span style="color: #859900; font-weight: bold;">self</span>.y<span style="color: #e146c662851e;">)</span> == <span style="color: #e146c662851e;">(</span>other.x, other.y<span style="color: #e146c662851e;">)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">__eq__</span><span style="color: #e146c662851e;">(</span><span style="color: #8ac6f2; font-weight: bold;">self</span>, <span style="color: #a4b5e6;">other</span><span style="color: #e146c662851e;">)</span>:
+        <span style="color: #8ac6f2; font-weight: bold;">return</span> <span style="color: #e146c662851e;">(</span><span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">x</span>, <span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">y</span><span style="color: #e146c662851e;">)</span> <span style="color: #8ac6f2; font-weight: bold;">==</span> <span style="color: #e146c662851e;">(</span>other.<span style="color: #a4b5e6; font-style: italic;">x</span>, other.<span style="color: #a4b5e6; font-style: italic;">y</span><span style="color: #e146c662851e;">)</span>
 
-    <span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">__lt__</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>,other<span style="color: #e146c662851e;">)</span>:
-        <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>.x, <span style="color: #859900; font-weight: bold;">self</span>.y<span style="color: #e146c662851e;">)</span> &lt; <span style="color: #e146c662851e;">(</span>other.x, other.y<span style="color: #e146c662851e;">)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">__lt__</span><span style="color: #e146c662851e;">(</span><span style="color: #8ac6f2; font-weight: bold;">self</span>,<span style="color: #a4b5e6;">other</span><span style="color: #e146c662851e;">)</span>:
+        <span style="color: #8ac6f2; font-weight: bold;">return</span> <span style="color: #e146c662851e;">(</span><span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">x</span>, <span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">y</span><span style="color: #e146c662851e;">)</span> <span style="color: #8ac6f2; font-weight: bold;">&lt;</span> <span style="color: #e146c662851e;">(</span>other.<span style="color: #a4b5e6; font-style: italic;">x</span>, other.<span style="color: #a4b5e6; font-style: italic;">y</span><span style="color: #e146c662851e;">)</span>
 
-    <span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">__repr__</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span><span style="color: #e146c662851e;">)</span>:
-        <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #2aa198;">"Point(x={}, y={})"</span>.<span style="color: #839496; font-weight: bold;">format</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>.x, <span style="color: #859900; font-weight: bold;">self</span>.y<span style="color: #e146c662851e;">)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">__repr__</span><span style="color: #e146c662851e;">(</span><span style="color: #8ac6f2; font-weight: bold;">self</span><span style="color: #e146c662851e;">)</span>:
+        <span style="color: #8ac6f2; font-weight: bold;">return</span> <span style="color: #7ec98f;">"Point(x={}, y={})"</span>.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">format</span><span style="color: #e146c662851e;">(</span><span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">x</span>, <span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">y</span><span style="color: #e146c662851e;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org4b4f435" class="outline-4">
-<h4 id="org4b4f435"><span class="section-number-4">3.2.2</span> Naming</h4>
+<div id="outline-container-org9a612f4" class="outline-4">
+<h4 id="org9a612f4"><span class="section-number-4">3.2.2</span> Naming</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 Class names SHALL be <code>BumpyCase</code>.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> attr
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">import</span> attr
 
-<span style="color: #b58900;">@attr.s</span>
-<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">MyClass</span>:
-    <span style="color: #2aa198;">"""Example class with one attribute."""</span>
-    <span style="color: #268bd2;">x</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+<span style="color: #a4b5e6;">@attr.s</span>
+<span style="color: #8ac6f2; font-weight: bold;">class</span> <span style="color: #e5c06d;">MyClass</span>:
+    <span style="color: #7ec98f;">"""Example class with one attribute."""</span>
+    <span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">()</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8b8550a" class="outline-4">
-<h4 id="org8b8550a"><span class="section-number-4">3.2.3</span> Keyword attributes</h4>
+<div id="outline-container-org015c01a" class="outline-4">
+<h4 id="org015c01a"><span class="section-number-4">3.2.3</span> Keyword attributes</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 If a class needs many attributes for initialization, keyword-only attributes SHOULD
 BE used to maintain explicit initialization and clarity:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> attr
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">import</span> attr
 
-<span style="color: #b58900;">@attr.s</span>
-<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">MyBusyClass</span>:
-    <span style="color: #2aa198;">"""Example class that has a lot of parameters"""</span>
-    <span style="color: #268bd2;">x</span> = attr.ib<span style="color: #e146c662851e;">(</span>kw_only=<span style="color: #268bd2; font-weight: bold;">True</span><span style="color: #e146c662851e;">)</span>
-    <span style="color: #268bd2;">y</span> = attr.ib<span style="color: #e146c662851e;">(</span>kw_only=<span style="color: #268bd2; font-weight: bold;">True</span><span style="color: #e146c662851e;">)</span>
-    <span style="color: #268bd2;">z</span> = attr.ib<span style="color: #e146c662851e;">(</span>kw_only=<span style="color: #268bd2; font-weight: bold;">True</span><span style="color: #e146c662851e;">)</span>
-    <span style="color: #268bd2;">foo</span> = attr.ib<span style="color: #e146c662851e;">(</span>kw_only=<span style="color: #268bd2; font-weight: bold;">True</span><span style="color: #e146c662851e;">)</span>
-    <span style="color: #268bd2;">bar</span> = attr.ib<span style="color: #e146c662851e;">(</span>kw_only=<span style="color: #268bd2; font-weight: bold;">True</span><span style="color: #e146c662851e;">)</span>
+<span style="color: #a4b5e6;">@attr.s</span>
+<span style="color: #8ac6f2; font-weight: bold;">class</span> <span style="color: #e5c06d;">MyBusyClass</span>:
+    <span style="color: #7ec98f;">"""Example class that has a lot of parameters"""</span>
+    <span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">kw_only</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #e5786d;">True</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #a4b5e6;">y</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">kw_only</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #e5786d;">True</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #a4b5e6;">z</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">kw_only</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #e5786d;">True</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #a4b5e6;">foo</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">kw_only</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #e5786d;">True</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #a4b5e6;">bar</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">kw_only</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #e5786d;">True</span><span style="color: #e146c662851e;">)</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">this will raise TypeError</span>
-<span style="color: #268bd2;">my_foo</span> = MyBusyClass<span style="color: #e146c662851e;">(</span>1,
-                     2,
-                     3,
-                     <span style="color: #2aa198;">'a'</span>,
-                     <span style="color: #2aa198;">'b'</span><span style="color: #e146c662851e;">)</span>
+<span style="color: #74736e;"># this will raise TypeError</span>
+<span style="color: #a4b5e6;">my_foo</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e5c06d; font-weight: bold;">MyBusyClass</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">1</span>,
+                     <span style="color: #a4b5e6;">2</span>,
+                     <span style="color: #a4b5e6;">3</span>,
+                     <span style="color: #7ec98f;">'a'</span>,
+                     <span style="color: #7ec98f;">'b'</span><span style="color: #e146c662851e;">)</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">this is valid</span>
-<span style="color: #268bd2;">my_foo</span> = MyBusyClass<span style="color: #e146c662851e;">(</span>x=1,
-                     y=2,
-                     z=3,
-                     foo=<span style="color: #2aa198;">"a"</span>,
-                     bar=<span style="color: #2aa198;">"b"</span><span style="color: #e146c662851e;">)</span>
+<span style="color: #74736e;"># this is valid</span>
+<span style="color: #a4b5e6;">my_foo</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e5c06d; font-weight: bold;">MyBusyClass</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">x</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #a4b5e6;">1</span>,
+                     <span style="color: #a4b5e6;">y</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #a4b5e6;">2</span>,
+                     <span style="color: #a4b5e6;">z</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #a4b5e6;">3</span>,
+                     <span style="color: #a4b5e6;">foo</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #7ec98f;">"a"</span>,
+                     <span style="color: #a4b5e6;">bar</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #7ec98f;">"b"</span><span style="color: #e146c662851e;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgebe7657" class="outline-4">
-<h4 id="orgebe7657"><span class="section-number-4">3.2.4</span> Type Hinting</h4>
+<div id="outline-container-org3d20b90" class="outline-4">
+<h4 id="org3d20b90"><span class="section-number-4">3.2.4</span> Type Hinting</h4>
 <div class="outline-text-4" id="text-3-2-4">
 <p>
 Class attributes MAY BE type hinted if it improves clarity:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> attr
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">import</span> attr
 
-<span style="color: #b58900;">@attr.s</span>
-<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
-    x:<span style="color: #839496; font-weight: bold;">int</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+<span style="color: #a4b5e6;">@attr.s</span>
+<span style="color: #8ac6f2; font-weight: bold;">class</span> <span style="color: #e5c06d;">Point</span>:
+    <span style="color: #a4b5e6;">x</span>:<span style="color: #e5786d;">int</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">()</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">or even more tersely:</span>
+<span style="color: #74736e;"># or even more tersely:</span>
 
-<span style="color: #b58900;">@attr.dataclass</span>
-<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
-    x:<span style="color: #839496; font-weight: bold;">int</span>
+<span style="color: #a4b5e6;">@attr.dataclass</span>
+<span style="color: #8ac6f2; font-weight: bold;">class</span> <span style="color: #e5c06d;">Point</span>:
+    <span style="color: #a4b5e6;">x</span>:<span style="color: #e5786d;">int</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org63aaabd" class="outline-3">
-<h3 id="org63aaabd"><span class="section-number-3">3.3</span> Functions</h3>
+<div id="outline-container-org18ecfaa" class="outline-3">
+<h3 id="org18ecfaa"><span class="section-number-3">3.3</span> Functions</h3>
 <div class="outline-text-3" id="text-3-3">
 </div>
-<div id="outline-container-orgc9f9eec" class="outline-4">
-<h4 id="orgc9f9eec"><span class="section-number-4">3.3.1</span> Naming</h4>
+<div id="outline-container-org2d9349b" class="outline-4">
+<h4 id="org2d9349b"><span class="section-number-4">3.3.1</span> Naming</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <p>
 Function names SHALL BE snake<sub>case</sub>.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">my_function</span><span style="color: #e146c662851e;">(</span>max_value<span style="color: #e146c662851e;">)</span>:
-   <span style="color: #2aa198;">"""Do something with `max_value`."""</span>
-   <span style="color: #859900; font-weight: bold;">pass</span>
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">my_function</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">max_value</span><span style="color: #e146c662851e;">)</span>:
+   <span style="color: #7ec98f;">"""Do something with `max_value`."""</span>
+   <span style="color: #8ac6f2; font-weight: bold;">pass</span>
 </pre>
 </div>
 
@@ -780,8 +756,8 @@ instance in place, and <code>sorted(mylist)</code> returns a new sorted list and
 </p>
 </div>
 </div>
-<div id="outline-container-org5574de0" class="outline-4">
-<h4 id="org5574de0"><span class="section-number-4">3.3.2</span> Length</h4>
+<div id="outline-container-org11d4e32" class="outline-4">
+<h4 id="org11d4e32"><span class="section-number-4">3.3.2</span> Length</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <p>
 Very long functions impair readability, make testing difficult, and are a clear sign
@@ -814,8 +790,8 @@ screen at once is still a good one.
 </p>
 </div>
 </div>
-<div id="outline-container-org3053bb3" class="outline-4">
-<h4 id="org3053bb3"><span class="section-number-4">3.3.3</span> Keyword Arguments</h4>
+<div id="outline-container-orgd7f3e0c" class="outline-4">
+<h4 id="orgd7f3e0c"><span class="section-number-4">3.3.3</span> Keyword Arguments</h4>
 <div class="outline-text-4" id="text-3-3-3">
 <p>
 Functions SHOULD NOT have an unwieldy number of arguments in their signature if it can
@@ -829,37 +805,37 @@ by keyword only:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">foo</span><span style="color: #e146c662851e;">(</span>*, param1, param2, param3<span style="color: #e146c662851e;">)</span>:
-    <span style="color: #859900; font-weight: bold;">pass</span>
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">foo</span><span style="color: #e146c662851e;">(</span>*, <span style="color: #a4b5e6;">param1</span>, <span style="color: #a4b5e6;">param2</span>, <span style="color: #a4b5e6;">param3</span><span style="color: #e146c662851e;">)</span>:
+    <span style="color: #8ac6f2; font-weight: bold;">pass</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">This is a syntax error.</span>
-foo<span style="color: #e146c662851e;">(</span>1,2,3<span style="color: #e146c662851e;">)</span>
+<span style="color: #74736e;"># This is a syntax error.</span>
+<span style="color: #e5c06d; font-weight: bold;">foo</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">1</span>,<span style="color: #a4b5e6;">2</span>,<span style="color: #a4b5e6;">3</span><span style="color: #e146c662851e;">)</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">This is the correct call.</span>
-foo<span style="color: #e146c662851e;">(</span>param1=1,
-    param2=2,
-    param3=3<span style="color: #e146c662851e;">)</span>
+<span style="color: #74736e;"># This is the correct call.</span>
+<span style="color: #e5c06d; font-weight: bold;">foo</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">param1</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #a4b5e6;">1</span>,
+    <span style="color: #a4b5e6;">param2</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #a4b5e6;">2</span>,
+    <span style="color: #a4b5e6;">param3</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #a4b5e6;">3</span><span style="color: #e146c662851e;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org595c8ee" class="outline-4">
-<h4 id="org595c8ee"><span class="section-number-4">3.3.4</span> Type Hinting</h4>
+<div id="outline-container-org62a1d3b" class="outline-4">
+<h4 id="org62a1d3b"><span class="section-number-4">3.3.4</span> Type Hinting</h4>
 <div class="outline-text-4" id="text-3-3-4">
 <p>
 Function signatures SHOULD BE type hinted if it improves clarity.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">process_element</span><span style="color: #e146c662851e;">(</span>element:MyClassInstance, query:<span style="color: #839496; font-weight: bold;">str</span>, num:<span style="color: #839496; font-weight: bold;">int</span><span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #839496; font-weight: bold;">bool</span>:
-    <span style="color: #2aa198;">"""Determine if `num` instances of `query` are present in `element`."""</span>
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">process_element</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">element</span>:<span style="color: #e5c06d;">MyClassInstance</span>, <span style="color: #a4b5e6;">query</span>:<span style="color: #e5786d;">str</span>, <span style="color: #a4b5e6;">num</span>:<span style="color: #e5786d;">int</span><span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #e5786d;">bool</span>:
+    <span style="color: #7ec98f;">"""Determine if `num` instances of `query` are present in `element`."""</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org907f1a0" class="outline-4">
-<h4 id="org907f1a0"><span class="section-number-4">3.3.5</span> Return values</h4>
+<div id="outline-container-orgfce010c" class="outline-4">
+<h4 id="orgfce010c"><span class="section-number-4">3.3.5</span> Return values</h4>
 <div class="outline-text-4" id="text-3-3-5">
 <p>
 Functions SHALL either:
@@ -884,18 +860,18 @@ Following &ldquo;The Clean Architecture&rdquo;, a strong preference SHOULD BE gi
 functions which do not mutate state outside of themselves.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> typing <span style="color: #859900; font-weight: bold;">as</span> t
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">import</span> typing <span style="color: #8ac6f2; font-weight: bold;">as</span> t
 
 
-<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">bad</span><span style="color: #e146c662851e;">(</span>x:t.List<span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #268bd2; font-weight: bold;">None</span>:
-    x.append<span style="color: #e146c662851e;">(</span>5<span style="color: #e146c662851e;">)</span>
-    <span style="color: #859900; font-weight: bold;">return</span> x
+<span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">bad</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">x</span>:t.<span style="color: #e5c06d; font-style: italic;">List</span><span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #e5786d;">None</span>:
+    x.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">append</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">5</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">return</span> x
 
-<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">better</span><span style="color: #e146c662851e;">(</span>x:t.List<span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #268bd2; font-weight: bold;">None</span>:
-    x.append<span style="color: #e146c662851e;">(</span>5<span style="color: #e146c662851e;">)</span>
+<span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">better</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">x</span>:t.<span style="color: #e5c06d; font-style: italic;">List</span><span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #e5786d;">None</span>:
+    x.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">append</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">5</span><span style="color: #e146c662851e;">)</span>
 
-<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">best</span><span style="color: #e146c662851e;">(</span>x:t.List<span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #839496; font-weight: bold;">list</span>:
-    <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #e146c662851e;">[</span>*x, 5<span style="color: #e146c662851e;">]</span>
+<span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">best</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">x</span>:t.<span style="color: #e5c06d; font-style: italic;">List</span><span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #e5786d;">list</span>:
+    <span style="color: #8ac6f2; font-weight: bold;">return</span> <span style="color: #e146c662851e;">[</span><span style="color: #8ac6f2; font-weight: bold;">*</span>x, <span style="color: #a4b5e6;">5</span><span style="color: #e146c662851e;">]</span>
 
 </pre>
 </div>
@@ -903,12 +879,12 @@ functions which do not mutate state outside of themselves.
 </div>
 </div>
 
-<div id="outline-container-orgb377049" class="outline-3">
-<h3 id="orgb377049"><span class="section-number-3">3.4</span> Variables</h3>
+<div id="outline-container-orgbd5d32f" class="outline-3">
+<h3 id="orgbd5d32f"><span class="section-number-3">3.4</span> Variables</h3>
 <div class="outline-text-3" id="text-3-4">
 </div>
-<div id="outline-container-org3da9778" class="outline-4">
-<h4 id="org3da9778"><span class="section-number-4">3.4.1</span> Naming</h4>
+<div id="outline-container-org1aae3db" class="outline-4">
+<h4 id="org1aae3db"><span class="section-number-4">3.4.1</span> Naming</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <p>
 Variable names SHALL BE <code>snake_case</code>.  Module-level constants SHALL BE <code>SHOUTY_CASE</code>.
@@ -933,35 +909,35 @@ Except in limited circumstances, descriptive names longer than one character SHO
 BE used.  Some exceptions include:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">some normal notation for loop variables</span>
+<pre class="src src-python"><span style="color: #74736e;"># some normal notation for loop variables</span>
 i,j,k
-<span style="color: #586e75;"># </span><span style="color: #586e75;">cartesian coordinate variables</span>
+<span style="color: #74736e;"># cartesian coordinate variables</span>
 x,y,z
-<span style="color: #586e75;"># </span><span style="color: #586e75;">conventional notation for "this variable doesn't matter but has to exist"</span>
-_
-<span style="color: #586e75;"># </span><span style="color: #586e75;">throwaway names for elements of a sequence inside comprehensions</span>
-<span style="color: #e146c662851e;">[</span> e <span style="color: #859900; font-weight: bold;">for</span> e <span style="color: #859900; font-weight: bold;">in</span> my_list<span style="color: #e146c662851e;">]</span>
+<span style="color: #74736e;"># conventional notation for "this variable doesn't matter but has to exist"</span>
+<span style="color: #a4b5e6;">_</span>
+<span style="color: #74736e;"># throwaway names for elements of a sequence inside comprehensions</span>
+<span style="color: #e146c662851e;">[</span> e <span style="color: #8ac6f2; font-weight: bold;">for</span> <span style="color: #a4b5e6;">e</span> <span style="color: #8ac6f2; font-weight: bold;">in</span> my_list<span style="color: #e146c662851e;">]</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd9ea143" class="outline-4">
-<h4 id="orgd9ea143"><span class="section-number-4">3.4.2</span> Type hinting</h4>
+<div id="outline-container-orgad327e8" class="outline-4">
+<h4 id="orgad327e8"><span class="section-number-4">3.4.2</span> Type hinting</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <p>
 Variables MAY BE type-hinted if it improves clarity:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">allows static analysis tools to provide better help if needed.</span>
-x:<span style="color: #839496; font-weight: bold;">dict</span> = <span style="color: #e146c662851e;">{</span><span style="color: #2aa198;">'foo'</span>:5<span style="color: #e146c662851e;">}</span>
+<pre class="src src-python"><span style="color: #74736e;"># allows static analysis tools to provide better help if needed.</span>
+<span style="color: #a4b5e6;">x</span>:<span style="color: #e5786d;">dict</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e146c662851e;">{</span><span style="color: #7ec98f;">'foo'</span>:<span style="color: #a4b5e6;">5</span><span style="color: #e146c662851e;">}</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbe29d32" class="outline-4">
-<h4 id="orgbe29d32"><span class="section-number-4">3.4.3</span> Globals</h4>
+<div id="outline-container-orgc6b9c65" class="outline-4">
+<h4 id="orgc6b9c65"><span class="section-number-4">3.4.3</span> Globals</h4>
 <div class="outline-text-4" id="text-3-4-3">
 <p>
 The <code>nonlocal</code> and <code>global</code> keywords SHOULD NOT BE used.  Needing or wanting to use them
@@ -971,12 +947,12 @@ to code that&rsquo;s easy to read, reason about, and test.
 </div>
 </div>
 </div>
-<div id="outline-container-org07fa916" class="outline-3">
-<h3 id="org07fa916"><span class="section-number-3">3.5</span> Docstrings, Comments</h3>
+<div id="outline-container-org45678bc" class="outline-3">
+<h3 id="org45678bc"><span class="section-number-3">3.5</span> Docstrings, Comments</h3>
 <div class="outline-text-3" id="text-3-5">
 </div>
-<div id="outline-container-orgb71ce1c" class="outline-4">
-<h4 id="orgb71ce1c"><span class="section-number-4">3.5.1</span> Docstrings</h4>
+<div id="outline-container-orgfddf4fd" class="outline-4">
+<h4 id="orgfddf4fd"><span class="section-number-4">3.5.1</span> Docstrings</h4>
 <div class="outline-text-4" id="text-3-5-1">
 <p>
 Docstring conventions are laid out in <a href="https://www.python.org/dev/peps/pep-0257">PEP 257</a>.
@@ -990,21 +966,21 @@ function docstring is shown:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">class_id</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>, class_name: <span style="color: #839496; font-weight: bold;">str</span><span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #839496; font-weight: bold;">int</span>:
-    <span style="color: #2aa198;">"""Get the class ID for this class name.</span>
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">class_id</span><span style="color: #e146c662851e;">(</span><span style="color: #8ac6f2; font-weight: bold;">self</span>, <span style="color: #a4b5e6;">class_name</span>: <span style="color: #e5786d;">str</span><span style="color: #e146c662851e;">)</span> -&gt; <span style="color: #e5786d;">int</span>:
+    <span style="color: #7ec98f;">"""Get the class ID for this class name.</span>
 
-<span style="color: #2aa198;">    Parameters</span>
-<span style="color: #2aa198;">    ----------</span>
-<span style="color: #2aa198;">    class_name : str</span>
-<span style="color: #2aa198;">        The class name of a given class.</span>
+<span style="color: #7ec98f;">    Parameters</span>
+<span style="color: #7ec98f;">    ----------</span>
+<span style="color: #7ec98f;">    class_name : str</span>
+<span style="color: #7ec98f;">        The class name of a given class.</span>
 
-<span style="color: #2aa198;">    Returns</span>
-<span style="color: #2aa198;">    -------</span>
-<span style="color: #2aa198;">    int</span>
-<span style="color: #2aa198;">        The class ID for the given class_name.</span>
+<span style="color: #7ec98f;">    Returns</span>
+<span style="color: #7ec98f;">    -------</span>
+<span style="color: #7ec98f;">    int</span>
+<span style="color: #7ec98f;">        The class ID for the given class_name.</span>
 
-<span style="color: #2aa198;">    """</span>
-    <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #859900; font-weight: bold;">self</span>.class_names<span style="color: #e146c662851e;">[</span>class_name<span style="color: #e146c662851e;">]</span>
+<span style="color: #7ec98f;">    """</span>
+    <span style="color: #8ac6f2; font-weight: bold;">return</span> <span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">class_names</span><span style="color: #e146c662851e;">[</span>class_name<span style="color: #e146c662851e;">]</span>
 </pre>
 </div>
 
@@ -1019,8 +995,8 @@ not all argument parsers can generate nicely formatted output from it.
 </div>
 </div>
 
-<div id="outline-container-orgdb087df" class="outline-4">
-<h4 id="orgdb087df"><span class="section-number-4">3.5.2</span> Comments</h4>
+<div id="outline-container-orge65a32c" class="outline-4">
+<h4 id="orge65a32c"><span class="section-number-4">3.5.2</span> Comments</h4>
 <div class="outline-text-4" id="text-3-5-2">
 <p>
 Block comments SHOULD BE preferred over inline comments.  They are easier to read and
@@ -1031,10 +1007,10 @@ keep line length from becoming excessive.
 Block comments:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">Get bounding boxes.</span>
-<span style="color: #586e75;"># </span><span style="color: #586e75;">Filter the large boxes.</span>
-<span style="color: #268bd2;">all_boxes</span> = <span style="color: #e146c662851e;">(</span>x.bounding_box <span style="color: #859900; font-weight: bold;">for</span> x <span style="color: #859900; font-weight: bold;">in</span> my_list_of_data<span style="color: #e146c662851e;">)</span>
-<span style="color: #268bd2;">good_boxes</span> = <span style="color: #e146c662851e;">[</span>x <span style="color: #859900; font-weight: bold;">for</span> x <span style="color: #859900; font-weight: bold;">in</span> all_boxes <span style="color: #859900; font-weight: bold;">if</span> x.area&gt;400<span style="color: #e146c662851e;">]</span>
+<pre class="src src-python"><span style="color: #74736e;"># Get bounding boxes.</span>
+<span style="color: #74736e;"># Filter the large boxes.</span>
+<span style="color: #a4b5e6;">all_boxes</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e146c662851e;">(</span>x.<span style="color: #a4b5e6; font-style: italic;">bounding_box</span> <span style="color: #8ac6f2; font-weight: bold;">for</span> <span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">in</span> my_list_of_data<span style="color: #e146c662851e;">)</span>
+<span style="color: #a4b5e6;">good_boxes</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e146c662851e;">[</span>x <span style="color: #8ac6f2; font-weight: bold;">for</span> <span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">in</span> all_boxes <span style="color: #8ac6f2; font-weight: bold;">if</span> x.<span style="color: #a4b5e6; font-style: italic;">area</span><span style="color: #8ac6f2; font-weight: bold;">&gt;</span><span style="color: #a4b5e6;">400</span><span style="color: #e146c662851e;">]</span>
 </pre>
 </div>
 
@@ -1042,8 +1018,8 @@ Block comments:
 Inline comments:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">all_boxes</span> = <span style="color: #e146c662851e;">(</span>x.bounding_box <span style="color: #859900; font-weight: bold;">for</span> x <span style="color: #859900; font-weight: bold;">in</span> my_list_of_data<span style="color: #e146c662851e;">)</span>  <span style="color: #586e75;"># </span><span style="color: #586e75;">get bounding boxes.</span>
-<span style="color: #268bd2;">good_boxes</span> = <span style="color: #e146c662851e;">[</span>x <span style="color: #859900; font-weight: bold;">for</span> x <span style="color: #859900; font-weight: bold;">in</span> all_boxes <span style="color: #859900; font-weight: bold;">if</span> x.area&gt;400<span style="color: #e146c662851e;">]</span>  <span style="color: #586e75;"># </span><span style="color: #586e75;">filter.</span>
+<pre class="src src-python"><span style="color: #a4b5e6;">all_boxes</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e146c662851e;">(</span>x.<span style="color: #a4b5e6; font-style: italic;">bounding_box</span> <span style="color: #8ac6f2; font-weight: bold;">for</span> <span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">in</span> my_list_of_data<span style="color: #e146c662851e;">)</span>  <span style="color: #74736e;"># get bounding boxes.</span>
+<span style="color: #a4b5e6;">good_boxes</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e146c662851e;">[</span>x <span style="color: #8ac6f2; font-weight: bold;">for</span> <span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">in</span> all_boxes <span style="color: #8ac6f2; font-weight: bold;">if</span> x.<span style="color: #a4b5e6; font-style: italic;">area</span><span style="color: #8ac6f2; font-weight: bold;">&gt;</span><span style="color: #a4b5e6;">400</span><span style="color: #e146c662851e;">]</span>  <span style="color: #74736e;"># filter.</span>
 </pre>
 </div>
 
@@ -1052,19 +1028,19 @@ Unassigned string literals are not comments, and SHOULD NOT BE used as such. The
 SHOULD BE used when they become <code>__doc__</code> attributes of modules, classes, and functions:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #2aa198;">"""This is not a comment, this is a string with no name!"""</span>
-<span style="color: #268bd2;">x</span> = 5
+<pre class="src src-python"><span style="color: #7ec98f;">"""This is not a comment, this is a string with no name!"""</span>
+<span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #a4b5e6;">5</span>
 
-<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">foo</span><span style="color: #e146c662851e;">()</span>:
-    <span style="color: #2aa198;">"""I am a docstring, and I'm OK"""</span>
+<span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">foo</span><span style="color: #e146c662851e;">()</span>:
+    <span style="color: #7ec98f;">"""I am a docstring, and I'm OK"""</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org5b9a710" class="outline-3">
-<h3 id="org5b9a710"><span class="section-number-3">3.6</span> Serialization</h3>
+<div id="outline-container-org2369b3b" class="outline-3">
+<h3 id="org2369b3b"><span class="section-number-3">3.6</span> Serialization</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 Serialization is the process of &ldquo;saving state&rdquo; of in-memory objects to disk so that
@@ -1073,8 +1049,8 @@ common use.
 </p>
 </div>
 
-<div id="outline-container-org6424c4d" class="outline-4">
-<h4 id="org6424c4d"><span class="section-number-4">3.6.1</span> JSON</h4>
+<div id="outline-container-org887fed9" class="outline-4">
+<h4 id="org887fed9"><span class="section-number-4">3.6.1</span> JSON</h4>
 <div class="outline-text-4" id="text-3-6-1">
 <p>
 <a href="http://json.org/">JSON</a> SHOULD BE used for situations where a program will write the file and a program
@@ -1082,8 +1058,8 @@ will read the file.
 </p>
 </div>
 </div>
-<div id="outline-container-orgfc9271d" class="outline-4">
-<h4 id="orgfc9271d"><span class="section-number-4">3.6.2</span> TOML</h4>
+<div id="outline-container-org0b4ce6a" class="outline-4">
+<h4 id="org0b4ce6a"><span class="section-number-4">3.6.2</span> TOML</h4>
 <div class="outline-text-4" id="text-3-6-2">
 <p>
 <a href="https://github.com/toml-lang/toml">TOML</a> SHOULD BE used for situations where a human will write the file and a program
@@ -1091,8 +1067,8 @@ will read the file.
 </p>
 </div>
 </div>
-<div id="outline-container-orga06320b" class="outline-4">
-<h4 id="orga06320b"><span class="section-number-4">3.6.3</span> YAML</h4>
+<div id="outline-container-org65141f7" class="outline-4">
+<h4 id="org65141f7"><span class="section-number-4">3.6.3</span> YAML</h4>
 <div class="outline-text-4" id="text-3-6-3">
 <p>
 <a href="https://yaml.org/">YAML</a> MAY BE used instead of TOML.
@@ -1104,8 +1080,8 @@ NOT be used, it&rsquo;s a security concern.
 </p>
 </div>
 </div>
-<div id="outline-container-org42a467c" class="outline-4">
-<h4 id="org42a467c"><span class="section-number-4">3.6.4</span> Pickle</h4>
+<div id="outline-container-org9851c3d" class="outline-4">
+<h4 id="org9851c3d"><span class="section-number-4">3.6.4</span> Pickle</h4>
 <div class="outline-text-4" id="text-3-6-4">
 <p>
 <a href="https://docs.python.org/3/library/pickle.html">Pickle</a> SHALL NOT BE used for serialization that persists longer than a single run of
@@ -1128,8 +1104,8 @@ data. Never unpickle data received from an untrusted or unauthenticated source.
 </div>
 </div>
 
-<div id="outline-container-org799c684" class="outline-4">
-<h4 id="org799c684"><span class="section-number-4">3.6.5</span> HDF5</h4>
+<div id="outline-container-org20b9f8d" class="outline-4">
+<h4 id="org20b9f8d"><span class="section-number-4">3.6.5</span> HDF5</h4>
 <div class="outline-text-4" id="text-3-6-5">
 <p>
 <a href="https://www.h5py.org/">HDF5</a> SHOULD BE used when fast random single-threaded access to potentially very large
@@ -1138,8 +1114,8 @@ lists, etc.) is needed.
 </p>
 </div>
 </div>
-<div id="outline-container-org2757dc1" class="outline-4">
-<h4 id="org2757dc1"><span class="section-number-4">3.6.6</span> NPY/NPZ</h4>
+<div id="outline-container-org881a169" class="outline-4">
+<h4 id="org881a169"><span class="section-number-4">3.6.6</span> NPY/NPZ</h4>
 <div class="outline-text-4" id="text-3-6-6">
 <p>
 <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.lib.format.html">NPY/NPZ</a> SHOULD BE used for serialization of small amounts of raw numpy arrays is needed.
@@ -1148,31 +1124,31 @@ lists, etc.) is needed.
 </div>
 </div>
 
-<div id="outline-container-org2317cdc" class="outline-3">
-<h3 id="org2317cdc"><span class="section-number-3">3.7</span> Preferred APIs</h3>
+<div id="outline-container-org9003631" class="outline-3">
+<h3 id="org9003631"><span class="section-number-3">3.7</span> Preferred APIs</h3>
 <div class="outline-text-3" id="text-3-7">
 </div>
-<div id="outline-container-orgb441330" class="outline-4">
-<h4 id="orgb441330"><span class="section-number-4">3.7.1</span> pathlib</h4>
+<div id="outline-container-orge94ac98" class="outline-4">
+<h4 id="orge94ac98"><span class="section-number-4">3.7.1</span> pathlib</h4>
 <div class="outline-text-4" id="text-3-7-1">
 <p>
 The <code>pathlib</code> standard library package SHOULD BE preferred over <code>os.path</code> for path
 manipulation.  It&rsquo;s more useful, less verbose, and overall much more versatile.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">from</span> pathlib <span style="color: #859900; font-weight: bold;">import</span> Path
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">from</span> pathlib <span style="color: #8ac6f2; font-weight: bold;">import</span> <span style="color: #e5c06d;">Path</span>
 
-<span style="color: #268bd2;">cwd</span> = Path.cwd<span style="color: #e146c662851e;">()</span>.resolve<span style="color: #e146c662851e;">()</span>.expanduser<span style="color: #e146c662851e;">()</span>
-<span style="color: #859900; font-weight: bold;">for</span> item <span style="color: #859900; font-weight: bold;">in</span> cwd.rglob<span style="color: #e146c662851e;">(</span><span style="color: #2aa198;">"*.txt"</span><span style="color: #e146c662851e;">)</span>:
-    <span style="color: #859900; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>f<span style="color: #2aa198;">'Found a text file whose name is {item.stem}'</span>
-          f<span style="color: #2aa198;">'with parent directory {item.parent}'</span><span style="color: #e146c662851e;">)</span>
+<span style="color: #a4b5e6;">cwd</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e5c06d;">Path</span>.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">cwd</span><span style="color: #e146c662851e;">()</span>.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">resolve</span><span style="color: #e146c662851e;">()</span>.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">expanduser</span><span style="color: #e146c662851e;">()</span>
+<span style="color: #8ac6f2; font-weight: bold;">for</span> <span style="color: #a4b5e6;">item</span> <span style="color: #8ac6f2; font-weight: bold;">in</span> cwd.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">rglob</span><span style="color: #e146c662851e;">(</span><span style="color: #7ec98f;">"*.txt"</span><span style="color: #e146c662851e;">)</span>:
+    <span style="color: #e5786d; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span><span style="color: #7ec98f;">f'Found a text file whose name is </span><span style="color: #8ac6f2; font-weight: bold;">{</span><span style="color: #d3d0c8; background-color: #2a2929;">item.</span><span style="color: #a4b5e6; background-color: #2a2929; font-style: italic;">stem</span><span style="color: #8ac6f2; font-weight: bold;">}</span><span style="color: #7ec98f;">'</span>
+          <span style="color: #7ec98f;">f'with parent directory </span><span style="color: #8ac6f2; font-weight: bold;">{</span><span style="color: #d3d0c8; background-color: #2a2929;">item.</span><span style="color: #a4b5e6; background-color: #2a2929; font-style: italic;">parent</span><span style="color: #8ac6f2; font-weight: bold;">}</span><span style="color: #7ec98f;">'</span><span style="color: #e146c662851e;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8cf7ac0" class="outline-4">
-<h4 id="org8cf7ac0"><span class="section-number-4">3.7.2</span> String formatting</h4>
+<div id="outline-container-orgb4bd995" class="outline-4">
+<h4 id="orgb4bd995"><span class="section-number-4">3.7.2</span> String formatting</h4>
 <div class="outline-text-4" id="text-3-7-2">
 <p>
 f-string formatting syntax SHOULD BE used.  <code>str.format()</code> MAY be used.  The <code>%</code> operator
@@ -1180,26 +1156,26 @@ SHALL NOT be used:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">x</span> = 5
-<span style="color: #268bd2;">y</span> = <span style="color: #2aa198;">"hello"</span>
-<span style="color: #268bd2;">z</span> = <span style="color: #e146c662851e;">[</span><span style="color: #2aa198;">"foo"</span>, <span style="color: #2aa198;">"bar"</span><span style="color: #e146c662851e;">]</span>
+<pre class="src src-python"><span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #a4b5e6;">5</span>
+<span style="color: #a4b5e6;">y</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #7ec98f;">"hello"</span>
+<span style="color: #a4b5e6;">z</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e146c662851e;">[</span><span style="color: #7ec98f;">"foo"</span>, <span style="color: #7ec98f;">"bar"</span><span style="color: #e146c662851e;">]</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">best</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>
-    f<span style="color: #2aa198;">"The value of x is {x}, the value of y is {y}, the value of z is {z}"</span>
+<span style="color: #74736e;"># best</span>
+<span style="color: #e5786d; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>
+    <span style="color: #7ec98f;">f"The value of x is </span><span style="color: #8ac6f2; font-weight: bold;">{</span><span style="color: #d3d0c8; background-color: #2a2929;">x</span><span style="color: #8ac6f2; font-weight: bold;">}</span><span style="color: #7ec98f;">, the value of y is </span><span style="color: #8ac6f2; font-weight: bold;">{</span><span style="color: #d3d0c8; background-color: #2a2929;">y</span><span style="color: #8ac6f2; font-weight: bold;">}</span><span style="color: #7ec98f;">, the value of z is </span><span style="color: #8ac6f2; font-weight: bold;">{</span><span style="color: #d3d0c8; background-color: #2a2929;">z</span><span style="color: #8ac6f2; font-weight: bold;">}</span><span style="color: #7ec98f;">"</span>
 <span style="color: #e146c662851e;">)</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">good</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>
-    <span style="color: #2aa198;">"The value of x is {}, the value of y is {}, the value of z is {}"</span>.<span style="color: #839496; font-weight: bold;">format</span><span style="color: #ab7e851ee146;">(</span>
+<span style="color: #74736e;"># good</span>
+<span style="color: #e5786d; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>
+    <span style="color: #7ec98f;">"The value of x is {}, the value of y is {}, the value of z is {}"</span>.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">format</span><span style="color: #ab7e851ee146;">(</span>
         x, y, z
     <span style="color: #ab7e851ee146;">)</span>
 <span style="color: #e146c662851e;">)</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">bad</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>
-    <span style="color: #2aa198;">"the value of x is %s, the value of y is %s, the value of z is %s"</span>
-    % <span style="color: #ab7e851ee146;">(</span>x, y, z<span style="color: #ab7e851ee146;">)</span>
+<span style="color: #74736e;"># bad</span>
+<span style="color: #e5786d; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span>
+    <span style="color: #7ec98f;">"the value of x is %s, the value of y is %s, the value of z is %s"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">%</span> <span style="color: #ab7e851ee146;">(</span>x, y, z<span style="color: #ab7e851ee146;">)</span>
 <span style="color: #e146c662851e;">)</span>
 </pre>
 </div>
@@ -1208,16 +1184,16 @@ SHALL NOT be used:
 </div>
 </div>
 
-<div id="outline-container-org5c481c1" class="outline-2">
-<h2 id="org5c481c1"><span class="section-number-2">4</span> Autoformatting tools and linters</h2>
+<div id="outline-container-org4ffbf3e" class="outline-2">
+<h2 id="org4ffbf3e"><span class="section-number-2">4</span> Autoformatting tools and linters</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 The following code inspection tools have all proven to be very useful for maintaining
 large python projects.
 </p>
 </div>
-<div id="outline-container-orgcbd4a2f" class="outline-3">
-<h3 id="orgcbd4a2f"><span class="section-number-3">4.1</span> Black</h3>
+<div id="outline-container-org627b3bc" class="outline-3">
+<h3 id="org627b3bc"><span class="section-number-3">4.1</span> Black</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Code SHALL BE formatted with the <a href="https://black.readthedocs.io/en/stable/">black</a> python autoformatter with a line-length
@@ -1239,8 +1215,8 @@ transparent after a while and you can focus on the content instead.
 </blockquote>
 </div>
 
-<div id="outline-container-org17b10e2" class="outline-4">
-<h4 id="org17b10e2"><span class="section-number-4">4.1.1</span> Configuration file</h4>
+<div id="outline-container-orgc4bf18a" class="outline-4">
+<h4 id="orgc4bf18a"><span class="section-number-4">4.1.1</span> Configuration file</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <p>
 A sample <code>pyproject.toml</code> section for black is:
@@ -1257,8 +1233,8 @@ exclude = "(versioneer|_version).py"
 </div>
 </div>
 
-<div id="outline-container-org10163a0" class="outline-3">
-<h3 id="org10163a0"><span class="section-number-3">4.2</span> pydocstyle</h3>
+<div id="outline-container-org1828eb9" class="outline-3">
+<h3 id="org1828eb9"><span class="section-number-3">4.2</span> pydocstyle</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 <code>pydocstyle</code> is a static analysis tool for checking compliance with python docstring
@@ -1275,8 +1251,8 @@ It SHOULD BE used as a style linter before commiting.
 </div>
 </div>
 
-<div id="outline-container-orgb7b3ea9" class="outline-3">
-<h3 id="orgb7b3ea9"><span class="section-number-3">4.3</span> pycodestyle</h3>
+<div id="outline-container-orgd9494b5" class="outline-3">
+<h3 id="orgd9494b5"><span class="section-number-3">4.3</span> pycodestyle</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 <code>pycodestyle</code> is a tool to check your code against conventions in PEP8.
@@ -1288,8 +1264,8 @@ It SHOULD BE used as a style linter before commiting.
 </p>
 </div>
 </div>
-<div id="outline-container-org35b1834" class="outline-3">
-<h3 id="org35b1834"><span class="section-number-3">4.4</span> mypy</h3>
+<div id="outline-container-orga0e3c04" class="outline-3">
+<h3 id="orga0e3c04"><span class="section-number-3">4.4</span> mypy</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 <code>mypy</code> is a static type checker for python.
@@ -1306,8 +1282,8 @@ interpreted by IDEs to provide assistance, so this is often convenient.
 </div>
 </div>
 
-<div id="outline-container-orgf45c62c" class="outline-3">
-<h3 id="orgf45c62c"><span class="section-number-3">4.5</span> pre-commit</h3>
+<div id="outline-container-org5c9c552" class="outline-3">
+<h3 id="org5c9c552"><span class="section-number-3">4.5</span> pre-commit</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 <code>pre-commit</code> is a framework for managing pre-commit hooks.
@@ -1320,25 +1296,25 @@ It SHOULD BE used to automate linting and autoformatting.
 </div>
 </div>
 </div>
-<div id="outline-container-org7659376" class="outline-2">
-<h2 id="org7659376"><span class="section-number-2">5</span> Packaging and File Structure</h2>
+<div id="outline-container-org554c2c2" class="outline-2">
+<h2 id="org554c2c2"><span class="section-number-2">5</span> Packaging and File Structure</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-orgdb8f472" class="outline-3">
-<h3 id="orgdb8f472"><span class="section-number-3">5.1</span> Single-file scripts</h3>
+<div id="outline-container-org978ac2a" class="outline-3">
+<h3 id="org978ac2a"><span class="section-number-3">5.1</span> Single-file scripts</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Very rarely, it is useful to write a single-file python script which looks like
 this:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #586e75;">#</span><span style="color: #586e75;">!/usr/bin/env python3</span>
+<pre class="src src-python"><span style="color: #74736e;">#!/usr/bin/env python3</span>
 
-<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">main</span><span style="color: #e146c662851e;">()</span>:
-    <span style="color: #859900; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span><span style="color: #2aa198;">'hello, world!'</span><span style="color: #e146c662851e;">)</span>
+<span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">main</span><span style="color: #e146c662851e;">()</span>:
+    <span style="color: #e5786d; font-weight: bold;">print</span><span style="color: #e146c662851e;">(</span><span style="color: #7ec98f;">'hello, world!'</span><span style="color: #e146c662851e;">)</span>
 
-<span style="color: #859900; font-weight: bold;">if</span> <span style="color: #839496; font-weight: bold;">__name__</span> == <span style="color: #2aa198;">"__main__"</span>:
-    main<span style="color: #e146c662851e;">()</span>
+<span style="color: #8ac6f2; font-weight: bold;">if</span> <span style="color: #e5786d;">__name__</span> <span style="color: #8ac6f2; font-weight: bold;">==</span> <span style="color: #7ec98f;">"__main__"</span>:
+    <span style="color: #e5c06d; font-weight: bold;">main</span><span style="color: #e146c662851e;">()</span>
 </pre>
 </div>
 
@@ -1350,8 +1326,8 @@ installed with <code>pip</code>, the python packaging tool.  Including a third-p
 </div>
 </div>
 
-<div id="outline-container-orga9c7bb6" class="outline-3">
-<h3 id="orga9c7bb6"><span class="section-number-3">5.2</span> Package layout</h3>
+<div id="outline-container-org6d84e15" class="outline-3">
+<h3 id="org6d84e15"><span class="section-number-3">5.2</span> Package layout</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 A RECOMMENDED directory structure for packages is shown below.  There are alternative
@@ -1385,8 +1361,8 @@ forms (e.g., use of <code>src/PACKAGE_NAME</code>, inclusion of <code>tests</cod
 </div>
 </div>
 
-<div id="outline-container-orgc6f5741" class="outline-3">
-<h3 id="orgc6f5741"><span class="section-number-3">5.3</span> Jupyter notebooks</h3>
+<div id="outline-container-orga0b0588" class="outline-3">
+<h3 id="orga0b0588"><span class="section-number-3">5.3</span> Jupyter notebooks</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Jupyter notebooks are often an extremely convenient way of prototyping, plotting,
@@ -1419,8 +1395,8 @@ machine.
 </p>
 </div>
 </div>
-<div id="outline-container-orgc0cb07e" class="outline-3">
-<h3 id="orgc0cb07e"><span class="section-number-3">5.4</span> Environment management tools</h3>
+<div id="outline-container-org184e379" class="outline-3">
+<h3 id="org184e379"><span class="section-number-3">5.4</span> Environment management tools</h3>
 <div class="outline-text-3" id="text-5-4">
 <p>
 Packages SHALL BE written such that <code>pip install my_package</code> succeeds, installs all
@@ -1445,12 +1421,12 @@ environment management.
 </div>
 </div>
 
-<div id="outline-container-org2fb01fc" class="outline-2">
-<h2 id="org2fb01fc"><span class="section-number-2">6</span> Testing</h2>
+<div id="outline-container-orgeba9b91" class="outline-2">
+<h2 id="orgeba9b91"><span class="section-number-2">6</span> Testing</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-orgc88ec9a" class="outline-3">
-<h3 id="orgc88ec9a"><span class="section-number-3">6.1</span> Py.test</h3>
+<div id="outline-container-org7c86976" class="outline-3">
+<h3 id="org7c86976"><span class="section-number-3">6.1</span> Py.test</h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
 Unit and functional tests SHALL BE written with <code>pytest</code>:
@@ -1463,8 +1439,8 @@ testing frameworks (e.g., <code>nose</code>) are deprecated now anyway.
 </p>
 </div>
 </div>
-<div id="outline-container-org1d274de" class="outline-3">
-<h3 id="org1d274de"><span class="section-number-3">6.2</span> Coverage</h3>
+<div id="outline-container-org5dc0739" class="outline-3">
+<h3 id="org5dc0739"><span class="section-number-3">6.2</span> Coverage</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 Code coverage metrics SHOULD BE obtained using <code>coverage.py</code> using the <code>pytest-cov</code>
@@ -1472,8 +1448,8 @@ plugin framework: <a href="https://pytest-cov.readthedocs.io/en/latest/">https:/
 </p>
 </div>
 </div>
-<div id="outline-container-org08ec379" class="outline-3">
-<h3 id="org08ec379"><span class="section-number-3">6.3</span> Hypothesis</h3>
+<div id="outline-container-orgeb310fd" class="outline-3">
+<h3 id="orgeb310fd"><span class="section-number-3">6.3</span> Hypothesis</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 Quickcheck-like unit tests SHOULD BE written using <code>hypothesis</code>
@@ -1483,22 +1459,22 @@ Quickcheck-like unit tests SHOULD BE written using <code>hypothesis</code>
 </div>
 </div>
 
-<div id="outline-container-org39ccfe6" class="outline-2">
-<h2 id="org39ccfe6"><span class="section-number-2">7</span> The Naughty List</h2>
+<div id="outline-container-orgffdec70" class="outline-2">
+<h2 id="orgffdec70"><span class="section-number-2">7</span> The Naughty List</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 The following practices SHALL NOT BE used if you want your PRs to get accepted.
 </p>
 </div>
-<div id="outline-container-org804bbc5" class="outline-3">
-<h3 id="org804bbc5"><span class="section-number-3">7.1</span> Named lambdas</h3>
+<div id="outline-container-org0a70f18" class="outline-3">
+<h3 id="org0a70f18"><span class="section-number-3">7.1</span> Named lambdas</h3>
 <div class="outline-text-3" id="text-7-1">
 <p>
 Assigning a <code>lambda</code> to a name SHALL NOT BE used:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">this is bad</span>
-<span style="color: #268bd2;">my_function</span> = <span style="color: #859900; font-weight: bold;">lambda</span> x: x+5
+<pre class="src src-python"><span style="color: #74736e;"># this is bad</span>
+<span style="color: #a4b5e6;">my_function</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #8ac6f2; font-weight: bold;">lambda</span> x: x<span style="color: #8ac6f2; font-weight: bold;">+</span><span style="color: #a4b5e6;">5</span>
 </pre>
 </div>
 <p>
@@ -1511,9 +1487,9 @@ for debugging.
 Instead, define a regular function:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">my_function</span><span style="color: #e146c662851e;">(</span>x<span style="color: #e146c662851e;">)</span>:
-    <span style="color: #2aa198;">"""Increment `x` by 5."""</span>
-    <span style="color: #859900; font-weight: bold;">return</span> x+5
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">my_function</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">x</span><span style="color: #e146c662851e;">)</span>:
+    <span style="color: #7ec98f;">"""Increment `x` by 5."""</span>
+    <span style="color: #8ac6f2; font-weight: bold;">return</span> x<span style="color: #8ac6f2; font-weight: bold;">+</span><span style="color: #a4b5e6;">5</span>
 </pre>
 </div>
 
@@ -1522,29 +1498,29 @@ Use of lambdas SHOULD BE used for creation of anonymous functions; e.g., when us
 <code>sorted</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">Example: sort a list of Point classes by their y-value.</span>
-<span style="color: #586e75;"># </span><span style="color: #586e75;">this is an appropriate use of lambdas.</span>
-<span style="color: #b58900;">@attr.s</span>
-<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
-    <span style="color: #268bd2;">x</span> = attr.ib<span style="color: #e146c662851e;">()</span>
-    <span style="color: #268bd2;">y</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+<pre class="src src-python"><span style="color: #74736e;"># Example: sort a list of Point classes by their y-value.</span>
+<span style="color: #74736e;"># this is an appropriate use of lambdas.</span>
+<span style="color: #a4b5e6;">@attr.s</span>
+<span style="color: #8ac6f2; font-weight: bold;">class</span> <span style="color: #e5c06d;">Point</span>:
+    <span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">()</span>
+    <span style="color: #a4b5e6;">y</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">()</span>
 
-<span style="color: #268bd2;">my_points</span> = <span style="color: #e146c662851e;">[</span>Point<span style="color: #ab7e851ee146;">(</span>1,2<span style="color: #ab7e851ee146;">)</span>,Point<span style="color: #ab7e851ee146;">(</span>2,3<span style="color: #ab7e851ee146;">)</span><span style="color: #e146c662851e;">]</span>
+<span style="color: #a4b5e6;">my_points</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e146c662851e;">[</span><span style="color: #e5c06d; font-weight: bold;">Point</span><span style="color: #ab7e851ee146;">(</span><span style="color: #a4b5e6;">1</span>,<span style="color: #a4b5e6;">2</span><span style="color: #ab7e851ee146;">)</span>,<span style="color: #e5c06d; font-weight: bold;">Point</span><span style="color: #ab7e851ee146;">(</span><span style="color: #a4b5e6;">2</span>,<span style="color: #a4b5e6;">3</span><span style="color: #ab7e851ee146;">)</span><span style="color: #e146c662851e;">]</span>
 
-<span style="color: #268bd2;">points_sorted_by_y</span> = <span style="color: #839496; font-weight: bold;">sorted</span><span style="color: #e146c662851e;">(</span>my_points, key=<span style="color: #859900; font-weight: bold;">lambda</span> point: point.y<span style="color: #e146c662851e;">)</span>
+<span style="color: #a4b5e6;">points_sorted_by_y</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e5786d; font-weight: bold;">sorted</span><span style="color: #e146c662851e;">(</span>my_points, <span style="color: #a4b5e6;">key</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #8ac6f2; font-weight: bold;">lambda</span> point: point.<span style="color: #a4b5e6; font-style: italic;">y</span><span style="color: #e146c662851e;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgc9a22f5" class="outline-3">
-<h3 id="orgc9a22f5"><span class="section-number-3">7.2</span> Star Imports</h3>
+<div id="outline-container-orgfb82950" class="outline-3">
+<h3 id="orgfb82950"><span class="section-number-3">7.2</span> Star Imports</h3>
 <div class="outline-text-3" id="text-7-2">
 <p>
 The &ldquo;star import&rdquo; SHALL NOT BE used.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">from</span> my_package <span style="color: #859900; font-weight: bold;">import</span> *
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">from</span> my_package <span style="color: #8ac6f2; font-weight: bold;">import</span> <span style="color: #8ac6f2; font-weight: bold;">*</span>
 </pre>
 </div>
 
@@ -1561,7 +1537,7 @@ Instead, import what you need by name.
 Generally, this is RECOMMENDED:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> my_package
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">import</span> my_package
 </pre>
 </div>
 
@@ -1570,11 +1546,11 @@ Some libraries have abbreviation aliases that are so common that they&rsquo;re u
 understood and SHOULD BE used.  A not-exhaustive list of such packages includes:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> numpy <span style="color: #859900; font-weight: bold;">as</span> np
-<span style="color: #859900; font-weight: bold;">import</span> pandas <span style="color: #859900; font-weight: bold;">as</span> pd
-<span style="color: #859900; font-weight: bold;">import</span> typing <span style="color: #859900; font-weight: bold;">as</span> t
-<span style="color: #859900; font-weight: bold;">import</span> tensorflow <span style="color: #859900; font-weight: bold;">as</span> tf
-<span style="color: #859900; font-weight: bold;">import</span> matplotlib.pyplot <span style="color: #859900; font-weight: bold;">as</span> plt
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">import</span> numpy <span style="color: #8ac6f2; font-weight: bold;">as</span> np
+<span style="color: #8ac6f2; font-weight: bold;">import</span> pandas <span style="color: #8ac6f2; font-weight: bold;">as</span> pd
+<span style="color: #8ac6f2; font-weight: bold;">import</span> typing <span style="color: #8ac6f2; font-weight: bold;">as</span> t
+<span style="color: #8ac6f2; font-weight: bold;">import</span> tensorflow <span style="color: #8ac6f2; font-weight: bold;">as</span> tf
+<span style="color: #8ac6f2; font-weight: bold;">import</span> matplotlib.pyplot <span style="color: #8ac6f2; font-weight: bold;">as</span> plt
 </pre>
 </div>
 
@@ -1583,7 +1559,7 @@ Finally, this MAY BE used where terseness is appreciated for readability and
 function names are not easily confused:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">from</span> mypackage <span style="color: #859900; font-weight: bold;">import</span> <span style="color: #e146c662851e;">(</span>foo,
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">from</span> mypackage <span style="color: #8ac6f2; font-weight: bold;">import</span> <span style="color: #e146c662851e;">(</span>foo,
                        bar,
                        baz,
                        quux<span style="color: #e146c662851e;">)</span>
@@ -1592,8 +1568,8 @@ function names are not easily confused:
 </div>
 </div>
 
-<div id="outline-container-org454ae40" class="outline-3">
-<h3 id="org454ae40"><span class="section-number-3">7.3</span> User-created namedtuples</h3>
+<div id="outline-container-org52bdfe7" class="outline-3">
+<h3 id="org52bdfe7"><span class="section-number-3">7.3</span> User-created namedtuples</h3>
 <div class="outline-text-3" id="text-7-3">
 <p>
 To make instances of lightweight data containers, you SHOULD use <code>attrs</code>.   <code>namedtuple</code>
@@ -1601,41 +1577,41 @@ SHALL NOT BE used.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #586e75;"># </span><span style="color: #586e75;">this is bad</span>
-<span style="color: #859900; font-weight: bold;">from</span> collections <span style="color: #859900; font-weight: bold;">import</span> namedtuple
-<span style="color: #268bd2;">Point</span> = namedtuple<span style="color: #e146c662851e;">(</span><span style="color: #2aa198;">'Point'</span>,<span style="color: #ab7e851ee146;">[</span><span style="color: #2aa198;">'x'</span>,<span style="color: #2aa198;">'y'</span><span style="color: #ab7e851ee146;">]</span><span style="color: #e146c662851e;">)</span>
-<span style="color: #268bd2;">my_point</span> = Point<span style="color: #e146c662851e;">(</span>1,2<span style="color: #e146c662851e;">)</span>
+<pre class="src src-python"><span style="color: #74736e;"># this is bad</span>
+<span style="color: #8ac6f2; font-weight: bold;">from</span> collections <span style="color: #8ac6f2; font-weight: bold;">import</span> namedtuple
+<span style="color: #a4b5e6;">Point</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e5c06d; font-weight: bold;">namedtuple</span><span style="color: #e146c662851e;">(</span><span style="color: #7ec98f;">'Point'</span>,<span style="color: #ab7e851ee146;">[</span><span style="color: #7ec98f;">'x'</span>,<span style="color: #7ec98f;">'y'</span><span style="color: #ab7e851ee146;">]</span><span style="color: #e146c662851e;">)</span>
+<span style="color: #a4b5e6;">my_point</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e5c06d; font-weight: bold;">Point</span><span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">1</span>,<span style="color: #a4b5e6;">2</span><span style="color: #e146c662851e;">)</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">this is good</span>
-<span style="color: #859900; font-weight: bold;">import</span> attr
+<span style="color: #74736e;"># this is good</span>
+<span style="color: #8ac6f2; font-weight: bold;">import</span> attr
 
-<span style="color: #b58900;">@attr.s</span>
-<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
-    <span style="color: #268bd2;">x</span> = attr.ib<span style="color: #e146c662851e;">()</span>
-    <span style="color: #268bd2;">y</span> = attr.ib<span style="color: #e146c662851e;">()</span>
+<span style="color: #a4b5e6;">@attr.s</span>
+<span style="color: #8ac6f2; font-weight: bold;">class</span> <span style="color: #e5c06d;">Point</span>:
+    <span style="color: #a4b5e6;">x</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">()</span>
+    <span style="color: #a4b5e6;">y</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">ib</span><span style="color: #e146c662851e;">()</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">this is fine for programmatic creation of classes, not normal classes</span>
-<span style="color: #268bd2;">Point</span> = attr.make_class<span style="color: #e146c662851e;">(</span><span style="color: #2aa198;">'Point'</span>,<span style="color: #ab7e851ee146;">[</span><span style="color: #2aa198;">'x'</span>,<span style="color: #2aa198;">'y'</span><span style="color: #ab7e851ee146;">]</span><span style="color: #e146c662851e;">)</span>
+<span style="color: #74736e;"># this is fine for programmatic creation of classes, not normal classes</span>
+<span style="color: #a4b5e6;">Point</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> attr.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">make_class</span><span style="color: #e146c662851e;">(</span><span style="color: #7ec98f;">'Point'</span>,<span style="color: #ab7e851ee146;">[</span><span style="color: #7ec98f;">'x'</span>,<span style="color: #7ec98f;">'y'</span><span style="color: #ab7e851ee146;">]</span><span style="color: #e146c662851e;">)</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">this is fine if you like typing</span>
-<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Point</span>:
-    <span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">__init__</span><span style="color: #e146c662851e;">(</span><span style="color: #859900; font-weight: bold;">self</span>,x,y<span style="color: #e146c662851e;">)</span>:
-        <span style="color: #859900; font-weight: bold;">self</span>.x = x
-        <span style="color: #859900; font-weight: bold;">self</span>.y = y
+<span style="color: #74736e;"># this is fine if you like typing</span>
+<span style="color: #8ac6f2; font-weight: bold;">class</span> <span style="color: #e5c06d;">Point</span>:
+    <span style="color: #8ac6f2; font-weight: bold;">def</span> <span style="color: #a4b5e6;">__init__</span><span style="color: #e146c662851e;">(</span><span style="color: #8ac6f2; font-weight: bold;">self</span>,<span style="color: #a4b5e6;">x</span>,<span style="color: #a4b5e6;">y</span><span style="color: #e146c662851e;">)</span>:
+        <span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">x</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> x
+        <span style="color: #8ac6f2; font-weight: bold;">self</span>.<span style="color: #a4b5e6; font-style: italic;">y</span> <span style="color: #8ac6f2; font-weight: bold;">=</span> y
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8667245" class="outline-3">
-<h3 id="org8667245"><span class="section-number-3">7.4</span> Manipulation of <code>sys.path</code></h3>
+<div id="outline-container-org111ebcd" class="outline-3">
+<h3 id="org111ebcd"><span class="section-number-3">7.4</span> Manipulation of <code>sys.path</code></h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 Adding modules to the namespace SHALL NOT BE accomplished in this way:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> sys
-sys.path.append<span style="color: #e146c662851e;">(</span><span style="color: #2aa198;">'..'</span><span style="color: #e146c662851e;">)</span>
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">import</span> sys
+sys.<span style="color: #a4b5e6; font-style: italic;">path</span>.<span style="color: #e5c06d; font-weight: bold; font-style: italic;">append</span><span style="color: #e146c662851e;">(</span><span style="color: #7ec98f;">'..'</span><span style="color: #e146c662851e;">)</span>
 </pre>
 </div>
 
@@ -1645,8 +1621,8 @@ Instead, install the package that provides those modules into your environment w
 </p>
 </div>
 </div>
-<div id="outline-container-orge8e9876" class="outline-3">
-<h3 id="orge8e9876"><span class="section-number-3">7.5</span> Use of <code>os.system()</code></h3>
+<div id="outline-container-org2638208" class="outline-3">
+<h3 id="org2638208"><span class="section-number-3">7.5</span> Use of <code>os.system()</code></h3>
 <div class="outline-text-3" id="text-7-5">
 <p>
 <code>os.system</code> SHALL NOT BE used to invoke external commands.
@@ -1666,8 +1642,8 @@ subprocess documentation for some helpful recipes.
 </div>
 </div>
 
-<div id="outline-container-orgacb07e5" class="outline-3">
-<h3 id="orgacb07e5"><span class="section-number-3">7.6</span> Use of <code>exec()</code></h3>
+<div id="outline-container-orgf6a6aa1" class="outline-3">
+<h3 id="orgf6a6aa1"><span class="section-number-3">7.6</span> Use of <code>exec()</code></h3>
 <div class="outline-text-3" id="text-7-6">
 <p>
 <code>exec()</code> SHALL NOT BE used.
@@ -1686,23 +1662,23 @@ about readability and debugging.
 </div>
 </div>
 
-<div id="outline-container-org53cf82b" class="outline-3">
-<h3 id="org53cf82b"><span class="section-number-3">7.7</span> Mutable defaults in function signatures</h3>
+<div id="outline-container-orgbe8e419" class="outline-3">
+<h3 id="orgbe8e419"><span class="section-number-3">7.7</span> Mutable defaults in function signatures</h3>
 <div class="outline-text-3" id="text-7-7">
 <p>
 Function signatures SHALL NOT have defaults which have mutable types. Defaults SHOULD
 BE specified, when appropriate, for immutable types (<code>str</code>, <code>int</code>, <code>float</code>&#x2026;)
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">bad</span><span style="color: #e146c662851e;">(</span>x=<span style="color: #ab7e851ee146;">[]</span>, y=5<span style="color: #e146c662851e;">)</span>
-    x.append<span style="color: #e146c662851e;">(</span>y<span style="color: #e146c662851e;">)</span>
-    <span style="color: #859900; font-weight: bold;">return</span> x
+<pre class="src src-python"><span style="color: #8ac6f2; font-weight: bold;">def</span> bad<span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">x</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #ab7e851ee146;">[]</span>, <span style="color: #a4b5e6;">y</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #a4b5e6;">5</span><span style="color: #e146c662851e;">)</span>
+    x.append<span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">y</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">return</span> x
 
-<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">good</span><span style="color: #e146c662851e;">(</span>x=<span style="color: #268bd2; font-weight: bold;">None</span>, y=5<span style="color: #e146c662851e;">)</span>
-    <span style="color: #859900; font-weight: bold;">if</span> x <span style="color: #859900; font-weight: bold;">is</span> <span style="color: #268bd2; font-weight: bold;">None</span>:
-        <span style="color: #268bd2;">x</span> = <span style="color: #e146c662851e;">[]</span>
-    x.append<span style="color: #e146c662851e;">(</span>y<span style="color: #e146c662851e;">)</span>
-    <span style="color: #859900; font-weight: bold;">return</span> x
+<span style="color: #8ac6f2; font-weight: bold;">def</span> good<span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">x</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #e5786d;">None</span>, <span style="color: #a4b5e6;">y</span><span style="color: #8ac6f2; font-weight: bold;">=</span><span style="color: #a4b5e6;">5</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">if</span> x <span style="color: #8ac6f2; font-weight: bold;">is</span> <span style="color: #e5786d;">None</span>:
+        x <span style="color: #8ac6f2; font-weight: bold;">=</span> <span style="color: #e146c662851e;">[]</span>
+    x.append<span style="color: #e146c662851e;">(</span><span style="color: #a4b5e6;">y</span><span style="color: #e146c662851e;">)</span>
+    <span style="color: #8ac6f2; font-weight: bold;">return</span> x
 </pre>
 </div>
 
@@ -1712,19 +1688,19 @@ See <a href="https://docs.python-guide.org/writing/gotchas/#mutable-default-argu
 </div>
 </div>
 </div>
-<div id="outline-container-org54f7277" class="outline-2">
-<h2 id="org54f7277"><span class="section-number-2">8</span> Errata</h2>
+<div id="outline-container-org52bde1d" class="outline-2">
+<h2 id="org52bde1d"><span class="section-number-2">8</span> Errata</h2>
 <div class="outline-text-2" id="text-8">
 </div>
-<div id="outline-container-orgabe3e94" class="outline-3">
-<h3 id="orgabe3e94"><span class="section-number-3">8.1</span> Motivational Design References</h3>
+<div id="outline-container-orge678fca" class="outline-3">
+<h3 id="orge678fca"><span class="section-number-3">8.1</span> Motivational Design References</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 This style guide was strongly influenced by the following sources:
 </p>
 </div>
-<div id="outline-container-orgd545632" class="outline-4">
-<h4 id="orgd545632"><span class="section-number-4">8.1.1</span> &ldquo;Beyond PEP-8: Best Practices for Beautiful, Intelligible Code&rdquo;</h4>
+<div id="outline-container-org88d3a33" class="outline-4">
+<h4 id="org88d3a33"><span class="section-number-4">8.1.1</span> &ldquo;Beyond PEP-8: Best Practices for Beautiful, Intelligible Code&rdquo;</h4>
 <div class="outline-text-4" id="text-8-1-1">
 <p>
 Youtube Link: <a href="https://www.youtube.com/watch?v=wf-BqAjZb8M">https://www.youtube.com/watch?v=wf-BqAjZb8M</a>
@@ -1744,8 +1720,8 @@ intelligible code.
 </div>
 </div>
 
-<div id="outline-container-org516c831" class="outline-4">
-<h4 id="org516c831"><span class="section-number-4">8.1.2</span> &ldquo;The Clean Architecture in Python&rdquo;</h4>
+<div id="outline-container-org509042a" class="outline-4">
+<h4 id="org509042a"><span class="section-number-4">8.1.2</span> &ldquo;The Clean Architecture in Python&rdquo;</h4>
 <div class="outline-text-4" id="text-8-1-2">
 <p>
 Youtube Link: <a href="https://www.youtube.com/watch?v=DJtef410XaM">https://www.youtube.com/watch?v=DJtef410XaM</a>
@@ -1768,8 +1744,8 @@ with the features of the Python language.
 </div>
 </div>
 
-<div id="outline-container-orgdf12d6a" class="outline-4">
-<h4 id="orgdf12d6a"><span class="section-number-4">8.1.3</span> &ldquo;How Python Linters Will Save Your Large Python Project&rdquo;</h4>
+<div id="outline-container-orgc56fa71" class="outline-4">
+<h4 id="orgc56fa71"><span class="section-number-4">8.1.3</span> &ldquo;How Python Linters Will Save Your Large Python Project&rdquo;</h4>
 <div class="outline-text-4" id="text-8-1-3">
 <p>
 Jeff Knupp has a blog post on linters:
@@ -1791,8 +1767,8 @@ grows. So how to we reduce that complexity as much as possible?
 </div>
 </div>
 
-<div id="outline-container-orgde7aedd" class="outline-4">
-<h4 id="orgde7aedd"><span class="section-number-4">8.1.4</span> &ldquo;The Many Layers of Packaging&rdquo;</h4>
+<div id="outline-container-orga4f0499" class="outline-4">
+<h4 id="orga4f0499"><span class="section-number-4">8.1.4</span> &ldquo;The Many Layers of Packaging&rdquo;</h4>
 <div class="outline-text-4" id="text-8-1-4">
 <p>
 Mahmoud Hashemi has a long post on the many forms of python packaging there are, and
@@ -1838,9 +1814,9 @@ Where is your code going, and what can we depend on being there?
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: graham</p>
-<p class="date">Created: 2020-01-22 Wed 20:07</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="author">Author: gvoysey</p>
+<p class="date">Created: 2020-12-02 Wed 22:34</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
